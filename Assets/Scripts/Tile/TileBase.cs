@@ -1,19 +1,24 @@
+using System;
 using UnityEngine;
 
 namespace Tile
 {
-    public abstract class TileBase : MonoBehaviour
+    public abstract class TileBase : MonoBehaviour, IDisposable
     {
-        public Vector2Int _boardPosition;
+        public Vector2Int BoardPosition;
 
         protected TileBase()
         {
-            
         }
-        
+
         protected TileBase(Vector2Int boardPosition)
         {
-            _boardPosition = boardPosition;
+            BoardPosition = boardPosition;
+        }
+
+        public void Dispose()
+        {
+            Destroy(gameObject);
         }
     }
 }
