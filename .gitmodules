@@ -1,3 +1,6 @@
 [submodule "Assets/Submodules/UnityEditorExtensions"]
 	path = Assets/Submodules/UnityEditorExtensions
 	url = https://github.com/Eugen1344/UnityEditorExtensions.git
+[submodule "Assets/Submodules/odin_inspector"]
+	path = Assets/Submodules/odin_inspector
+	url = https://github.com/Eugen1344/odin_inspector.git
