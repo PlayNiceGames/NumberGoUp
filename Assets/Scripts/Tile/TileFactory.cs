@@ -6,6 +6,7 @@ namespace Tile
     public class TileFactory : MonoBehaviour
     {
         [SerializeField] private EmptyTile _emptyTilePrefab;
+        [SerializeField] private RegularTile _regularTilePrefab;
 
         public TileBase InstantiateTile(TileType type)
         {
@@ -17,6 +18,8 @@ namespace Tile
         {
             if (_emptyTilePrefab is T emptyTile)
                 return Instantiate(emptyTile);
+            if (_regularTilePrefab is T regularTile)
+                return Instantiate(regularTile);
 
             throw new ArgumentOutOfRangeException(nameof(T), "Wrong tile type");
         }
@@ -28,7 +31,7 @@ namespace Tile
                 case TileType.Empty:
                     return _emptyTilePrefab;
                 case TileType.Regular:
-                    break;
+                    return _regularTilePrefab;
                 case TileType.Mixed:
                     break;
             }

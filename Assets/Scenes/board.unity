@@ -398,6 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _emptyTilePrefab: {fileID: 252743325881415059, guid: a1561130ce790e349b5c041dd10e7f22, type: 3}
+  _regularTilePrefab: {fileID: 5086808537052546503, guid: 8ed864f4bb3e14b429d73d72a7803bfc, type: 3}
 --- !u!114 &936146793
 MonoBehaviour:
   m_ObjectHideFlags: 0

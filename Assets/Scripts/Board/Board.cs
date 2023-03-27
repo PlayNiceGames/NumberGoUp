@@ -12,7 +12,7 @@ namespace Board
 
         private void Awake()
         {
-            CreateBoard(3);
+            CreateBoard(7);
         }
 
         public void CreateBoard(int size)
@@ -25,7 +25,7 @@ namespace Board
             {
                 for (int j = 0; j < size; j++)
                 {
-                    EmptyTile tile = _factory.InstantiateTile<EmptyTile>();
+                    RegularTile tile = _factory.InstantiateTile<RegularTile>();
 
                     PlaceTile(tile, new Vector2Int(i, j));
                 }
