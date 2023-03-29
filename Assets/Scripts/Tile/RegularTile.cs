@@ -19,7 +19,7 @@ namespace Tile
             SetColor(_colorsDatabase.GetRandomColorIndex());
         }
 
-        private void SetNumber(int number)
+        public void SetNumber(int number)
         {
             _numberText.text = number.ToString();
         }

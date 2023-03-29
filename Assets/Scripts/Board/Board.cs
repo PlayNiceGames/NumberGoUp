@@ -10,11 +10,6 @@ namespace Board
 
         private TileBase[,] _tiles;
 
-        private void Awake()
-        {
-            CreateBoard(7);
-        }
-
         public void CreateBoard(int size)
         {
             ClearBoard();
@@ -25,13 +20,13 @@ namespace Board
             {
                 for (int j = 0; j < size; j++)
                 {
-                    RegularTile tile = _factory.InstantiateTile<RegularTile>();
+                    EmptyTile tile = _factory.InstantiateTile<EmptyTile>();
 
-                    PlaceTile(tile, new Vector2Int(i, j));
+                    SetTile(tile, new Vector2Int(i, j));
                 }
             }
 
-            _grid.UpdateGrid(_tiles);
+            UpdateGrid();
         }
 
         private void ClearBoard()
@@ -47,10 +42,32 @@ namespace Board
 
         public void PlaceTile(TileBase tile, Vector2Int position)
         {
+            ClearTile(position);
+
+            SetTile(tile, position);
+
+            UpdateGrid();
+        }
+
+        private void ClearTile(Vector2Int position)
+        {
+            TileBase tile = _tiles[position.x, position.y];
+
+            if (tile != null)
+                tile.Dispose();
+        }
+
+        private void SetTile(TileBase tile, Vector2Int position)
+        {
             tile.BoardPosition = position;
             tile.name = position.ToString();
 
             _tiles[position.x, position.y] = tile;
+        }
+
+        private void UpdateGrid()
+        {
+            _grid.UpdateGrid(_tiles);
         }
     }
 }

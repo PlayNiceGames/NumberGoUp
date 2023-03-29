@@ -20,7 +20,7 @@ namespace Board
                 for (int j = 0; j < size; j++)
                 {
                     TileBase tile = tiles[i, j];
-                    tile.transform.parent = transform;
+                    tile.transform.SetParent(transform, false);
                 }
             }
         }
