@@ -10,11 +10,6 @@ namespace Board
         [SerializeField] private Board _board;
         [SerializeField] private TileFactory _factory;
 
-        private void Awake()
-        {
-            CreateBoard(7);
-        }
-
         [Button, DisableInEditorMode]
         public void CreateBoard(int size)
         {

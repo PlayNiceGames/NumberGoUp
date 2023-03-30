@@ -6,6 +6,8 @@ namespace Tile
     public abstract class TileBase : MonoBehaviour, IDisposable
     {
         public Vector2Int BoardPosition;
+        
+        public abstract TileType Type { get; }
 
         protected TileBase()
         {

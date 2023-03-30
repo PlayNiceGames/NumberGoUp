@@ -6,18 +6,14 @@ namespace Tile
 {
     public class RegularTile : TileBase
     {
+        public override TileType Type => TileType.Regular;
+        
         public int TileColor { get; private set; }
 
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
 
         [SerializeField] private TileColors _colorsDatabase;
-
-        private void Awake()
-        {
-            SetNumber(Random.Range(0, 1000));
-            SetColor(_colorsDatabase.GetRandomColorIndex());
-        }
 
         public void SetNumber(int number)
         {
