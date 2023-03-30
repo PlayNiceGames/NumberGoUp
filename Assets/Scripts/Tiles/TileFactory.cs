@@ -1,20 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Tile
+namespace Tiles
 {
     public class TileFactory : MonoBehaviour
     {
         [SerializeField] private EmptyTile _emptyTilePrefab;
         [SerializeField] private RegularTile _regularTilePrefab;
 
-        public TileBase InstantiateTile(TileType type)
+        public Tile InstantiateTile(TileType type)
         {
-            TileBase newTile = Instantiate(GetPrefab(type));
+            Tile newTile = Instantiate(GetPrefab(type));
             return newTile;
         }
 
-        public T InstantiateTile<T>() where T : TileBase
+        public T InstantiateTile<T>() where T : Tile
         {
             if (_emptyTilePrefab is T emptyTile)
                 return Instantiate(emptyTile);
@@ -24,7 +24,7 @@ namespace Tile
             throw new ArgumentOutOfRangeException(nameof(T), "Wrong tile type");
         }
 
-        private TileBase GetPrefab(TileType type)
+        private Tile GetPrefab(TileType type)
         {
             switch (type)
             {

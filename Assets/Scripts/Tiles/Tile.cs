@@ -1,19 +1,19 @@
 using System;
 using UnityEngine;
 
-namespace Tile
+namespace Tiles
 {
-    public abstract class TileBase : MonoBehaviour, IDisposable
+    public abstract class Tile : MonoBehaviour, IDisposable
     {
         public Vector2Int BoardPosition;
         
         public abstract TileType Type { get; }
 
-        protected TileBase()
+        protected Tile()
         {
         }
 
-        protected TileBase(Vector2Int boardPosition)
+        protected Tile(Vector2Int boardPosition)
         {
             BoardPosition = boardPosition;
         }

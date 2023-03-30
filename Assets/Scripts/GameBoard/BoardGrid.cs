@@ -1,14 +1,14 @@
-﻿using Tile;
+﻿using Tiles;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Board
+namespace GameBoard
 {
     public class BoardGrid : MonoBehaviour
     {
         [SerializeField] private GridLayoutGroup _grid;
 
-        public void UpdateGrid(TileBase[,] tiles)
+        public void UpdateGrid(Tile[,] tiles)
         {
             ClearGrid();
 
@@ -19,7 +19,7 @@ namespace Board
             {
                 for (int j = 0; j < size; j++)
                 {
-                    TileBase tile = tiles[i, j];
+                    Tile tile = tiles[i, j];
                     tile.transform.SetParent(transform, false);
                 }
             }

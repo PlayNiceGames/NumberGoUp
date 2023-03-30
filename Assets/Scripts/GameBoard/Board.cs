@@ -1,20 +1,20 @@
-﻿using Tile;
+﻿using Tiles;
 using UnityEngine;
 
-namespace Board
+namespace GameBoard
 {
     public class Board : MonoBehaviour
     {
         [SerializeField] private BoardGrid _grid;
         [SerializeField] private TileFactory _factory;
 
-        private TileBase[,] _tiles;
+        private Tile[,] _tiles;
 
         public void CreateBoard(int size)
         {
             ClearBoard();
 
-            _tiles = new TileBase[size, size];
+            _tiles = new Tile[size, size];
 
             for (int i = 0; i < size; i++)
             {
@@ -34,13 +34,13 @@ namespace Board
             if (_tiles == null)
                 return;
 
-            foreach (TileBase tile in _tiles)
+            foreach (Tile tile in _tiles)
                 tile.Dispose();
 
             _tiles = null;
         }
 
-        public void PlaceTile(TileBase tile, Vector2Int position)
+        public void PlaceTile(Tile tile, Vector2Int position)
         {
             ClearTile(position);
 
@@ -51,13 +51,13 @@ namespace Board
 
         private void ClearTile(Vector2Int position)
         {
-            TileBase tile = _tiles[position.x, position.y];
+            Tile tile = _tiles[position.x, position.y];
 
             if (tile != null)
                 tile.Dispose();
         }
 
-        private void SetTile(TileBase tile, Vector2Int position)
+        private void SetTile(Tile tile, Vector2Int position)
         {
             tile.BoardPosition = position;
             tile.name = position.ToString();

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Tile
+namespace Tiles
 {
-    public class EmptyTile : TileBase
+    public class EmptyTile : Tile
     {
         public override TileType Type => TileType.Empty;
         

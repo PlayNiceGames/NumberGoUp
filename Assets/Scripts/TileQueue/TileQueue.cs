@@ -1,4 +1,4 @@
-﻿using Tile;
+﻿using Tiles;
 using UnityEngine;
 
 namespace TileQueue

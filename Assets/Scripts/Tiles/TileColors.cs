@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tile
+namespace Tiles
 {
     public class TileColors : ScriptableObject
     {

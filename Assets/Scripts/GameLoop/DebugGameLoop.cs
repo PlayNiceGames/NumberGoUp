@@ -6,7 +6,7 @@ namespace GameLoop
 {
     public class DebugGameLoop : MonoBehaviour
     {
-        [SerializeField] private Board.Board _board;
+        [SerializeField] private GameBoard.Board _board;
         
         [SerializeField] private GameRules _initialRules;
 

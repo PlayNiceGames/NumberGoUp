@@ -1,4 +1,4 @@
-﻿namespace Tile
+﻿namespace Tiles
 {
     public enum TileType
     {

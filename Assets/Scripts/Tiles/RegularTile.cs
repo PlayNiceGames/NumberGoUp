@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Tile
+namespace Tiles
 {
-    public class RegularTile : TileBase
+    public class RegularTile : Tile
     {
         public override TileType Type => TileType.Regular;
         

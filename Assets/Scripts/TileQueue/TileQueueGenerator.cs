@@ -1,4 +1,4 @@
-﻿using Tile;
+﻿using Tiles;
 
 namespace TileQueue
 {
@@ -11,7 +11,7 @@ namespace TileQueue
             _factory = factory;
         }
 
-        public TileBase GetNextTile()
+        public Tile GetNextTile()
         {
             RegularTile tile = _factory.InstantiateTile<RegularTile>();
             tile.SetNumber(1);

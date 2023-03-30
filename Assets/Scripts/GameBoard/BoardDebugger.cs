@@ -1,9 +1,9 @@
 ﻿using System;
 using Sirenix.OdinInspector;
-using Tile;
+using Tiles;
 using UnityEngine;
 
-namespace Board
+namespace GameBoard
 {
     public class BoardDebugger : MonoBehaviour
     {
@@ -19,7 +19,7 @@ namespace Board
         [Button, DisableInEditorMode]
         public void PlaceTile(TileType type, int x, int y)
         {
-            TileBase tile = _factory.InstantiateTile(type);
+            Tile tile = _factory.InstantiateTile(type);
             
             _board.PlaceTile(tile, new Vector2Int(x, y));
         }
