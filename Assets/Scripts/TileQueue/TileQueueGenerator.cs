@@ -1,14 +1,14 @@
 ﻿using GameLoop.GameRules;
 using Tiles;
 
-namespace TileQueue
+namespace GameTileQueue
 {
-    public class QueueGenerator
+    public class TileQueueGenerator
     {
         private TileFactory _factory;
         private Rules _rules;
 
-        public QueueGenerator(TileFactory factory, Rules rules)
+        public TileQueueGenerator(TileFactory factory, Rules rules)
         {
             _factory = factory;
 

@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using GameBoard;
 using GameLoop.GameRules;
-using TileQueue;
+using GameTileQueue;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameLoop
 {
     public class DebugGameLoop : MonoBehaviour
     {
         [SerializeField] private Board _board;
-        [SerializeField] private Queue _queue;
+        [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private Rules _rules;
 
         private void Start()
         {
             _rules.Setup();
             _board.Setup(7);
-            _queue.Setup();
+            _tileQueue.Setup();
         }
     }
 }

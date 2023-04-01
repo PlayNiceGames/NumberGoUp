@@ -4,9 +4,9 @@ using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
 
-namespace TileQueue
+namespace GameTileQueue
 {
-    public class Queue : MonoBehaviour
+    public class TileQueue : MonoBehaviour
     {
         public const int TileQueueSize = 4;
 
@@ -14,12 +14,12 @@ namespace TileQueue
         [SerializeField] private Transform _grid;
         [SerializeField] private Rules _rules;
 
-        private QueueGenerator _generator;
+        private TileQueueGenerator _generator;
         private Queue<Tile> _tiles;
 
         public void Setup()
         {
-            _generator = new QueueGenerator(_factory, _rules);
+            _generator = new TileQueueGenerator(_factory, _rules);
             _tiles = new Queue<Tile>();
 
             AddInitialTiles();

@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _board: {fileID: 936146793}
-  _queue: {fileID: 466784179}
+  _tileQueue: {fileID: 466784179}
   _rules: {fileID: 351035007}
 --- !u!4 &1808178627
 Transform:
