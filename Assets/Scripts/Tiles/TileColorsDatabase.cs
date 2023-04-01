@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Tiles
 {
-    public class TileColors : ScriptableObject
+    public class TileColorsDatabase : ScriptableObject
     {
         [SerializeField] private List<Color> Colors;
 
@@ -12,9 +13,14 @@ namespace Tiles
             return Colors[colorIndex];
         }
 
-        public int GetRandomColorIndex()
+        public int GetRandomColor()
         {
             return Random.Range(0, Colors.Count);
+        }
+
+        public List<int> GetRandomColors()
+        {
+            return Enumerable.Range(0, Colors.Count).OrderBy(_ => Random.value).ToList();
         }
     }
 }

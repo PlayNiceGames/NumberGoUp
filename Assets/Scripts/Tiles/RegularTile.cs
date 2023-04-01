@@ -13,7 +13,7 @@ namespace Tiles
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
 
-        [SerializeField] private TileColors _colorsDatabase;
+        [SerializeField] private TileColorsDatabase _colorsDatabase;
 
         public void SetNumber(int number)
         {

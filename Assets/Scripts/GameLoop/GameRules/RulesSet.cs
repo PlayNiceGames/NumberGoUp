@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace GameLoop.GameRules
 {
     [Serializable]
-    public class RulesData
+    public class RulesSet
     {
         public int RuleApplyStartingScore;
         public RegularTileRules RegularTileRules;

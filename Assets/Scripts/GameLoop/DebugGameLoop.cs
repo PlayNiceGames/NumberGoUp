@@ -1,7 +1,7 @@
-﻿using GameBoard;
+﻿using System.Collections.Generic;
+using GameBoard;
 using GameLoop.GameRules;
 using TileQueue;
-using Tiles;
 using UnityEngine;
 
 namespace GameLoop
@@ -10,14 +10,13 @@ namespace GameLoop
     {
         [SerializeField] private Board _board;
         [SerializeField] private Queue _queue;
-        [SerializeField] private RulesData _initialRules;
-        
+        [SerializeField] private Rules _rules;
+
         private void Start()
         {
-            _initialRules.Setup(null);
-
+            _rules.Setup();
             _board.Setup(7);
-            _queue.Setup(_initialRules);
+            _queue.Setup();
         }
     }
 }

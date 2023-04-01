@@ -11,18 +11,19 @@ namespace TileQueue
 
         [SerializeField] private TileFactory _factory;
         [SerializeField] private Transform _grid;
+        [SerializeField] private Rules _rules;
         
         private QueueGenerator _generator;
         private Queue<Tile> _tiles;
 
-        public void Setup(RulesData initialRules)
+        public void Setup()
         {
-            _generator = new QueueGenerator(_factory, initialRules);
+            _generator = new QueueGenerator(_factory, _rules.CurrentRules);
 
             AddInitialTiles();
         }
 
-        public void SetRules(RulesData rules)
+        public void SetRules(RulesSet rules)
         {
             _generator.SetRules(rules);
         }

@@ -6,16 +6,16 @@ namespace TileQueue
     public class QueueGenerator
     {
         private TileFactory _factory;
-        private RulesData _rules;
+        private RulesSet _rules;
         
-        public QueueGenerator(TileFactory factory, RulesData rules)
+        public QueueGenerator(TileFactory factory, RulesSet rules)
         {
             _factory = factory;
             
             SetRules(rules);
         }
 
-        public void SetRules(RulesData rules)
+        public void SetRules(RulesSet rules)
         {
             _rules = rules;
         }
