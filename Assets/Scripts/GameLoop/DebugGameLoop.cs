@@ -1,18 +1,23 @@
-﻿using System;
-using GameLoop.Rules;
+﻿using GameBoard;
+using GameLoop.GameRules;
+using TileQueue;
+using Tiles;
 using UnityEngine;
 
 namespace GameLoop
 {
     public class DebugGameLoop : MonoBehaviour
     {
-        [SerializeField] private GameBoard.Board _board;
+        [SerializeField] private Board _board;
+        [SerializeField] private Queue _queue;
+        [SerializeField] private RulesData _initialRules;
         
-        [SerializeField] private GameRules _initialRules;
-
-        private void Awake()
+        private void Start()
         {
-            
+            _initialRules.Setup(null);
+
+            _board.Setup(7);
+            _queue.Setup(_initialRules);
         }
     }
 }

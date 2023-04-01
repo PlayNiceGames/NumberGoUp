@@ -20,7 +20,7 @@ namespace GameBoard
                 for (int j = 0; j < size; j++)
                 {
                     Tile tile = tiles[i, j];
-                    tile.transform.SetParent(transform, false);
+                    tile.SetParent(transform);
                 }
             }
         }

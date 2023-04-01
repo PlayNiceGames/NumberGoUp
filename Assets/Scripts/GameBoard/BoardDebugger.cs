@@ -13,7 +13,7 @@ namespace GameBoard
         [Button, DisableInEditorMode]
         public void CreateBoard(int size)
         {
-            _board.CreateBoard(size);
+            _board.Setup(size);
         }
 
         [Button, DisableInEditorMode]

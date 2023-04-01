@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-namespace GameLoop.Rules
+namespace GameLoop.GameRules
 {
     [Serializable]
     public class RegularTileRules
@@ -11,7 +11,7 @@ namespace GameLoop.Rules
 
         private List<int> _colors;
 
-        public void InitializeColors(List<int> mixedColors)
+        public void Setup(List<int> mixedColors)
         {
             _colors = mixedColors;
         }

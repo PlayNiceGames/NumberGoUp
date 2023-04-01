@@ -10,7 +10,7 @@ namespace GameBoard
 
         private Tile[,] _tiles;
 
-        public void CreateBoard(int size)
+        public void Setup(int size)
         {
             ClearBoard();
 

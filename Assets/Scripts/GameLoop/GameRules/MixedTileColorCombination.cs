@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameLoop.Rules
+namespace GameLoop.GameRules
 {
     [Serializable]
     public struct MixedTileColorCombination

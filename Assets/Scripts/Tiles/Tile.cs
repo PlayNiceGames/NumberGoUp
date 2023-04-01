@@ -8,14 +8,15 @@ namespace Tiles
         public Vector2Int BoardPosition;
         
         public abstract TileType Type { get; }
-
-        protected Tile()
+        
+        public void SetParent(Transform parent)
         {
+            transform.SetParent(parent.transform, false);
         }
-
-        protected Tile(Vector2Int boardPosition)
+        
+        public void ClearParent()
         {
-            BoardPosition = boardPosition;
+            transform.SetParent(null, false);
         }
 
         public void Dispose()
