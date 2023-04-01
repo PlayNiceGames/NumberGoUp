@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameLoop.GameRules;
+using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
 
@@ -12,30 +13,35 @@ namespace TileQueue
         [SerializeField] private TileFactory _factory;
         [SerializeField] private Transform _grid;
         [SerializeField] private Rules _rules;
-        
+
         private QueueGenerator _generator;
         private Queue<Tile> _tiles;
 
         public void Setup()
         {
-            _generator = new QueueGenerator(_factory, _rules.CurrentRules);
+            _generator = new QueueGenerator(_factory, _rules);
+            _tiles = new Queue<Tile>();
 
             AddInitialTiles();
         }
 
-        public void SetRules(RulesSet rules)
-        {
-            _generator.SetRules(rules);
-        }
-
+        [Button]
         private void AddInitialTiles()
         {
-            _tiles = new Queue<Tile>();
+            ClearTiles();
 
             for (int i = 0; i < TileQueueSize; i++)
             {
                 AddNextTile();
             }
+        }
+
+        private void ClearTiles()
+        {
+            foreach (Tile tile in _tiles)
+                tile.ClearParent();
+
+            _tiles.Clear();
         }
 
         public void AddNextTile()
@@ -46,11 +52,13 @@ namespace TileQueue
             _tiles.Enqueue(tile);
         }
 
-        private void RemoveFirstTile()
+        private bool RemoveFirstTile()
         {
-            _tiles.TryDequeue(out Tile tile);
+            bool result = _tiles.TryDequeue(out Tile tile);
 
             tile.ClearParent();
+
+            return result;
         }
     }
 }

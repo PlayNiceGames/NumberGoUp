@@ -6,16 +6,16 @@ namespace TileQueue
     public class QueueGenerator
     {
         private TileFactory _factory;
-        private RulesSet _rules;
-        
-        public QueueGenerator(TileFactory factory, RulesSet rules)
+        private Rules _rules;
+
+        public QueueGenerator(TileFactory factory, Rules rules)
         {
             _factory = factory;
-            
+
             SetRules(rules);
         }
 
-        public void SetRules(RulesSet rules)
+        public void SetRules(Rules rules)
         {
             _rules = rules;
         }
@@ -24,7 +24,7 @@ namespace TileQueue
         {
             RegularTile tile = _factory.InstantiateTile<RegularTile>();
             tile.SetNumber(1);
-            tile.SetColor(_rules.RegularTileRules.GetNextTileColor());
+            tile.SetColor(_rules.GetRandomTileColor());
             return tile;
         }
     }

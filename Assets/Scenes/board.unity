@@ -363,6 +363,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grid: {fileID: 281776529}
+--- !u!1 &351035005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 351035006}
+  - component: {fileID: 351035007}
+  m_Layer: 0
+  m_Name: Rules
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &351035006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351035005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351035007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351035005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d33d4559c484cf1aed3cc73fa0e5680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rulesDatabase: {fileID: 11400000, guid: 0ec8d42b5325e914b9639c154f485608, type: 2}
+  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
 --- !u!1 &466784176
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +441,7 @@ RectTransform:
   m_Children:
   - {fileID: 1595040340}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -438,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _factory: {fileID: 936146792}
   _grid: {fileID: 1595040340}
+  _rules: {fileID: 351035007}
 --- !u!1 &936146787
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +541,7 @@ RectTransform:
   m_Children:
   - {fileID: 281776528}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -653,15 +700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _board: {fileID: 936146793}
   _queue: {fileID: 466784179}
-  _initialRules:
-    RuleApplyStartingScore: 0
-    RegularTileRules:
-      AvailableColorCount: 4
-    MixedTileRules:
-      IncludeMixedTiles: 0
-      PlayableColorIndexCombinations:
-      - TopColorIndex: 0
-        BottomColorIndex: 1
+  _rules: {fileID: 351035007}
 --- !u!4 &1808178627
 Transform:
   m_ObjectHideFlags: 0
