@@ -25,6 +25,16 @@ namespace GameTileQueue
             AddInitialTiles();
         }
 
+        public Tile PlaceTileOnBoard(Vector3 tileBoardWorldPosition)
+        {
+            Tile firstTile = RemoveFirstTile();
+            firstTile.transform.position = new Vector3(tileBoardWorldPosition.x, tileBoardWorldPosition.y, 0); //TODO temp
+            
+            AddNextTile();
+
+            return firstTile;
+        }
+
         [Button]
         private void AddInitialTiles()
         {
@@ -44,7 +54,8 @@ namespace GameTileQueue
             _tiles.Clear();
         }
 
-        public void AddNextTile()
+        [Button]
+        private void AddNextTile()
         {
             Tile tile = _generator.InstantiateNextTile();
             tile.SetParent(_grid);
@@ -52,13 +63,17 @@ namespace GameTileQueue
             _tiles.Enqueue(tile);
         }
 
-        private bool RemoveFirstTile()
+        [Button]
+        private Tile RemoveFirstTile()
         {
             bool result = _tiles.TryDequeue(out Tile tile);
 
+            if (!result)
+                return null;
+
             tile.ClearParent();
 
-            return result;
+            return tile;
         }
     }
 }

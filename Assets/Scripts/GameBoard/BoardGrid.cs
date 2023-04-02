@@ -10,8 +10,6 @@ namespace GameBoard
 
         public void UpdateGrid(Tile[,] tiles)
         {
-            ClearGrid();
-
             int size = tiles.GetLength(0);
             _grid.constraintCount = size;
 
@@ -23,11 +21,6 @@ namespace GameBoard
                     tile.SetParent(transform);
                 }
             }
-        }
-
-        private void ClearGrid()
-        {
-            transform.DetachChildren();
         }
     }
 }

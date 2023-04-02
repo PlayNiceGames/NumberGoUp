@@ -1,12 +1,17 @@
-﻿using Tiles;
+﻿using System;
+using GameTileQueue;
+using Tiles;
 using UnityEngine;
 
 namespace GameBoard
 {
     public class Board : MonoBehaviour
     {
+        public event Action<Tile> OnTileClick;
+
         [SerializeField] private BoardGrid _grid;
         [SerializeField] private TileFactory _factory;
+        [SerializeField] private TileQueue _queue;
 
         private Tile[,] _tiles;
 
@@ -22,7 +27,7 @@ namespace GameBoard
                 {
                     EmptyTile tile = _factory.InstantiateTile<EmptyTile>();
 
-                    SetTile(tile, new Vector2Int(i, j));
+                    AddTile(tile, new Vector2Int(i, j));
                 }
             }
 
@@ -40,29 +45,52 @@ namespace GameBoard
             _tiles = null;
         }
 
+        public void PlaceEmptyTile(Vector2Int position)
+        {
+            Tile tile = _tiles[position.x, position.y];
+            if (tile.Type == TileType.Empty)
+                return;
+
+            Tile emptyTile = _factory.InstantiateTile<EmptyTile>();
+            PlaceTile(emptyTile, position);
+        }
+
         public void PlaceTile(Tile tile, Vector2Int position)
         {
-            ClearTile(position);
+            DestroyTile(position);
 
-            SetTile(tile, position);
+            AddTile(tile, position);
 
             UpdateGrid();
         }
 
-        private void ClearTile(Vector2Int position)
+        private void DestroyTile(Vector2Int position)
         {
-            Tile tile = _tiles[position.x, position.y];
+            Tile oldTile = _tiles[position.x, position.y];
+            if (oldTile == null)
+                return;
 
-            if (tile != null)
-                tile.Dispose();
+            oldTile.OnClick -= OnTileClicked;
+            oldTile.Dispose();
         }
 
-        private void SetTile(Tile tile, Vector2Int position)
+        private void AddTile(Tile tile, Vector2Int position)
         {
             tile.BoardPosition = position;
             tile.name = position.ToString();
+            tile.OnClick += OnTileClicked;
 
             _tiles[position.x, position.y] = tile;
+        }
+
+        private void OnTileClicked(Tile tile)
+        {
+            OnTileClick?.Invoke(tile);
+        }
+
+        private Vector2 GetWorldPosition(Vector2Int boardPosition)
+        {
+            return _tiles[boardPosition.x, boardPosition.y].transform.position;
         }
 
         private void UpdateGrid()

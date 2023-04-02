@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using GameBoard;
+﻿using GameBoard;
 using GameLoop.GameRules;
 using GameTileQueue;
+using Tiles;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameLoop
 {
@@ -16,8 +15,20 @@ namespace GameLoop
         private void Start()
         {
             _rules.Setup();
-            _board.Setup(7);
             _tileQueue.Setup();
+
+            _board.Setup(7);
+            _board.OnTileClick += OnTileClicked;
+        }
+
+        private void OnTileClicked(Tile tile)
+        {
+            if (tile.Type == TileType.Empty)
+            {
+                Tile newTile = _tileQueue.PlaceTileOnBoard(tile.transform.position);
+
+                _board.PlaceTile(newTile, tile.BoardPosition);
+            }
         }
     }
 }
