@@ -9,6 +9,7 @@ namespace Tiles
     {
         public override TileType Type => TileType.Regular;
         
+        public int Value { get; private set; }
         public int Color { get; private set; }
 
         [SerializeField] private TextMeshProUGUI _numberText;
@@ -16,10 +17,18 @@ namespace Tiles
 
         [SerializeField] private TileColorsDatabase _colorsDatabase;
 
-        [Button, DisableInEditorMode]
-        public void SetNumber(int number)
+        public void Setup(RegularTileData data)
         {
-            _numberText.text = number.ToString();
+            SetValue(data.Value);
+            SetColor(data.Color);
+        }
+
+        [Button, DisableInEditorMode]
+        public void SetValue(int value)
+        {
+            Value = value;
+            
+            _numberText.text = value.ToString();
         }
 
         [Button, DisableInEditorMode]

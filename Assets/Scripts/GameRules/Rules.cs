@@ -2,7 +2,7 @@
 using Tiles;
 using UnityEngine;
 
-namespace GameLoop.GameRules
+namespace GameRules
 {
     public class Rules : MonoBehaviour
     {
@@ -23,6 +23,14 @@ namespace GameLoop.GameRules
         {
             int randomIndex = Random.Range(0, CurrentRules.AvailableColorCount);
             return _mixedColors[randomIndex];
+        }
+
+        public (int topColor, int bottomColor) GetRandomMixedTileColors()
+        {
+            List<MixedTileColorCombination> combinations = CurrentRules.MixedTileRules.ColorIndexCombinations;
+
+            MixedTileColorCombination randomCombination = combinations[Random.Range(0, combinations.Count)];
+            return (_mixedColors[randomCombination.TopColorIndex], _mixedColors[randomCombination.BottomColorIndex]);
         }
     }
 }

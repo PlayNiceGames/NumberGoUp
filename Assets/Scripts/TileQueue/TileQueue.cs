@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GameLoop.GameRules;
+using GameRules;
 using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
@@ -8,10 +8,9 @@ namespace GameTileQueue
 {
     public class TileQueue : MonoBehaviour
     {
-        public const int TileQueueSize = 4;
-
-        [SerializeField] private TileFactory _factory;
         [SerializeField] private Transform _grid;
+        [SerializeField] private TileQueueGeneratorSettings _settings;
+        [SerializeField] private TileFactory _factory;
         [SerializeField] private Rules _rules;
 
         private TileQueueGenerator _generator;
@@ -19,7 +18,7 @@ namespace GameTileQueue
 
         public void Setup()
         {
-            _generator = new TileQueueGenerator(_factory, _rules);
+            _generator = new TileQueueGenerator(_settings, _factory, _rules);
             _tiles = new Queue<Tile>();
 
             AddInitialTiles();
@@ -40,7 +39,7 @@ namespace GameTileQueue
         {
             ClearTiles();
 
-            for (int i = 0; i < TileQueueSize; i++)
+            for (int i = 0; i < _settings.TileQueueSize; i++)
             {
                 AddNextTile();
             }

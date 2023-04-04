@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameLoop.GameRules
+namespace GameRules
 {
     [Serializable]
     public class MixedTileRulesData
     {
-        public List<MixedTileColorCombination> PlayableColorIndexCombinations;
+        public List<MixedTileColorCombination> ColorIndexCombinations;
     }
 }

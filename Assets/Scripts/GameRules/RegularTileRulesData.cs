@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameLoop.GameRules
+namespace GameRules
 {
     [Serializable]
     public class RegularTileRulesData

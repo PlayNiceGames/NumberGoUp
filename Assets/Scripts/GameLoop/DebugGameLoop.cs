@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameBoard;
-using GameLoop.GameRules;
+using GameRules;
 using GameTileQueue;
 using Tiles;
 using UnityEngine;

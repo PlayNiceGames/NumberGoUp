@@ -27,7 +27,7 @@ namespace GameBoard
         public void PlaceRegularTile(int x, int y, int value, int color)
         {
             RegularTile tile = _factory.InstantiateTile<RegularTile>();
-            tile.SetNumber(value);
+            tile.SetValue(value);
             tile.SetColor(color);
 
             _board.PlaceTile(tile, new Vector2Int(x, y));

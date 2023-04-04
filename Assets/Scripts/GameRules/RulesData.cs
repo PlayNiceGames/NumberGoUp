@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace GameLoop.GameRules
+namespace GameRules
 {
     [Serializable]
     public class RulesData

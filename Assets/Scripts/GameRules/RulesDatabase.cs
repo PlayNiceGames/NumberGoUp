@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameLoop.GameRules
+namespace GameRules
 {
     public class RulesDatabase : ScriptableObject
     {

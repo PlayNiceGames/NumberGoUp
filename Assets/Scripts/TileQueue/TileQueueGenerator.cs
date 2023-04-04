@@ -1,21 +1,28 @@
-﻿using GameLoop.GameRules;
+﻿using GameRules;
 using Tiles;
 
 namespace GameTileQueue
 {
     public class TileQueueGenerator
     {
+        private TileQueueGeneratorSettings _settings;
         private TileFactory _factory;
         private Rules _rules;
 
-        private Tile[] _currentQueue;
+        private TileQueueSet _currentSet;
+        private TileQueueSet _nextSet;
+
+        private int _bigTileNotGeneratedCount;
         private int _mixedTileNotGeneratedCount;
 
-        public TileQueueGenerator(TileFactory factory, Rules rules)
+        public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, Rules rules)
         {
+            _settings = settings;
             _factory = factory;
 
             SetRules(rules);
+
+            _currentSet = new TileQueueSet()
         }
 
         public void SetRules(Rules rules)
@@ -25,7 +32,7 @@ namespace GameTileQueue
 
         private Tile[] GenerateNextQueue()
         {
-            Tile[] queue = new Tile[TileQueue.TileQueueSize];
+            Tile[] queue = new Tile[_settings.TileQueueSize];
 
             return queue;
         }
@@ -35,16 +42,6 @@ namespace GameTileQueue
             RegularTile tile = _factory.InstantiateTile<RegularTile>();
             tile.SetColor(_rules.GetRandomTileColor());
             return tile;
-        }
-
-        private RegularTile GenerateRegularTile()
-        {
-            return null;
-        }
-
-        private MixedTile GenerateMixedTile()
-        {
-            return null;
         }
     }
 }
