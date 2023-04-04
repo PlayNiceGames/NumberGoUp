@@ -8,6 +8,9 @@ namespace GameTileQueue
         private TileFactory _factory;
         private Rules _rules;
 
+        private Tile[] _currentQueue;
+        private int _mixedTileNotGeneratedCount;
+
         public TileQueueGenerator(TileFactory factory, Rules rules)
         {
             _factory = factory;
@@ -20,12 +23,28 @@ namespace GameTileQueue
             _rules = rules;
         }
 
+        private Tile[] GenerateNextQueue()
+        {
+            Tile[] queue = new Tile[TileQueue.TileQueueSize];
+
+            return queue;
+        }
+
         public Tile InstantiateNextTile()
         {
             RegularTile tile = _factory.InstantiateTile<RegularTile>();
-            tile.SetNumber(1);
             tile.SetColor(_rules.GetRandomTileColor());
             return tile;
+        }
+
+        private RegularTile GenerateRegularTile()
+        {
+            return null;
+        }
+
+        private MixedTile GenerateMixedTile()
+        {
+            return null;
         }
     }
 }

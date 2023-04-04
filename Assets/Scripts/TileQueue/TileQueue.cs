@@ -29,7 +29,7 @@ namespace GameTileQueue
         {
             Tile firstTile = RemoveFirstTile();
             firstTile.transform.position = new Vector3(tileBoardWorldPosition.x, tileBoardWorldPosition.y, 0); //TODO temp
-            
+
             AddNextTile();
 
             return firstTile;

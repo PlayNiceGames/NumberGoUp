@@ -1,4 +1,5 @@
-﻿using GameBoard;
+﻿using Cysharp.Threading.Tasks;
+using GameBoard;
 using GameLoop.GameRules;
 using GameTileQueue;
 using Tiles;
@@ -19,6 +20,11 @@ namespace GameLoop
 
             _board.Setup(7);
             _board.OnTileClick += OnTileClicked;
+        }
+
+        private UniTask GameLoop()
+        {
+            return UniTask.CompletedTask;
         }
 
         private void OnTileClicked(Tile tile)

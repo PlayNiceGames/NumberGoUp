@@ -1,5 +1,4 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
 
@@ -20,10 +19,10 @@ namespace GameBoard
         public void PlaceTile(TileType type, int x, int y)
         {
             Tile tile = _factory.InstantiateTile(type);
-            
+
             _board.PlaceTile(tile, new Vector2Int(x, y));
         }
-        
+
         [Button, DisableInEditorMode]
         public void PlaceRegularTile(int x, int y, int value, int color)
         {

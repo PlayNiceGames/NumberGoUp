@@ -1,5 +1,4 @@
 ﻿using System;
-using GameTileQueue;
 using Tiles;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ namespace GameBoard
 
         [SerializeField] private BoardGrid _grid;
         [SerializeField] private TileFactory _factory;
-        [SerializeField] private TileQueue _queue;
 
         private Tile[,] _tiles;
 
