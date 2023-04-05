@@ -1,6 +1,5 @@
 using GameBoard;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 
 public class DebugController : MonoBehaviour
@@ -9,7 +8,7 @@ public class DebugController : MonoBehaviour
 
     private void Awake()
     {
-        if (!EditorUserBuildSettings.development)
+        if (!Debug.isDebugBuild)
         {
             Destroy(gameObject);
             return;
