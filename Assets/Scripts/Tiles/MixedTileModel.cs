@@ -5,22 +5,19 @@ using UnityEngine.UI;
 
 namespace Tiles
 {
-    public class RegularTile : Tile
+    public class MixedTileModel : MonoBehaviour //TODO DRY with RegularTile. Maybe create abstract tile model?
     {
-        public override TileType Type => TileType.Regular;
-
         public int Value { get; private set; }
         public int Color { get; private set; }
 
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
-
         [SerializeField] private TileColorsDatabase _colorsDatabase;
 
-        public void Setup(RegularTileData data)
+        public void Setup(int value, int color)
         {
-            SetValue(data.Value);
-            SetColor(data.Color);
+            SetValue(value);
+            SetColor(color);
         }
 
         [Button, DisableInEditorMode]
