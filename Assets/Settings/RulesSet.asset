@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialRules:
     RuleApplyStartingScore: 0
-    AvailableColorCount: 2
+    AvailableColorCount: 4
+    IncludeBigTiles: 0
     IncludeMixedTiles: 1
     MixedTileRules:
       ColorIndexCombinations:

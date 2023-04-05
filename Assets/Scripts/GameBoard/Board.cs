@@ -7,6 +7,7 @@ namespace GameBoard
     public class Board : MonoBehaviour
     {
         public event Action<Tile> OnTileClick;
+        public int Size { get; private set; }
 
         [SerializeField] private BoardGrid _grid;
         [SerializeField] private TileFactory _factory;
@@ -18,6 +19,7 @@ namespace GameBoard
             ClearBoard();
 
             _tiles = new Tile[size, size];
+            Size = size;
 
             for (int i = 0; i < size; i++)
             {

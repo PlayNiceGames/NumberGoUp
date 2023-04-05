@@ -64,6 +64,9 @@ namespace GameTileQueue
 
         private void TrySetGuaranteedBigTile()
         {
+            if (!_rules.CurrentRules.IncludeBigTiles)
+                return;
+
             float randomValue = Random.value;
 
             bool isBigTileGuaranteed = _prevSet != null && !_prevSet._bigTileGenerated;
@@ -115,13 +118,24 @@ namespace GameTileQueue
                 if (repeatCount > _settings.MaxRepeatingTileCount)
                 {
                     int repeatingFixTileIndex = i + _settings.MaxRepeatingTileCount;
-                    if (repeatingFixTileIndex >= _settings.TileQueueSize)
+                    if (repeatingFixTileIndex < _settings.TileQueueSize)
                     {
+                        if (_rules.CurrentRules.AvailableColorCount <= 1)
+                        {
+                            Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
+
+                            return;
+                        }
+
                         int randomColor = _rules.GetRandomTileColorExcept(regularTile.Color);
                         _tiles[repeatingFixTileIndex] = new RegularTileData(_settings.RepeatingFixTileValue, randomColor);
-                    }
 
-                    Debug.Log($"Fixed repeating tile at: {repeatingFixTileIndex}");
+                        Debug.Log($"Fixed repeating tile at: {repeatingFixTileIndex}");
+                    }
+                    else
+                    {
+                        Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
+                    }
 
                     return;
                 }

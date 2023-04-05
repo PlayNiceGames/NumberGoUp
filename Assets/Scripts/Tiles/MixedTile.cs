@@ -8,7 +8,7 @@ namespace Tiles
 
         [field: SerializeField] public MixedTileModel Top { get; private set; }
         [field: SerializeField] public MixedTileModel Bottom { get; private set; }
-        
+
         public void Setup(MixedTileData mixedTileData)
         {
             Top.Setup(mixedTileData.TopValue, mixedTileData.TopColor);

@@ -7,6 +7,7 @@ namespace GameRules
     {
         public int RuleApplyStartingScore;
         public int AvailableColorCount;
+        public bool IncludeBigTiles;
         public bool IncludeMixedTiles;
         public RegularTileRulesData RegularTileRules;
         public MixedTileRulesData MixedTileRules;

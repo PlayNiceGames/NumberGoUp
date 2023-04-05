@@ -33,7 +33,8 @@ namespace GameRules
 
         public int GetRandomTileColorExcept(int color)
         {
-            return _mixedColors.Where(mixedColor => mixedColor != color).ToList()[RandomColorIndex()];
+            List<int> colors = _mixedColors.Take(CurrentRules.AvailableColorCount).Where(mixedColor => mixedColor != color).ToList();
+            return colors.RandomItem();
         }
 
         public (int topColor, int bottomColor) GetRandomMixedTileColors()
