@@ -15,7 +15,7 @@ MonoBehaviour:
   InitialRules:
     RuleApplyStartingScore: 0
     AvailableColorCount: 4
-    IncludeBigTiles: 0
+    IncludeBigTiles: 1
     IncludeMixedTiles: 1
     MixedTileRules:
       ColorIndexCombinations:

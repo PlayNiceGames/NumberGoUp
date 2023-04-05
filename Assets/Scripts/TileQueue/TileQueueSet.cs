@@ -24,12 +24,15 @@ namespace GameTileQueue
             _prevSet = prevSet;
             _settings = settings;
             _rules = rules;
+            _colorNotAppearingCount = new Dictionary<int, int>();
 
             _tiles = new TileData[_settings.TileQueueSize];
         }
 
         public TileData[] Generate()
         {
+            Debug.Log($"Generated tile set");
+
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
             TrySetGuaranteedMixedTile();
@@ -38,28 +41,38 @@ namespace GameTileQueue
 
             RecordTileColorIndexes();
 
-            Debug.Log($"Generated tile set");
-            if (_bigTileGenerated)
-                Debug.Log($"Generated big tile");
-            if (_mixedTileGenerated)
-                Debug.Log($"Generated mixed tile");
-
-            foreach (KeyValuePair<int, int> i in _colorNotAppearingCount)
-            {
-                Debug.Log($"Color {i.Key} not appearing: {i.Value}");
-            }
-
             return _tiles;
         }
 
         private void TrySetGuaranteedColors()
         {
-            /*foreach (KeyValuePair<int, int> colorIndex in _colorNotAppearingCount)
-            {
-                RegularTileData guaranteedTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorIndex.Key);
+            if (_prevSet == null)
+                return;
 
-                TrySetTile(colorIndex.Value, guaranteedTile);
-            }*/
+            foreach (KeyValuePair<int, int> colorCount in _prevSet._colorNotAppearingCount)
+            {
+                TryPlaceGuaranteedColorTile(colorCount);
+            }
+        }
+
+        private void TryPlaceGuaranteedColorTile(KeyValuePair<int, int> colorCount)
+        {
+            for (int j = 0; j < _tiles.Length; j++)
+            {
+                int colorNotAppearingCountForTile = colorCount.Value + j;
+
+                if (colorNotAppearingCountForTile >= _settings.GuaranteedColorNotAppearingMaxCount)
+                {
+                    RegularTileData guaranteedColorTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorCount.Key);
+
+                    if (TrySetTile(j, guaranteedColorTile))
+                        Debug.Log($"Placed guaranteed color tile: {j}");
+                    else
+                        Debug.LogWarning($"Unable to place guaranteed color tile: {j}");
+
+                    return;
+                }
+            }
         }
 
         private void TrySetGuaranteedBigTile()
@@ -75,9 +88,15 @@ namespace GameTileQueue
                 int randomColor = _rules.GetRandomTileColor();
                 RegularTileData regularTile = new RegularTileData(_settings.BigTileValue, randomColor);
 
-                TrySetTileInRandomPlace(regularTile);
-
-                _bigTileGenerated = true;
+                if (TrySetTileInRandomPlace(regularTile))
+                {
+                    Debug.Log("Placed big tile");
+                    _bigTileGenerated = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to place big tile");
+                }
             }
         }
 
@@ -94,9 +113,15 @@ namespace GameTileQueue
                 (int topColor, int bottomColor) = _rules.GetRandomMixedTileColors();
                 MixedTileData mixedTile = new MixedTileData(_settings.MixedTileValue, topColor, _settings.MixedTileValue, bottomColor);
 
-                TrySetTileInRandomPlace(mixedTile);
-
-                _mixedTileGenerated = true;
+                if (TrySetTileInRandomPlace(mixedTile))
+                {
+                    Debug.Log("Placed mixed tile");
+                    _mixedTileGenerated = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to place mixed tile");
+                }
             }
         }
 
@@ -192,7 +217,7 @@ namespace GameTileQueue
 
         private void RecordTileColorIndexes()
         {
-            _colorNotAppearingCount = new Dictionary<int, int>();
+            _colorNotAppearingCount.Clear();
             List<int> availableColors = _rules.GetAvailableColors();
 
             foreach (int color in availableColors)

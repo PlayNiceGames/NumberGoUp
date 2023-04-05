@@ -7,6 +7,7 @@ namespace GameTileQueue
         public int TileQueueSize;
 
         public int GuaranteedColorTileValue;
+        public int GuaranteedColorNotAppearingMaxCount;
 
         public float BigTileQueueGenerationChance;
         public int BigTileValue;
@@ -15,7 +16,7 @@ namespace GameTileQueue
         public int MixedTileValue;
 
         public int RemainingTileValue;
-        
+
         public int MaxRepeatingTileCount;
         public int RepeatingFixTileValue;
     }
