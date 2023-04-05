@@ -28,12 +28,12 @@ namespace GameRules
 
         public int GetRandomTileColor()
         {
-            return _mixedColors.RandomItem();
+            return _mixedColors[RandomColorIndex()];
         }
 
         public int GetRandomTileColorExcept(int color)
         {
-            return _mixedColors.Where(mixedColor => mixedColor != color).ToList().RandomItem();
+            return _mixedColors.Where(mixedColor => mixedColor != color).ToList()[RandomColorIndex()];
         }
 
         public (int topColor, int bottomColor) GetRandomMixedTileColors()
@@ -42,6 +42,11 @@ namespace GameRules
             MixedTileColorCombination randomCombination = combinations.RandomItem();
 
             return (_mixedColors[randomCombination.TopColorIndex], _mixedColors[randomCombination.BottomColorIndex]);
+        }
+
+        private int RandomColorIndex()
+        {
+            return Random.Range(0, CurrentRules.AvailableColorCount);
         }
     }
 }

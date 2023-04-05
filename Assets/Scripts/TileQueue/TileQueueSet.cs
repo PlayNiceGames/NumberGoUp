@@ -117,7 +117,7 @@ namespace GameTileQueue
                     int repeatingFixTileIndex = i + _settings.MaxRepeatingTileCount;
                     if (repeatingFixTileIndex >= _settings.TileQueueSize)
                     {
-                        int randomColor = _rules.GetRandomTileColor();
+                        int randomColor = _rules.GetRandomTileColorExcept(regularTile.Color);
                         _tiles[repeatingFixTileIndex] = new RegularTileData(_settings.RepeatingFixTileValue, randomColor);
                     }
 
