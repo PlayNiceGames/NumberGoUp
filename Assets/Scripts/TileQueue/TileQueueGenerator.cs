@@ -1,4 +1,5 @@
-﻿using GameRules;
+﻿using System.Collections.Generic;
+using GameRules;
 using Tiles;
 
 namespace GameTileQueue
@@ -15,14 +16,16 @@ namespace GameTileQueue
         private int _bigTileNotGeneratedCount;
         private int _mixedTileNotGeneratedCount;
 
+        private Queue<TileData> _generatedTileQueue;
+
         public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, Rules rules)
         {
             _settings = settings;
             _factory = factory;
 
-            SetRules(rules);
+            _generatedTileQueue = new Queue<TileData>();
 
-            _currentSet = new TileQueueSet()
+            SetRules(rules);
         }
 
         public void SetRules(Rules rules)
@@ -30,18 +33,25 @@ namespace GameTileQueue
             _rules = rules;
         }
 
-        private Tile[] GenerateNextQueue()
+        public TileData GetNextTileData()
         {
-            Tile[] queue = new Tile[_settings.TileQueueSize];
+            if (_generatedTileQueue.Count == 0)
+                GenerateNextSet();
 
-            return queue;
+            TileData tileData = _generatedTileQueue.Dequeue();
+            return tileData;
         }
 
-        public Tile InstantiateNextTile()
+        private void GenerateNextSet()
         {
-            RegularTile tile = _factory.InstantiateTile<RegularTile>();
-            tile.SetColor(_rules.GetRandomTileColor());
-            return tile;
+            _currentSet = _nextSet;
+            _nextSet = new TileQueueSet(_currentSet, _settings, _rules);
+
+            TileData[] nextTileSet = _nextSet.Generate();
+            foreach (TileData tileData in nextTileSet)
+            {
+                _generatedTileQueue.Enqueue(tileData);
+            }
         }
     }
 }

@@ -7,29 +7,27 @@ namespace GameTileQueue
 {
     public class TileQueueSet
     {
+        private TileQueueSet _prevSet;
+
         private TileQueueGeneratorSettings _settings;
         private Rules _rules;
 
-        private bool _guaranteedBigTile;
-        private bool _guaranteedMixedTile;
-        private List<ColorIndex> _guaranteedColorIndexes;
+        private bool _bigTileGenerated;
+        private bool _mixedTileGenerated;
+        private Dictionary<int, int> _colorNotAppearingCount;
 
         private TileData[] _tiles;
 
-        public TileQueueSet(TileQueueGeneratorSettings settings, Rules rules, bool guaranteedBigTile, bool guaranteedMixedTile, List<ColorIndex> guaranteedColorIndexes)
+        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, Rules rules)
         {
+            _prevSet = prevSet;
             _settings = settings;
             _rules = rules;
-            _guaranteedBigTile = guaranteedBigTile;
-            _guaranteedMixedTile = guaranteedMixedTile;
-            _guaranteedColorIndexes = guaranteedColorIndexes;
 
             _tiles = new TileData[_settings.TileQueueSize];
-
-            Generate();
         }
 
-        private void Generate()
+        public TileData[] Generate()
         {
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
@@ -37,42 +35,64 @@ namespace GameTileQueue
             TryFixRepeatingTiles();
             TryGenerateRemainingTiles();
 
-            RecordTileAppearanceInQueue();
+            RecordTileColorIndexes();
+
+            Debug.Log($"Generated tile set");
+            if (_bigTileGenerated)
+                Debug.Log($"Generated big tile");
+            if (_mixedTileGenerated)
+                Debug.Log($"Generated mixed tile");
+
+            foreach (KeyValuePair<int, int> i in _colorNotAppearingCount)
+            {
+                Debug.Log($"Color {i.Key} not appearing: {i.Value}");
+            }
+
+            return _tiles;
         }
 
         private void TrySetGuaranteedColors()
         {
-            foreach (ColorIndex colorIndex in _guaranteedColorIndexes)
+            /*foreach (KeyValuePair<int, int> colorIndex in _colorIndexes)
             {
-                RegularTileData guaranteedTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorIndex.Color);
+                RegularTileData guaranteedTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorIndex.Key);
 
-                TrySetTile(colorIndex.Index, guaranteedTile);
-            }
+                TrySetTile(colorIndex.Value, guaranteedTile);
+            }*/
         }
 
         private void TrySetGuaranteedBigTile()
         {
             float randomValue = Random.value;
 
-            if (_guaranteedBigTile || randomValue <= _settings.BigTileQueueGenerationChance)
+            bool isBigTileGuaranteed = _prevSet != null && !_prevSet._bigTileGenerated;
+            if (isBigTileGuaranteed || randomValue <= _settings.BigTileQueueGenerationChance)
             {
                 int randomColor = _rules.GetRandomTileColor();
                 RegularTileData regularTile = new RegularTileData(_settings.BigTileValue, randomColor);
 
                 TrySetTileInRandomPlace(regularTile);
+                
+                _bigTileGenerated = true;
             }
         }
 
         private void TrySetGuaranteedMixedTile()
         {
+            if (!_rules.CurrentRules.IncludeMixedTiles)
+                return;
+
             float randomValue = Random.value;
 
-            if (_guaranteedMixedTile || randomValue <= _settings.MixedTileQueueGenerationChance)
+            bool isMixedTileGuaranteed = _prevSet != null && !_prevSet._mixedTileGenerated;
+            if (isMixedTileGuaranteed || randomValue <= _settings.MixedTileQueueGenerationChance)
             {
                 (int topColor, int bottomColor) = _rules.GetRandomMixedTileColors();
                 MixedTileData mixedTile = new MixedTileData(_settings.MixedTileValue, topColor, _settings.MixedTileValue, bottomColor);
 
                 TrySetTileInRandomPlace(mixedTile);
+                
+                _mixedTileGenerated = true;
             }
         }
 
@@ -128,6 +148,50 @@ namespace GameTileQueue
         private bool IsLocked(int index)
         {
             return _tiles[index] != null;
+        }
+
+        private void RecordTileColorIndexes()
+        {
+            _colorNotAppearingCount = new Dictionary<int, int>();
+            List<int> availableColors = _rules.GetAvailableColors();
+
+            foreach (int color in availableColors)
+            {
+                if (TryGetColorLastAppearedIndex(color, out int index))
+                {
+                    _colorNotAppearingCount[color] = _settings.TileQueueSize - index;
+                }
+                else
+                {
+                    if (_prevSet != null && _prevSet._colorNotAppearingCount.TryGetValue(color, out int prevColorNotAppearingCount))
+                    {
+                        _colorNotAppearingCount[color] = prevColorNotAppearingCount + _settings.TileQueueSize;
+                    }
+                    else
+                    {
+                        _colorNotAppearingCount[color] = 0;
+                    }
+                }
+            }
+        }
+
+        private bool TryGetColorLastAppearedIndex(int color, out int lastAppearedIndex)
+        {
+            bool isColorFound = false;
+            lastAppearedIndex = 0;
+
+            for (int i = 0; i < _tiles.Length; i++)
+            {
+                TileData tile = _tiles[i];
+
+                if (tile.ContainsColor(color))
+                {
+                    lastAppearedIndex = i;
+                    isColorFound = true;
+                }
+            }
+
+            return isColorFound;
         }
     }
 }

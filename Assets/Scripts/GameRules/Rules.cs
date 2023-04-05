@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Tiles;
 using UnityEngine;
 
@@ -17,6 +18,11 @@ namespace GameRules
         {
             CurrentRules = _rulesDatabase.InitialRules;
             _mixedColors = _colorsDatabase.GetRandomColors();
+        }
+
+        public List<int> GetAvailableColors()
+        {
+            return _mixedColors.Take(CurrentRules.AvailableColorCount).ToList();
         }
 
         public int GetRandomTileColor()

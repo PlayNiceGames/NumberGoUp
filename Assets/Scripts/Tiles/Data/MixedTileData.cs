@@ -6,7 +6,7 @@
 
         public int TopValue;
         public int TopColor;
-        
+
         public int BottomValue;
         public int BottomColor;
 
@@ -17,6 +17,11 @@
 
             BottomValue = bottomValue;
             BottomColor = bottomColor;
+        }
+
+        public override bool ContainsColor(int color)
+        {
+            return TopColor == color || BottomColor == color;
         }
     }
 }

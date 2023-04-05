@@ -56,10 +56,18 @@ namespace GameTileQueue
         [Button]
         private void AddNextTile()
         {
-            Tile tile = _generator.InstantiateNextTile();
+            Tile tile = InstantiateNextTile();
             tile.SetParent(_grid);
 
             _tiles.Enqueue(tile);
+        }
+
+        private Tile InstantiateNextTile()
+        {
+            TileData tileData = _generator.GetNextTileData();
+
+            Tile tile = _factory.InstantiateTile(tileData);
+            return tile;
         }
 
         [Button]

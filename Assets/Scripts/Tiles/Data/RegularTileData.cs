@@ -12,5 +12,10 @@
             Value = value;
             Color = color;
         }
+
+        public override bool ContainsColor(int color)
+        {
+            return Color == color;
+        }
     }
 }

@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c5d25a68154953b906e37325e3f72d, type: 3}
   m_Name: TileQueueGeneratorSettings
   m_EditorClassIdentifier: 
-  NumberTwoTileQueueGenerationChance: 0.5
+  TileQueueSize: 4
+  GuaranteedColorTileValue: 666
+  BigTileQueueGenerationChance: 0.5
+  BigTileValue: 2
   MixedTileQueueGenerationChance: 0.5
+  MixedTileValue: 3
+  RemainingTileValue: 1
