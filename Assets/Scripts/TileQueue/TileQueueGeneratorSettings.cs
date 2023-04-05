@@ -15,5 +15,8 @@ namespace GameTileQueue
         public int MixedTileValue;
 
         public int RemainingTileValue;
+        
+        public int MaxRepeatingTileCount;
+        public int RepeatingFixTileValue;
     }
 }

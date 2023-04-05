@@ -23,5 +23,19 @@
         {
             return TopColor == color || BottomColor == color;
         }
+
+        public override bool Equals(TileData other)
+        {
+            if (other == null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            if (other is MixedTileData otherMixedTile)
+                return TopValue == otherMixedTile.TopValue && TopColor == otherMixedTile.TopColor;
+
+            return false;
+        }
     }
 }

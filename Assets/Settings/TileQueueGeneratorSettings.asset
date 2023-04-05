@@ -19,3 +19,5 @@ MonoBehaviour:
   MixedTileQueueGenerationChance: 0.5
   MixedTileValue: 3
   RemainingTileValue: 1
+  MaxRepeatingTileCount: 2
+  RepeatingFixTileValue: 1

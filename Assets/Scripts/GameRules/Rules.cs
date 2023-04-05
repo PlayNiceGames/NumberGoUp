@@ -2,6 +2,7 @@
 using System.Linq;
 using Tiles;
 using UnityEngine;
+using Utils;
 
 namespace GameRules
 {
@@ -27,15 +28,19 @@ namespace GameRules
 
         public int GetRandomTileColor()
         {
-            int randomIndex = Random.Range(0, CurrentRules.AvailableColorCount);
-            return _mixedColors[randomIndex];
+            return _mixedColors.RandomItem();
+        }
+
+        public int GetRandomTileColorExcept(int color)
+        {
+            return _mixedColors.Where(mixedColor => mixedColor != color).ToList().RandomItem();
         }
 
         public (int topColor, int bottomColor) GetRandomMixedTileColors()
         {
             List<MixedTileColorCombination> combinations = CurrentRules.MixedTileRules.ColorIndexCombinations;
+            MixedTileColorCombination randomCombination = combinations.RandomItem();
 
-            MixedTileColorCombination randomCombination = combinations[Random.Range(0, combinations.Count)];
             return (_mixedColors[randomCombination.TopColorIndex], _mixedColors[randomCombination.BottomColorIndex]);
         }
     }

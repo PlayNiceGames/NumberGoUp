@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace Tiles
 {
@@ -15,7 +16,7 @@ namespace Tiles
 
         public int GetRandomColor()
         {
-            return Random.Range(0, Colors.Count);
+            return Colors.RandomIndex();
         }
 
         public List<int> GetRandomColors()

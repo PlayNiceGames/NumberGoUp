@@ -2,6 +2,7 @@
 using GameRules;
 using Tiles;
 using UnityEngine;
+using Utils;
 
 namespace GameTileQueue
 {
@@ -32,8 +33,8 @@ namespace GameTileQueue
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
             TrySetGuaranteedMixedTile();
-            TryFixRepeatingTiles();
             TryGenerateRemainingTiles();
+            TryFixRepeatingTiles();
 
             RecordTileColorIndexes();
 
@@ -53,7 +54,7 @@ namespace GameTileQueue
 
         private void TrySetGuaranteedColors()
         {
-            /*foreach (KeyValuePair<int, int> colorIndex in _colorIndexes)
+            /*foreach (KeyValuePair<int, int> colorIndex in _colorNotAppearingCount)
             {
                 RegularTileData guaranteedTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorIndex.Key);
 
@@ -72,7 +73,7 @@ namespace GameTileQueue
                 RegularTileData regularTile = new RegularTileData(_settings.BigTileValue, randomColor);
 
                 TrySetTileInRandomPlace(regularTile);
-                
+
                 _bigTileGenerated = true;
             }
         }
@@ -91,14 +92,40 @@ namespace GameTileQueue
                 MixedTileData mixedTile = new MixedTileData(_settings.MixedTileValue, topColor, _settings.MixedTileValue, bottomColor);
 
                 TrySetTileInRandomPlace(mixedTile);
-                
+
                 _mixedTileGenerated = true;
             }
         }
 
         private void TryFixRepeatingTiles()
         {
-            //throw new NotImplementedException();
+            for (int i = 0; i < _tiles.Length; i++)
+            {
+                if (_tiles[i] is not RegularTileData regularTile)
+                    continue;
+
+                int repeatCount = 0;
+
+                for (int j = i + 1; j < _tiles.Length; j++)
+                {
+                    if (regularTile.Equals(_tiles[j]))
+                        repeatCount++;
+                }
+
+                if (repeatCount > _settings.MaxRepeatingTileCount)
+                {
+                    int repeatingFixTileIndex = i + _settings.MaxRepeatingTileCount;
+                    if (repeatingFixTileIndex >= _settings.TileQueueSize)
+                    {
+                        int randomColor = _rules.GetRandomTileColor();
+                        _tiles[repeatingFixTileIndex] = new RegularTileData(_settings.RepeatingFixTileValue, randomColor);
+                    }
+
+                    Debug.Log($"Fixed repeating tile at: {repeatingFixTileIndex}");
+
+                    return;
+                }
+            }
         }
 
         private void TryGenerateRemainingTiles()
@@ -128,8 +155,7 @@ namespace GameTileQueue
             if (freeTileIndexes.Count == 0)
                 return false;
 
-            int randomIndex = freeTileIndexes[Random.Range(0, freeTileIndexes.Count)];
-
+            int randomIndex = freeTileIndexes.RandomIndex();
             _tiles[randomIndex] = tile;
 
             return true;
@@ -159,7 +185,7 @@ namespace GameTileQueue
             {
                 if (TryGetColorLastAppearedIndex(color, out int index))
                 {
-                    _colorNotAppearingCount[color] = _settings.TileQueueSize - index;
+                    _colorNotAppearingCount[color] = _settings.TileQueueSize - index - 1;
                 }
                 else
                 {
