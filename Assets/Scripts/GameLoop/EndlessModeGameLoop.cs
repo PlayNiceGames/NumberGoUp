@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using GameBoard;
 using GameRules;
 using GameTileQueue;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace GameLoop
 {
-    public class DebugGameLoop : GameLoop
+    public class EndlessModeGameLoop : GameLoop
     {
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
@@ -20,6 +21,8 @@ namespace GameLoop
 
             _board.Setup(7);
             _board.OnTileClick += OnTileClicked;
+
+            Run().Forget();
         }
 
         public override UniTask Run()
