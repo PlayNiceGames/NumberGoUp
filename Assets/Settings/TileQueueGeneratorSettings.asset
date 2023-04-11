@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TileQueueGeneratorSettings
   m_EditorClassIdentifier: 
   TileQueueSize: 4
-  GuaranteedColorTileValue: 9
+  GuaranteedColorTileValue: 1
   GuaranteedColorNotAppearingMaxCount: 6
   BigTileQueueGenerationChance: 0.5
   BigTileValue: 2
