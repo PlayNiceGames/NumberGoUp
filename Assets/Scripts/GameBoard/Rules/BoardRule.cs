@@ -5,6 +5,6 @@ namespace GameBoard.Rules
 {
     public abstract class BoardRule
     {
-        public abstract List<BoardTurn> CreateActions(List<Tile> tiles);
+        public abstract List<BoardTurn> CreateActions(Tile mainTile, List<Tile> tiles);
     }
 }

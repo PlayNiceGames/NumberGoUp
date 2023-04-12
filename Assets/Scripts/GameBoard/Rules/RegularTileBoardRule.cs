@@ -1,14 +1,9 @@
-﻿using Tiles;
-
-namespace GameBoard.Rules
+﻿namespace GameBoard.Rules
 {
     public abstract class RegularTileBoardRule : BoardRule
     {
-        protected RegularTile _tile;
-        
-        public RegularTileBoardRule(RegularTile tile)
+        public RegularTileBoardRule()
         {
-            _tile = tile;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Tiles
 
         public event Action<Tile> OnClick;
 
-        [SerializeField] private LayoutElement _layout;
+        [SerializeField] protected LayoutElement _layout;
 
         public abstract TileType Type { get; }
 
