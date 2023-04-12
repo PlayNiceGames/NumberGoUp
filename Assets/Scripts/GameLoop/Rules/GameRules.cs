@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameLoop.Rules.TileRules;
 using Tiles;
 using UnityEngine;
 using Utils;
 
-namespace GameRules
+namespace GameLoop.Rules
 {
-    public class Rules : MonoBehaviour
+    public class GameRules : MonoBehaviour
     {
-        [SerializeField] private RulesDatabase _rulesDatabase;
+        [SerializeField] private GameRulesDatabase _rulesDatabase;
         [SerializeField] private TileColorsDatabase _colorsDatabase;
 
-        public RulesData CurrentRules { get; private set; }
+        public GameRulesData CurrentRules { get; private set; }
 
         private List<int> _mixedColors;
 

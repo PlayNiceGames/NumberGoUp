@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GameRules;
+using GameLoop.Rules;
 using Tiles;
 
 namespace GameTileQueue
@@ -8,7 +8,7 @@ namespace GameTileQueue
     {
         private TileQueueGeneratorSettings _settings;
         private TileFactory _factory;
-        private Rules _rules;
+        private GameRules _rules;
 
         private TileQueueSet _currentSet;
         private TileQueueSet _nextSet;
@@ -18,7 +18,7 @@ namespace GameTileQueue
 
         private Queue<TileData> _generatedTileQueue;
 
-        public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, Rules rules)
+        public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, GameRules rules)
         {
             _settings = settings;
             _factory = factory;
@@ -28,7 +28,7 @@ namespace GameTileQueue
             SetRules(rules);
         }
 
-        public void SetRules(Rules rules)
+        public void SetRules(GameRules rules)
         {
             _rules = rules;
         }

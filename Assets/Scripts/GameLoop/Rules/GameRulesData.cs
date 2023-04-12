@@ -1,9 +1,10 @@
 ﻿using System;
+using GameLoop.Rules.TileRules;
 
-namespace GameRules
+namespace GameLoop.Rules
 {
     [Serializable]
-    public class RulesData
+    public class GameRulesData
     {
         public int RuleApplyStartingScore;
         public int AvailableColorCount;

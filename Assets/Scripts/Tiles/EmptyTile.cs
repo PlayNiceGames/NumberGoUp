@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Tiles
+﻿namespace Tiles
 {
     public class EmptyTile : Tile
     {

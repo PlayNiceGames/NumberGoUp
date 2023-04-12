@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GameRules;
+using GameLoop.Rules;
 using Tiles;
 using UnityEngine;
 using Utils;
@@ -11,7 +11,7 @@ namespace GameTileQueue
         private TileQueueSet _prevSet;
 
         private TileQueueGeneratorSettings _settings;
-        private Rules _rules;
+        private GameRules _rules;
 
         private bool _bigTileGenerated;
         private bool _mixedTileGenerated;
@@ -19,7 +19,7 @@ namespace GameTileQueue
 
         private TileData[] _tiles;
 
-        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, Rules rules)
+        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules)
         {
             _prevSet = prevSet;
             _settings = settings;

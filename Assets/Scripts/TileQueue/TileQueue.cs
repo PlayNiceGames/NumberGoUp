@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GameRules;
+using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace GameTileQueue
         [SerializeField] private Transform _grid;
         [SerializeField] private TileQueueGeneratorSettings _settings;
         [SerializeField] private TileFactory _factory;
-        [SerializeField] private Rules _rules;
+        [SerializeField] private GameRules _rules;
 
         private TileQueueGenerator _generator;
         private Queue<Tile> _tiles;

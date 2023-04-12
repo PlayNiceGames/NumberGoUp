@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameRules
+namespace GameLoop.Rules.TileRules
 {
     [Serializable]
     public class MixedTileRulesData

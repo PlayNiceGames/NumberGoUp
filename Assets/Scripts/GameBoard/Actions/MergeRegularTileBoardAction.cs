@@ -1,15 +1,16 @@
-﻿namespace GameBoard.Actions
+﻿using System;
+
+namespace GameBoard.Actions
 {
     public class MergeRegularTileBoardAction : BoardAction
     {
         public override void Run()
         {
-            
         }
 
         public override void Undo()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
