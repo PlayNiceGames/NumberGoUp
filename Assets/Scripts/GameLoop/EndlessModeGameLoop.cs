@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using GameBoard;
+using GameBoard.Rules;
 using GameRules;
 using GameTileQueue;
 using Tiles;
@@ -13,6 +14,7 @@ namespace GameLoop
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private Rules _rules;
+        [SerializeField] private BoardRules _boardRules;
 
         private void Start()
         {

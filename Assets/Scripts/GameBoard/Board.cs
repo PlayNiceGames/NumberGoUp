@@ -88,6 +88,19 @@ namespace GameBoard
             OnTileClick?.Invoke(tile);
         }
 
+        public Tile GetTile(Vector2Int position)
+        {
+            if (!IsPositionValid(position))
+                return null;
+
+            return _tiles[position.x, position.y];
+        }
+
+        private bool IsPositionValid(Vector2Int position)
+        {
+            return position.x > 0 && position.y > 0 && position.x < Size && position.y < Size;
+        }
+
         private Vector2 GetWorldPosition(Vector2Int boardPosition)
         {
             return _tiles[boardPosition.x, boardPosition.y].transform.position;

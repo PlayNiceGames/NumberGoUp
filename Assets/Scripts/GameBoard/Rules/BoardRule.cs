@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
-using Tiles;
+﻿using Tiles;
 
 namespace GameBoard.Rules
 {
     public abstract class BoardRule
     {
-        public abstract List<BoardTurn> CreateActions(Tile mainTile, List<Tile> tiles);
+        protected Board _board;
+
+        public BoardRule(Board board)
+        {
+            _board = board;
+        }
+
+        public abstract BoardTurn GetTurn(Tile tile);
     }
 }
