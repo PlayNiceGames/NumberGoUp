@@ -40,9 +40,9 @@ namespace GameBoard.Rules
         private BoardTurn GetFirstAvailableTurn(BoardRule rule)
         {
             Vector2Int position = Vector2Int.zero;
-            for (; position.x < _board.Size; position.x++)
+            for (position.x = 0; position.x < _board.Size; position.x++)
             {
-                for (; position.y < _board.Size; position.y++)
+                for (position.y = 0; position.y < _board.Size; position.y++)
                 {
                     Tile tile = _board.GetTile(position);
 

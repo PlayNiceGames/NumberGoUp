@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using GameBoard;
 using GameBoard.Rules;
 using GameLoop.Rules;
@@ -12,32 +14,65 @@ namespace GameLoop
     {
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
-        [SerializeField] private GameRules _rules;
+        [SerializeField] private GameRules _gameRules;
         [SerializeField] private BoardRules _boardRules;
+
+        private UniTaskCompletionSource<Tile> _emptyTileClicked;
 
         private void Start()
         {
-            _rules.Setup();
+            _gameRules.Setup();
             _tileQueue.Setup();
 
             _board.Setup(7);
             _board.OnTileClick += OnTileClicked;
 
+            _boardRules = new BoardRules(_board);
+
             Run().Forget();
         }
 
-        public override UniTask Run()
+        public override async UniTask Run()
         {
-            return UniTask.CompletedTask;
+            while (true)
+            {
+                await ProcessRules();
+                await ProcessUserInput();
+            }
+        }
+
+        private async UniTask ProcessRules()
+        {
+            while (true)
+            {
+                BoardTurn turn = _boardRules.GetFirstAvailableTurn();
+
+                if (turn == null)
+                    return;
+
+                await turn.Run();
+            }
+        }
+
+        private async Task ProcessUserInput()
+        {
+            Tile clickedTile = await WaitTileClicked();
+
+            Tile newTile = _tileQueue.PlaceTileOnBoard(clickedTile.transform.position);
+            _board.PlaceTile(newTile, clickedTile.BoardPosition);
+        }
+
+        private UniTask<Tile> WaitTileClicked()
+        {
+            _emptyTileClicked = new UniTaskCompletionSource<Tile>();
+            return _emptyTileClicked.Task;
         }
 
         private void OnTileClicked(Tile tile)
         {
             if (tile.Type == TileType.Empty)
             {
-                Tile newTile = _tileQueue.PlaceTileOnBoard(tile.transform.position);
-
-                _board.PlaceTile(newTile, tile.BoardPosition);
+                _emptyTileClicked?.TrySetResult(tile);
             }
         }
     }

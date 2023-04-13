@@ -1178,7 +1178,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1808178627}
   - component: {fileID: 1808178628}
-  - component: {fileID: 1808178626}
   m_Layer: 0
   m_Name: GameLoop
   m_TagString: Untagged
@@ -1186,21 +1185,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1808178626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808178625}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec492d69f1e4d6eb1c592ece461e42f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _board: {fileID: 936146793}
-  _tileQueue: {fileID: 466784179}
-  _rules: {fileID: 351035007}
 --- !u!4 &1808178627
 Transform:
   m_ObjectHideFlags: 0
@@ -1230,7 +1214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _board: {fileID: 936146793}
   _tileQueue: {fileID: 466784179}
-  _rules: {fileID: 351035007}
+  _gameRules: {fileID: 351035007}
 --- !u!1 &1866837305
 GameObject:
   m_ObjectHideFlags: 0

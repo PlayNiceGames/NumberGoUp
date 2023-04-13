@@ -98,7 +98,7 @@ namespace GameBoard
 
         private bool IsPositionValid(Vector2Int position)
         {
-            return position.x > 0 && position.y > 0 && position.x < Size && position.y < Size;
+            return position.x >= 0 && position.y >= 0 && position.x < Size && position.y < Size;
         }
 
         private Vector2 GetWorldPosition(Vector2Int boardPosition)

@@ -1,8 +1,10 @@
-﻿namespace GameBoard.Actions
+﻿using Cysharp.Threading.Tasks;
+
+namespace GameBoard.Actions
 {
     public abstract class BoardAction
     {
-        public abstract void Run();
-        public abstract void Undo();
+        public abstract UniTask Run();
+        public abstract UniTask Undo();
     }
 }

@@ -1,14 +1,21 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace GameBoard.Actions
 {
     public class MergeRegularTileBoardAction : BoardAction
     {
-        public override void Run()
+        public override async UniTask Run()
         {
+            Debug.Log("RUN ACTION START");
+
+            await UniTask.Delay(TimeSpan.FromSeconds(3));
+            
+            Debug.Log("RUN ACTION FINISH");
         }
 
-        public override void Undo()
+        public override UniTask Undo()
         {
             throw new NotImplementedException();
         }
