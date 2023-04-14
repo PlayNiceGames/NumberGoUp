@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Tiles;
 using UnityEngine;
 
@@ -94,6 +95,12 @@ namespace GameBoard
                 return null;
 
             return _tiles[position.x, position.y];
+        }
+
+        public IEnumerable<Tile> GetAllTiles()
+        {
+            foreach (Tile tile in _tiles)
+                yield return tile;
         }
 
         private bool IsPositionValid(Vector2Int position)

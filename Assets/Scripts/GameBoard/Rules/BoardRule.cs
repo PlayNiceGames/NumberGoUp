@@ -1,4 +1,4 @@
-﻿using Tiles;
+﻿using GameBoard.Actions;
 
 namespace GameBoard.Rules
 {
@@ -11,6 +11,6 @@ namespace GameBoard.Rules
             _board = board;
         }
 
-        public abstract BoardTurn GetTurn(Tile tile);
+        public abstract BoardAction GetAction();
     }
 }

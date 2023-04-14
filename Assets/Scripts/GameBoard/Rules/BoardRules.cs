@@ -46,7 +46,7 @@ namespace GameBoard.Rules
                 {
                     Tile tile = _board.GetTile(position);
 
-                    BoardTurn turn = rule.GetTurn(tile);
+                    BoardTurn turn = rule.GetAction(tile);
 
                     if (turn != null)
                         return turn;

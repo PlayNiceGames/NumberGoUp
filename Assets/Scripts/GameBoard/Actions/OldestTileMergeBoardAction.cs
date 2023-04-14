@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameBoard.Actions
 {
-    public class MergeRegularTileBoardAction : BoardAction
+    public class OldestTileMergeBoardAction : BoardAction
     {
         public override async UniTask Run()
         {
