@@ -17,7 +17,7 @@ namespace GameTileQueue
         private bool _mixedTileGenerated;
         private Dictionary<int, int> _colorNotAppearingCount;
 
-        private TileData[] _tiles;
+        private ValueTileData[] _tiles;
 
         public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules)
         {
@@ -26,10 +26,10 @@ namespace GameTileQueue
             _rules = rules;
             _colorNotAppearingCount = new Dictionary<int, int>();
 
-            _tiles = new TileData[_settings.TileQueueSize];
+            _tiles = new ValueTileData[_settings.TileQueueSize];
         }
 
-        public TileData[] Generate()
+        public ValueTileData[] Generate()
         {
             Debug.Log($"Generated tile set");
 
@@ -181,7 +181,7 @@ namespace GameTileQueue
             }
         }
 
-        private bool TrySetTileInRandomPlace(TileData tile)
+        private bool TrySetTileInRandomPlace(ValueTileData tile)
         {
             List<int> freeTileIndexes = new List<int>();
 
@@ -200,7 +200,7 @@ namespace GameTileQueue
             return true;
         }
 
-        private bool TrySetTile(int index, TileData tile)
+        private bool TrySetTile(int index, ValueTileData tile)
         {
             if (IsLocked(index))
                 return false;
@@ -247,7 +247,7 @@ namespace GameTileQueue
 
             for (int i = 0; i < _tiles.Length; i++)
             {
-                TileData tile = _tiles[i];
+                ValueTileData tile = _tiles[i];
 
                 if (tile.ContainsColor(color))
                 {

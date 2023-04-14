@@ -1,6 +1,6 @@
 ﻿namespace Tiles
 {
-    public class MixedTileData : TileData
+    public class MixedTileData : ValueTileData
     {
         public override TileType Type => TileType.Mixed;
 

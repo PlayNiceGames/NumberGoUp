@@ -1,6 +1,6 @@
 ﻿namespace Tiles
 {
-    public class RegularTileData : TileData
+    public class RegularTileData : ValueTileData
     {
         public override TileType Type => TileType.Regular;
 

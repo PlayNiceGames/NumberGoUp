@@ -6,8 +6,6 @@ namespace Tiles
     {
         public abstract TileType Type { get; }
 
-        public abstract bool ContainsColor(int color);
-
         public abstract bool Equals(TileData other);
     }
 }
