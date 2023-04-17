@@ -27,6 +27,11 @@ namespace GameLoop.Rules
             return _mixedColors.Take(CurrentRules.AvailableColorCount).ToList();
         }
 
+        public int GetColor(int gameColorIndex)
+        {
+            return _mixedColors[gameColorIndex];
+        }
+        
         public int GetRandomTileColor()
         {
             return _mixedColors[RandomColorIndex()];

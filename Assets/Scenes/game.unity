@@ -670,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583684507}
   - component: {fileID: 583684506}
+  - component: {fileID: 583684508}
   - component: {fileID: 583684505}
   - component: {fileID: 583684504}
   - component: {fileID: 583684503}
@@ -754,7 +755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d346330921cd2e4ead61c9eb9345586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DebugPlaceTiles>k__BackingField: 0
   _board: {fileID: 936146793}
+  _tilePlacer: {fileID: 583684508}
 --- !u!224 &583684507
 RectTransform:
   m_ObjectHideFlags: 0
@@ -776,6 +779,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &583684508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583684502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9649bd3d6a564a43857d56353a8ebc67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 1
+  _gameColorIndex: 0
+  _type: 1
+  _displayedColor: {r: 1, g: 0.42267352, b: 0, a: 1}
+  _factory: {fileID: 687023122}
+  _rules: {fileID: 351035007}
+  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
 --- !u!1 &687023121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1237,8 @@ MonoBehaviour:
   _board: {fileID: 936146793}
   _tileQueue: {fileID: 466784179}
   _gameRules: {fileID: 351035007}
+  IsDebugMode: 0
+  _debugController: {fileID: 583684506}
 --- !u!1 &1866837305
 GameObject:
   m_ObjectHideFlags: 0

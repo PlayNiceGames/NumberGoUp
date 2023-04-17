@@ -16,7 +16,9 @@ namespace GameBoard.Rules
 
         public override BoardTurn GetTurn()
         {
-            foreach (ValueTile tile in GetSortedTiles())
+            IEnumerable<ValueTile> sortedTiles = GetSortedTiles();
+
+            foreach (ValueTile tile in sortedTiles)
             {
                 List<ValueTile> validNearbyTiles = GetNearbyTiles(tile.BoardPosition).Where(IsValid).Cast<ValueTile>().ToList();
 

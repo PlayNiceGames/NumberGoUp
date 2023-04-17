@@ -25,10 +25,9 @@ namespace GameTileQueue
             AddInitialTiles();
         }
 
-        public Tile PlaceTileOnBoard(Vector3 tileWorldPosition)
+        public Tile GetNextTile()
         {
             Tile firstTile = RemoveFirstTile();
-            firstTile.transform.position = new Vector3(tileWorldPosition.x, tileWorldPosition.y, 0); //TODO temp
 
             AddNextTile();
 

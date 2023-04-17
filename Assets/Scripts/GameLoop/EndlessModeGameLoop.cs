@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using GameBoard;
 using GameBoard.Rules;
 using GameBoard.Turns;
+using GameDebug;
 using GameLoop.Rules;
 using GameTileQueue;
 using Tiles;
@@ -16,6 +17,9 @@ namespace GameLoop
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private BoardRules _boardRules;
+
+        [SerializeField] private bool IsDebugMode;
+        [SerializeField] private DebugController _debugController;
 
         private UniTaskCompletionSource<Tile> _emptyTileClicked;
 
@@ -62,8 +66,18 @@ namespace GameLoop
         {
             Tile clickedTile = await WaitTileClicked();
 
-            Tile newTile = _tileQueue.PlaceTileOnBoard(clickedTile.transform.position);
+            Tile newTile = GetNextTile();
+            newTile.transform.position = new Vector3(clickedTile.transform.position.x, clickedTile.transform.position.y, 0); //TODO temp
+
             _board.PlaceTile(newTile, clickedTile.BoardPosition);
+        }
+
+        private Tile GetNextTile()
+        {
+            if (DebugController.IsDebug && _debugController.DebugPlaceTiles)
+                return _debugController.GetTestTile();
+
+            return _tileQueue.GetNextTile();
         }
 
         private UniTask<Tile> WaitTileClicked()
