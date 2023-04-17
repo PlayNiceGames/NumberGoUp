@@ -106,7 +106,15 @@ namespace GameBoard.Rules
 
         private IEnumerable<ValueTile> GetSortedTiles()
         {
-            return _board.GetAllTiles<ValueTile>().OrderByDescending(tile => tile.Age);
+            return _board.GetAllTiles<ValueTile>().OrderByDescending(LargestTileSortingRule).ThenByDescending(tile => tile.Age);
+        }
+
+        private int LargestTileSortingRule(ValueTile tile)
+        {
+            if (tile is RegularTile regularTile)
+                return regularTile.Value;
+
+            return 0;
         }
 
         public IEnumerable<Tile> GetNearbyTiles(Vector2Int position)
