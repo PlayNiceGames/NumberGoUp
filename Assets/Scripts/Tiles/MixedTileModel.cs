@@ -19,6 +19,11 @@ namespace Tiles
             SetValue(value);
             SetColor(color);
         }
+        
+        public void IncrementValue(int increment = 1)
+        {
+            SetValue(Value + increment);
+        }
 
         [Button, DisableInEditorMode]
         public void SetValue(int value)

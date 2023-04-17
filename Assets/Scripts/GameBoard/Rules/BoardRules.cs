@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameBoard.Actions;
+using GameBoard.Turns;
 
 namespace GameBoard.Rules
 {
@@ -23,14 +24,14 @@ namespace GameBoard.Rules
             };
         }
 
-        public BoardAction GetFirstAvailableTurn()
+        public BoardTurn GetFirstAvailableTurn()
         {
             foreach (BoardRule rule in _boardRules)
             {
-                BoardAction action = rule.GetAction();
+                BoardTurn turn = rule.GetTurn();
 
-                if (action != null)
-                    return action;
+                if (turn != null)
+                    return turn;
             }
 
             return null;

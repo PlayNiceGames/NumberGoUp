@@ -1,27 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using GameBoard.Actions;
-using UnityEngine;
 
-namespace GameBoard
+namespace GameBoard.Turns
 {
-    public class BoardTurn
+    public abstract class BoardTurn
     {
-        private List<BoardAction> _actions;
+        public abstract UniTask Run();
+        public abstract UniTask Undo();
 
-        public BoardTurn(List<BoardAction> actions)
+        protected UniTask RunParallelActions(List<BoardAction> actions)
         {
-            _actions = actions;
-        }
-
-        public UniTask Run()
-        {
-            Debug.Log("RUN TURN");
-            
             List<UniTask> runTasks = new List<UniTask>();
 
-            foreach (BoardAction action in _actions)
+            foreach (BoardAction action in actions)
             {
                 runTasks.Add(action.Run());
             }
@@ -29,11 +21,11 @@ namespace GameBoard
             return UniTask.WhenAll(runTasks);
         }
 
-        public UniTask Undo()
+        protected UniTask UndoParallelActions(List<BoardAction> actions)
         {
             List<UniTask> undoTasks = new List<UniTask>();
 
-            foreach (BoardAction action in _actions)
+            foreach (BoardAction action in actions)
             {
                 undoTasks.Add(action.Undo());
             }

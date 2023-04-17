@@ -1,4 +1,4 @@
-﻿using GameBoard.Actions;
+﻿using GameBoard.Turns;
 
 namespace GameBoard.Rules
 {
@@ -11,6 +11,6 @@ namespace GameBoard.Rules
             _board = board;
         }
 
-        public abstract BoardAction GetAction();
+        public abstract BoardTurn GetTurn();
     }
 }

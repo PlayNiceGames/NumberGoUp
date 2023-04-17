@@ -1,4 +1,4 @@
-﻿namespace Tiles
+﻿namespace Tiles.Data
 {
     public class MixedTileData : ValueTileData
     {

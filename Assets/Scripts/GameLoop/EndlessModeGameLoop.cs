@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using GameBoard;
-using GameBoard.Actions;
 using GameBoard.Rules;
+using GameBoard.Turns;
 using GameLoop.Rules;
 using GameTileQueue;
 using Tiles;
@@ -37,8 +36,9 @@ namespace GameLoop
         {
             while (true)
             {
-                await ProcessRules();
                 await ProcessUserInput();
+                await ProcessRules();
+                AgeTiles();
             }
         }
 
@@ -46,12 +46,15 @@ namespace GameLoop
         {
             while (true)
             {
-                BoardAction turn = _boardRules.GetFirstAvailableTurn();
+                BoardTurn turn = _boardRules.GetFirstAvailableTurn();
 
                 if (turn == null)
                     return;
 
                 await turn.Run();
+                await UniTask.WaitForEndOfFrame(this);
+
+                Debug.Log($"RAN turn {turn.GetType()}");
             }
         }
 
@@ -75,6 +78,12 @@ namespace GameLoop
             {
                 _emptyTileClicked?.TrySetResult(tile);
             }
+        }
+
+        private void AgeTiles()
+        {
+            AgeTilesBoardTurn turn = new AgeTilesBoardTurn(_board);
+            turn.Run().Forget();
         }
     }
 }

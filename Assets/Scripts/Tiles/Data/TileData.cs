@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tiles
+namespace Tiles.Data
 {
     public abstract class TileData : IEquatable<TileData>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameLoop.Rules;
-using Tiles;
+using Tiles.Data;
 using UnityEngine;
 using Utils;
 
@@ -31,7 +31,7 @@ namespace GameTileQueue
 
         public ValueTileData[] Generate()
         {
-            Debug.Log($"Generated tile set");
+            UnityEngine.Debug.Log($"Generated tile set");
 
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
@@ -66,9 +66,9 @@ namespace GameTileQueue
                     RegularTileData guaranteedColorTile = new RegularTileData(_settings.GuaranteedColorTileValue, colorCount.Key);
 
                     if (TrySetTile(j, guaranteedColorTile))
-                        Debug.Log($"Placed guaranteed color tile: {j}");
+                        UnityEngine.Debug.Log($"Placed guaranteed color tile: {j}");
                     else
-                        Debug.LogWarning($"Unable to place guaranteed color tile: {j}");
+                        UnityEngine.Debug.LogWarning($"Unable to place guaranteed color tile: {j}");
 
                     return;
                 }
@@ -90,12 +90,12 @@ namespace GameTileQueue
 
                 if (TrySetTileInRandomPlace(regularTile))
                 {
-                    Debug.Log("Placed big tile");
+                    UnityEngine.Debug.Log("Placed big tile");
                     _bigTileGenerated = true;
                 }
                 else
                 {
-                    Debug.LogWarning($"Unable to place big tile");
+                    UnityEngine.Debug.LogWarning($"Unable to place big tile");
                 }
             }
         }
@@ -115,12 +115,12 @@ namespace GameTileQueue
 
                 if (TrySetTileInRandomPlace(mixedTile))
                 {
-                    Debug.Log("Placed mixed tile");
+                    UnityEngine.Debug.Log("Placed mixed tile");
                     _mixedTileGenerated = true;
                 }
                 else
                 {
-                    Debug.LogWarning($"Unable to place mixed tile");
+                    UnityEngine.Debug.LogWarning($"Unable to place mixed tile");
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace GameTileQueue
                     {
                         if (_rules.CurrentRules.AvailableColorCount <= 1)
                         {
-                            Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
+                            UnityEngine.Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
 
                             return;
                         }
@@ -155,11 +155,11 @@ namespace GameTileQueue
                         int randomColor = _rules.GetRandomTileColorExcept(regularTile.Color);
                         _tiles[repeatingFixTileIndex] = new RegularTileData(_settings.RepeatingFixTileValue, randomColor);
 
-                        Debug.Log($"Fixed repeating tile at: {repeatingFixTileIndex}");
+                        UnityEngine.Debug.Log($"Fixed repeating tile at: {repeatingFixTileIndex}");
                     }
                     else
                     {
-                        Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
+                        UnityEngine.Debug.Log($"Unable to fix repeating tile at: {repeatingFixTileIndex}");
                     }
 
                     return;

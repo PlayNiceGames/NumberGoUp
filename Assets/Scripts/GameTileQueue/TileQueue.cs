@@ -2,6 +2,7 @@
 using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
+using Tiles.Data;
 using UnityEngine;
 
 namespace GameTileQueue

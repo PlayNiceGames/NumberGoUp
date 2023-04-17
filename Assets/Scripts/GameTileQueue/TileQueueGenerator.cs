@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameLoop.Rules;
 using Tiles;
+using Tiles.Data;
 
 namespace GameTileQueue
 {

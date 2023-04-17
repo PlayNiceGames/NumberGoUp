@@ -1,4 +1,4 @@
-﻿namespace Tiles
+﻿namespace Tiles.Data
 {
     public abstract class ValueTileData : TileData
     {

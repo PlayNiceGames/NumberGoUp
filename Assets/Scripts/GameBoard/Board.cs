@@ -103,6 +103,13 @@ namespace GameBoard
                 yield return tile;
         }
 
+        public IEnumerable<T> GetAllTiles<T>() where T : Tile
+        {
+            foreach (Tile tile in _tiles)
+                if (tile is T tileOfType)
+                    yield return tileOfType;
+        }
+
         private bool IsPositionValid(Vector2Int position)
         {
             return position.x >= 0 && position.y >= 0 && position.x < Size && position.y < Size;

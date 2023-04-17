@@ -7,7 +7,6 @@ namespace Tiles
     public abstract class Tile : MonoBehaviour, IDisposable
     {
         public Vector2Int BoardPosition;
-        public int Age;
 
         public event Action<Tile> OnClick;
 
