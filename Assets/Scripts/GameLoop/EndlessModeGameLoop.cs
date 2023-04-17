@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using GameBoard;
+using GameBoard.Actions;
 using GameBoard.Rules;
 using GameLoop.Rules;
 using GameTileQueue;
@@ -45,7 +46,7 @@ namespace GameLoop
         {
             while (true)
             {
-                BoardTurn turn = _boardRules.GetFirstAvailableTurn();
+                BoardAction turn = _boardRules.GetFirstAvailableTurn();
 
                 if (turn == null)
                     return;

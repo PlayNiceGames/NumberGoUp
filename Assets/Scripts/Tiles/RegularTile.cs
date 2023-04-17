@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Tiles
 {
-    public class RegularTile : Tile
+    public class RegularTile : ValueTile
     {
         public override TileType Type => TileType.Regular;
 
@@ -44,6 +44,11 @@ namespace Tiles
             Color color = _colorsDatabase.GetColor(colorIndex);
 
             _background.color = color;
+        }
+        
+        public override bool HasColor(int color)
+        {
+            return Color == color;
         }
     }
 }

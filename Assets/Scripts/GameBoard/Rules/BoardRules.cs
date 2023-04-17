@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Tiles;
-using UnityEngine;
+using GameBoard.Actions;
 
 namespace GameBoard.Rules
 {
@@ -20,37 +19,18 @@ namespace GameBoard.Rules
         {
             _boardRules = new List<BoardRule>
             {
-                new TestBoardRule(_board)
+                new MergeBoardRule(_board)
             };
         }
 
-        public BoardTurn GetFirstAvailableTurn()
+        public BoardAction GetFirstAvailableTurn()
         {
             foreach (BoardRule rule in _boardRules)
             {
-                BoardTurn turn = GetFirstAvailableTurn(rule);
+                BoardAction action = rule.GetAction();
 
-                if (turn != null)
-                    return turn;
-            }
-
-            return null;
-        }
-
-        private BoardTurn GetFirstAvailableTurn(BoardRule rule)
-        {
-            Vector2Int position = Vector2Int.zero;
-            for (position.x = 0; position.x < _board.Size; position.x++)
-            {
-                for (position.y = 0; position.y < _board.Size; position.y++)
-                {
-                    Tile tile = _board.GetTile(position);
-
-                    BoardTurn turn = rule.GetAction(tile);
-
-                    if (turn != null)
-                        return turn;
-                }
+                if (action != null)
+                    return action;
             }
 
             return null;
