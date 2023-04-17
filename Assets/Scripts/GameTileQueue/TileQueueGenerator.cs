@@ -17,14 +17,14 @@ namespace GameTileQueue
         private int _bigTileNotGeneratedCount;
         private int _mixedTileNotGeneratedCount;
 
-        private Queue<TileData> _generatedTileQueue;
+        private Queue<ValueTileData> _generatedTileQueue;
 
         public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, GameRules rules)
         {
             _settings = settings;
             _factory = factory;
 
-            _generatedTileQueue = new Queue<TileData>();
+            _generatedTileQueue = new Queue<ValueTileData>();
 
             SetRules(rules);
         }
@@ -48,8 +48,8 @@ namespace GameTileQueue
             _currentSet = _nextSet;
             _nextSet = new TileQueueSet(_currentSet, _settings, _rules);
 
-            TileData[] nextTileSet = _nextSet.Generate();
-            foreach (TileData tileData in nextTileSet)
+            ValueTileData[] nextTileSet = _nextSet.Generate();
+            foreach (ValueTileData tileData in nextTileSet)
             {
                 _generatedTileQueue.Enqueue(tileData);
             }
