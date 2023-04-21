@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Tiles;
+using Tiles.Containers;
 using UnityEngine;
 
 namespace GameBoard.Turns.Merge
 {
     public class MergeMixedTileBoardTurn : MergeBoardTurn
     {
-        private MixedTile _tile;
-        private MixedTileModel _tilePart;
-        private ValueTile[] _mergeTiles;
+        private IValueTileContainer _tileContainer;
+        private IValueTileContainer[] _mergeTileContainers;
         private Board _board;
 
-        public MergeMixedTileBoardTurn(MixedTile tile, MixedTileModel tilePart, ValueTile[] mergeTiles, Board board)
+        public MergeMixedTileBoardTurn(IValueTileContainer tileContainer, IValueTileContainer[] mergeTileContainers, Board board)
         {
-            _tile = tile;
-            _tilePart = tilePart;
-            _mergeTiles = mergeTiles;
+            _tileContainer = tileContainer;
+            _mergeTileContainers = mergeTileContainers;
             _board = board;
         }
 
@@ -25,12 +24,12 @@ namespace GameBoard.Turns.Merge
         {
             Debug.Log($"{GetType()} turn START");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(2));
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
 
-            IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTiles, _board);
+            IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
             await UniTask.WhenAll(mergeTasks);
 
-            _tilePart.IncrementValue();
+            _tileContainer.IncrementValue();
 
             Debug.Log($"{GetType()} turn FINISH");
         }

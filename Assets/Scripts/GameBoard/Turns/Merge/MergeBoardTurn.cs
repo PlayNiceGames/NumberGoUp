@@ -2,24 +2,25 @@
 using Cysharp.Threading.Tasks;
 using GameBoard.Actions;
 using Tiles;
+using Tiles.Containers;
 
 namespace GameBoard.Turns.Merge
 {
     public abstract class MergeBoardTurn : BoardTurn
     {
-        protected IEnumerable<UniTask> RunMergeTasks(ValueTile[] mergeTiles, Board board)
+        protected IEnumerable<UniTask> RunMergeTasks(IValueTileContainer[] mergeTiles, Board board)
         {
-            foreach (ValueTile mergedTile in mergeTiles)
+            foreach (IValueTileContainer mergedTile in mergeTiles)
             {
-                if (mergedTile is RegularTile mergeRegularTile)
+                if (mergedTile.Tile is RegularTile mergeRegularTile)
                 {
                     MergeRegularTileBoardAction action = new MergeRegularTileBoardAction(mergeRegularTile, board);
 
                     yield return action.Run();
                 }
-                else if (mergedTile is MixedTile mergeMixedTile)
+                else if (mergedTile is MixedTileContainer mergeMixedTileContainer)
                 {
-                    MergeMixedTileBoardAction action = new MergeMixedTileBoardAction(mergeMixedTile, board);
+                    MergeMixedTileBoardAction action = new MergeMixedTileBoardAction(mergeMixedTileContainer, board);
 
                     yield return action.Run();
                 }

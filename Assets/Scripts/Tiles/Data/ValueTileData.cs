@@ -2,8 +2,8 @@
 {
     public abstract class ValueTileData : TileData
     {
-        public override TileType Type { get; }
+        public int Age;
 
-        public abstract bool ContainsColor(int color);
+        public abstract bool HasColor(int color);
     }
 }

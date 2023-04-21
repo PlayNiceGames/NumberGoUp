@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Tiles;
+using Tiles.Containers;
 using UnityEngine;
 
 namespace GameBoard.Turns.Merge
@@ -9,13 +10,13 @@ namespace GameBoard.Turns.Merge
     public class MergeRegularTileBoardTurn : MergeBoardTurn
     {
         private RegularTile _tile;
-        private ValueTile[] _mergeTiles;
+        private IValueTileContainer[] _mergeTileContainers;
         private Board _board;
 
-        public MergeRegularTileBoardTurn(RegularTile tile, ValueTile[] mergeTiles, Board board)
+        public MergeRegularTileBoardTurn(RegularTile tile, IValueTileContainer[] mergeTileContainers, Board board)
         {
             _tile = tile;
-            _mergeTiles = mergeTiles;
+            _mergeTileContainers = mergeTileContainers;
             _board = board;
         }
 
@@ -23,9 +24,9 @@ namespace GameBoard.Turns.Merge
         {
             Debug.Log($"{GetType()} turn START");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(2));
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
 
-            IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTiles, _board);
+            IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
             await UniTask.WhenAll(mergeTasks);
 
             _tile.IncrementValue();

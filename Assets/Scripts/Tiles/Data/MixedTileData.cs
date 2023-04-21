@@ -19,7 +19,7 @@
             BottomColor = bottomColor;
         }
 
-        public override bool ContainsColor(int color)
+        public override bool HasColor(int color)
         {
             return TopColor == color || BottomColor == color;
         }

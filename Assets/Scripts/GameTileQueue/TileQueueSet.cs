@@ -247,7 +247,7 @@ namespace GameTileQueue
             {
                 ValueTileData tile = _tiles[i];
 
-                if (tile.ContainsColor(color))
+                if (tile.HasColor(color))
                 {
                     lastAppearedIndex = i;
                     isColorFound = true;

@@ -46,7 +46,7 @@ namespace Tiles
 
             _background.color = color;
         }
-        
+
         public override bool HasColor(int color)
         {
             return Color == color;

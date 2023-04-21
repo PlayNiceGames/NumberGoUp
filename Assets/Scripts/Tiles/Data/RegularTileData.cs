@@ -13,7 +13,7 @@
             Color = color;
         }
 
-        public override bool ContainsColor(int color)
+        public override bool HasColor(int color)
         {
             return Color == color;
         }

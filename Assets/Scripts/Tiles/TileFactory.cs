@@ -12,7 +12,7 @@ namespace Tiles
 
         public Tile InstantiateTile(TileData data)
         {
-            if (data is EmptyTileData emptyTileData)
+            if (data is EmptyTileData)
                 return InstantiateTile<EmptyTile>();
 
             if (data is RegularTileData regularTileData)

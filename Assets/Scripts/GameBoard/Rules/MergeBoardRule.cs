@@ -3,6 +3,7 @@ using System.Linq;
 using GameBoard.Turns;
 using GameBoard.Turns.Merge;
 using Tiles;
+using Tiles.Containers;
 using UnityEngine;
 using Utils;
 
@@ -16,105 +17,94 @@ namespace GameBoard.Rules
 
         public override BoardTurn GetTurn()
         {
-            IEnumerable<ValueTile> sortedTiles = GetSortedTiles();
+            IEnumerable<IValueTileContainer> sortedTiles = GetSortedTiles();
 
-            foreach (ValueTile tile in sortedTiles)
+            foreach (IValueTileContainer container in sortedTiles)
             {
-                List<ValueTile> validNearbyTiles = GetNearbyTiles(tile.BoardPosition).Where(IsValid).Cast<ValueTile>().ToList();
+                List<ValueTile> validNearbyTiles = GetNearbyTiles(container.Tile.BoardPosition).Where(IsValid).Cast<ValueTile>().ToList();
+                IValueTileContainer[] tiles = GetNearbyMergeableTiles(container, validNearbyTiles);
 
-                if (tile is RegularTile regularTile)
+                if (tiles == null)
+                    continue;
+
+                if (container is RegularTileContainer regularTileContainer)
                 {
-                    MergeRegularTileBoardTurn regularTileTurn = GetRegularTileTurn(regularTile, validNearbyTiles);
-
-                    if (regularTileTurn != null)
-                        return regularTileTurn;
+                    MergeRegularTileBoardTurn regularTileTurn = new MergeRegularTileBoardTurn(regularTileContainer.RegularTile, tiles, _board);
+                    return regularTileTurn;
                 }
-                else if (tile is MixedTile mixedTile)
-                {
-                    MergeMixedTileBoardTurn mixedTileTurn = GetMixedTileTurn(mixedTile, validNearbyTiles);
 
-                    if (mixedTileTurn != null)
-                        return mixedTileTurn;
+                if (container is MixedTileContainer mixedTileContainer)
+                {
+                    MergeMixedTileBoardTurn mixedTileTurn = new MergeMixedTileBoardTurn(mixedTileContainer, tiles, _board);
+                    return mixedTileTurn;
                 }
             }
 
             return null;
         }
 
-        private MergeRegularTileBoardTurn GetRegularTileTurn(RegularTile tile, List<ValueTile> validNearbyTiles)
+        private IValueTileContainer[] GetNearbyMergeableTiles(IValueTileContainer container, List<ValueTile> validNearbyTiles)
         {
-            ValueTile[] tiles = GetNearbyMergeableTiles(tile.Value, tile.Color, validNearbyTiles);
+            IEnumerable<IValueTileContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => IValueTileContainer.GetMergeContainer(tile, container));
+            IEnumerable<IValueTileContainer> mergeableTiles = validNearbyTileContainers.Where(tile => tile.IsMergeable(container));
+            IEnumerable<IValueTileContainer[]> combinations = mergeableTiles.Combinations();
 
-            return tiles != null ? new MergeRegularTileBoardTurn(tile, tiles, _board) : null;
-        }
-
-        private MergeMixedTileBoardTurn GetMixedTileTurn(MixedTile tile, List<ValueTile> validNearbyTiles)
-        {
-            MergeMixedTileBoardTurn topTurn = GetMixedTilePartTurn(tile, tile.Top, validNearbyTiles);
-
-            if (topTurn != null)
-                return topTurn;
-
-            MergeMixedTileBoardTurn bottomTurn = GetMixedTilePartTurn(tile, tile.Bottom, validNearbyTiles);
-            return bottomTurn;
-        }
-
-        private MergeMixedTileBoardTurn GetMixedTilePartTurn(MixedTile tile, MixedTileModel part, List<ValueTile> validNearbyTiles)
-        {
-            ValueTile[] topTiles = GetNearbyMergeableTiles(part.Value, part.Color, validNearbyTiles);
-
-            return topTiles != null ? new MergeMixedTileBoardTurn(tile, part, topTiles, _board) : null;
-        }
-
-        private ValueTile[] GetNearbyMergeableTiles(int value, int color, IEnumerable<ValueTile> validNearbyTiles) //TODO maybe make separate rules for Regular and Mixed tiles
-        {
-            validNearbyTiles = validNearbyTiles.Where(nearbyTile => nearbyTile.HasColor(color));
-
-            IEnumerable<ValueTile[]> combinations = validNearbyTiles.Combinations();
-
-            foreach (ValueTile[] combination in combinations)
+            foreach (IValueTileContainer[] combination in combinations)
             {
-                int sum = GetTilesSumByColor(combination, color);
+                if (container is MixedTileContainer mixedTileContainer)
+                {
+                    if (mixedTileContainer.PartType == MixedTilePartType.Both)
+                    {
+                        IEnumerable<MixedTileContainer> mixedTileContainers = combination.Select(combinationContainer => combinationContainer as MixedTileContainer).ToList();
+                        int topSum = mixedTileContainers.Sum(combinationContainer => combinationContainer.GetValue(MixedTilePartType.Top));
+                        int bottomSum = mixedTileContainers.Sum(combinationContainer => combinationContainer.GetValue(MixedTilePartType.Bottom));
 
-                if (sum == value)
+                        if (topSum == mixedTileContainer.GetValue(MixedTilePartType.Top) && bottomSum == mixedTileContainer.GetValue(MixedTilePartType.Bottom))
+                            return combination;
+                    }
+                }
+
+                int sum = combination.Sum(combinationContainer => combinationContainer.GetValue());
+                if (sum == container.GetValue())
                     return combination;
             }
 
             return null;
         }
 
-        private int GetTilesSumByColor(ValueTile[] tiles, int color)
+        private IEnumerable<IValueTileContainer> GetSortedTiles()
         {
-            int sum = 0;
+            IEnumerable<IValueTileContainer> tiles = GetAllMergeableTileParts();
+            return tiles.OrderByDescending(LargestTileSortingRule).ThenByDescending(AgeTileSortingRule);
+        }
 
-            foreach (ValueTile tile in tiles)
+        private IEnumerable<IValueTileContainer> GetAllMergeableTileParts()
+        {
+            IEnumerable<ValueTile> allMergeableTiles = _board.GetAllTiles<ValueTile>();
+
+            foreach (ValueTile tile in allMergeableTiles)
             {
-                if (tile is RegularTile regularTile)
+                if (tile is MixedTile mixedTile)
                 {
-                    if (regularTile.Color == color)
-                        sum += regularTile.Value;
+                    yield return new MixedTileContainer(mixedTile, MixedTilePartType.Both);
+                    yield return new MixedTileContainer(mixedTile, MixedTilePartType.Top);
+                    yield return new MixedTileContainer(mixedTile, MixedTilePartType.Bottom);
                 }
-                else if (tile is MixedTile mixedTile)
+                else if (tile is RegularTile regularTile)
                 {
-                    if (mixedTile.TryGetValue(color, out int value))
-                        sum += value;
+                    yield return new RegularTileContainer(regularTile);
                 }
             }
-
-            return sum;
         }
 
-        private IEnumerable<ValueTile> GetSortedTiles()
+        private int LargestTileSortingRule(IValueTileContainer container)
         {
-            return _board.GetAllTiles<ValueTile>().OrderByDescending(LargestTileSortingRule).ThenByDescending(tile => tile.Age);
+            return container.GetValue();
         }
 
-        private int LargestTileSortingRule(ValueTile tile)
+        private int AgeTileSortingRule(IValueTileContainer container)
         {
-            if (tile is RegularTile regularTile)
-                return regularTile.Value;
-
-            return 0;
+            return container.Tile.Age;
         }
 
         public IEnumerable<Tile> GetNearbyTiles(Vector2Int position)

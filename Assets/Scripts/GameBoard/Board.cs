@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tiles;
+using Tiles.Data;
 using UnityEngine;
 
 namespace GameBoard
@@ -46,7 +47,15 @@ namespace GameBoard
             _tiles = null;
         }
 
-        public void PlaceEmptyTile(Vector2Int position)
+        public Tile CreateTile(TileData data, Vector2Int position)
+        {
+            Tile tile = _factory.InstantiateTile(data);
+            PlaceTile(tile, position);
+
+            return tile;
+        }
+
+        public void CreateEmptyTile(Vector2Int position)
         {
             Tile tile = _tiles[position.x, position.y];
             if (tile.Type == TileType.Empty)

@@ -8,7 +8,6 @@ namespace GameBoard.Actions
     {
         private RegularTile _tile;
         private Board _board;
-        private ValueTile[] _mergeTiles;
 
         public MergeRegularTileBoardAction(RegularTile tile, Board board)
         {
@@ -18,7 +17,7 @@ namespace GameBoard.Actions
 
         public override UniTask Run()
         {
-            _board.PlaceEmptyTile(_tile.BoardPosition); //TODO free tile from board and animate it
+            _board.CreateEmptyTile(_tile.BoardPosition); //TODO free tile from board and animate it
             
             return UniTask.CompletedTask;
         }
