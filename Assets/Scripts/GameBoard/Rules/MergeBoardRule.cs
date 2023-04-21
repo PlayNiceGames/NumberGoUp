@@ -4,7 +4,6 @@ using GameBoard.Turns;
 using GameBoard.Turns.Merge;
 using Tiles;
 using Tiles.Containers;
-using UnityEngine;
 using Utils;
 
 namespace GameBoard.Rules
@@ -21,23 +20,14 @@ namespace GameBoard.Rules
 
             foreach (IValueTileContainer container in sortedTiles)
             {
-                List<ValueTile> validNearbyTiles = GetNearbyTiles(container.Tile.BoardPosition).Where(IsValid).Cast<ValueTile>().ToList();
+                List<ValueTile> validNearbyTiles = _board.GetNearbyTiles(container.Tile.BoardPosition).OfType<ValueTile>().ToList();
                 IValueTileContainer[] tiles = GetNearbyMergeableTiles(container, validNearbyTiles);
 
                 if (tiles == null)
                     continue;
 
-                if (container is RegularTileContainer regularTileContainer)
-                {
-                    MergeRegularTileBoardTurn regularTileTurn = new MergeRegularTileBoardTurn(regularTileContainer.RegularTile, tiles, _board);
-                    return regularTileTurn;
-                }
-
-                if (container is MixedTileContainer mixedTileContainer)
-                {
-                    MergeMixedTileBoardTurn mixedTileTurn = new MergeMixedTileBoardTurn(mixedTileContainer, tiles, _board);
-                    return mixedTileTurn;
-                }
+                SimpleMergeBoardTurn turn = new SimpleMergeBoardTurn(container, tiles, _board);
+                return turn;
             }
 
             return null;
@@ -47,7 +37,7 @@ namespace GameBoard.Rules
         {
             IEnumerable<IValueTileContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => IValueTileContainer.GetMergeContainer(tile, container));
             IEnumerable<IValueTileContainer> mergeableTiles = validNearbyTileContainers.Where(tile => tile.IsMergeable(container));
-            IEnumerable<IValueTileContainer[]> combinations = mergeableTiles.Combinations();
+            IEnumerable<IValueTileContainer[]> combinations = mergeableTiles.Combinations(); 
 
             foreach (IValueTileContainer[] combination in combinations)
             {
@@ -105,19 +95,6 @@ namespace GameBoard.Rules
         private int AgeTileSortingRule(IValueTileContainer container)
         {
             return container.Tile.Age;
-        }
-
-        public IEnumerable<Tile> GetNearbyTiles(Vector2Int position)
-        {
-            yield return _board.GetTile(new Vector2Int(position.x - 1, position.y));
-            yield return _board.GetTile(new Vector2Int(position.x + 1, position.y));
-            yield return _board.GetTile(new Vector2Int(position.x, position.y - 1));
-            yield return _board.GetTile(new Vector2Int(position.x, position.y + 1));
-        }
-
-        private bool IsValid(Tile tile)
-        {
-            return tile != null && tile is ValueTile;
         }
     }
 }

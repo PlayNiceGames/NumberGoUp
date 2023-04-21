@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
-using Tiles;
 using Tiles.Containers;
 using UnityEngine;
 
 namespace GameBoard.Turns.Merge
 {
-    public class MergeMixedTileBoardTurn : MergeBoardTurn
+    public class CenterMergeBoardTurn : MergeBoardTurn
     {
         private IValueTileContainer _tileContainer;
-        private IValueTileContainer[] _mergeTileContainers;
+        private IEnumerable<IValueTileContainer> _mergeTileContainers;
         private Board _board;
 
-        public MergeMixedTileBoardTurn(IValueTileContainer tileContainer, IValueTileContainer[] mergeTileContainers, Board board)
+        public CenterMergeBoardTurn(IValueTileContainer tileContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board)
         {
             _tileContainer = tileContainer;
             _mergeTileContainers = mergeTileContainers;
@@ -29,7 +29,8 @@ namespace GameBoard.Turns.Merge
             IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
             await UniTask.WhenAll(mergeTasks);
 
-            _tileContainer.IncrementValue();
+            int count = _mergeTileContainers.Count();
+            _tileContainer.IncrementValue(count);
 
             Debug.Log($"{GetType()} turn FINISH");
         }

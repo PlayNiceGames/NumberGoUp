@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Tiles
 {
-    public abstract class Tile : MonoBehaviour, IDisposable
+    public abstract class Tile : MonoBehaviour, IDisposable, IEquatable<Tile>
     {
         public Vector2Int BoardPosition;
 
@@ -34,5 +34,7 @@ namespace Tiles
         {
             Destroy(gameObject);
         }
+
+        public abstract bool Equals(Tile other);
     }
 }

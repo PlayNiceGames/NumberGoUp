@@ -51,5 +51,13 @@ namespace Tiles
         {
             return Color == color;
         }
+
+        public override bool Equals(Tile other)
+        {
+            if (other is RegularTile regularTile)
+                return regularTile.Color == Color && regularTile.Value == Value;
+            
+            return false;
+        }
     }
 }

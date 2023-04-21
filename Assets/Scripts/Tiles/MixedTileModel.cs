@@ -1,11 +1,12 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Tiles
 {
-    public class MixedTileModel : MonoBehaviour //TODO DRY with RegularTile. Maybe create abstract tile model?
+    public class MixedTileModel : MonoBehaviour, IEquatable<MixedTileModel> //TODO DRY with RegularTile. Maybe create abstract tile model?
     {
         public int Value { get; private set; }
         public int Color { get; private set; }
@@ -19,7 +20,7 @@ namespace Tiles
             SetValue(value);
             SetColor(color);
         }
-        
+
         public void IncrementValue(int increment = 1)
         {
             SetValue(Value + increment);
@@ -41,6 +42,11 @@ namespace Tiles
             Color color = _colorsDatabase.GetColor(colorIndex);
 
             _background.color = color;
+        }
+
+        public bool Equals(MixedTileModel other)
+        {
+            return other != null && other.Value == Value && other.Color == Color;
         }
     }
 }

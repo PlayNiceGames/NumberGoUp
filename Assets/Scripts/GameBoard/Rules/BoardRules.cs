@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using GameBoard.Actions;
 using GameBoard.Turns;
 
 namespace GameBoard.Rules
@@ -20,6 +19,7 @@ namespace GameBoard.Rules
         {
             _boardRules = new List<BoardRule>
             {
+                new CenterMergeBoardRule(_board),
                 new MergeBoardRule(_board)
             };
         }

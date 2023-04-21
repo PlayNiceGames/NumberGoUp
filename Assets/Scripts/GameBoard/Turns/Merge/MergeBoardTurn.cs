@@ -8,7 +8,7 @@ namespace GameBoard.Turns.Merge
 {
     public abstract class MergeBoardTurn : BoardTurn
     {
-        protected IEnumerable<UniTask> RunMergeTasks(IValueTileContainer[] mergeTiles, Board board)
+        protected IEnumerable<UniTask> RunMergeTasks(IEnumerable<IValueTileContainer> mergeTiles, Board board)
         {
             foreach (IValueTileContainer mergedTile in mergeTiles)
             {

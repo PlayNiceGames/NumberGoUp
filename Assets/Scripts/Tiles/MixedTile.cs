@@ -1,5 +1,4 @@
-﻿using System;
-using Tiles.Data;
+﻿using Tiles.Data;
 using UnityEngine;
 
 namespace Tiles
@@ -22,22 +21,12 @@ namespace Tiles
             return Top.Color == color || Bottom.Color == color;
         }
 
-        /*public bool TryGetPart(int color, out MixedTileModel part)
+        public override bool Equals(Tile other)
         {
-            if (Top.Color == color)
-            {
-                part = Top;
-                return true;
-            }
+            if (other is MixedTile mixedTile)
+                return mixedTile.Top.Equals(Top) && mixedTile.Bottom.Equals(Bottom);
 
-            if (Bottom.Color == color)
-            {
-                part = Bottom;
-                return true;
-            }
-
-            part = null;
             return false;
-        }*/
+        }
     }
 }

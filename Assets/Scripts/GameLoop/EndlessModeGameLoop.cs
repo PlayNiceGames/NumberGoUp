@@ -16,12 +16,11 @@ namespace GameLoop
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
-        [SerializeField] private BoardRules _boardRules;
 
-        [SerializeField] private bool IsDebugMode;
         [SerializeField] private DebugController _debugController;
 
         private UniTaskCompletionSource<Tile> _emptyTileClicked;
+        private BoardRules _boardRules;
 
         private void Start()
         {
