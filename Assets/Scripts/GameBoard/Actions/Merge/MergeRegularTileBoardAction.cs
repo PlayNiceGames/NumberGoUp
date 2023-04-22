@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Tiles;
 
-namespace GameBoard.Actions
+namespace GameBoard.Actions.Merge
 {
     public class MergeRegularTileBoardAction : BoardAction
     {

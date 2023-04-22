@@ -85,5 +85,30 @@ namespace Tiles.Containers
 
             return GetColor() == other.GetColor();
         }
+
+        public MixedTileContainer GetOtherPart()
+        {
+            MixedTilePartType newPartType;
+
+            switch (PartType)
+            {
+                case MixedTilePartType.Top:
+                    newPartType = MixedTilePartType.Bottom;
+                    break;
+                case MixedTilePartType.Bottom:
+                    newPartType = MixedTilePartType.Top;
+                    break;
+                case MixedTilePartType.Both:
+                    newPartType = MixedTilePartType.None;
+                    break;
+                case MixedTilePartType.None:
+                    newPartType = MixedTilePartType.Both;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return new MixedTileContainer(MixedTile, newPartType);
+        }
     }
 }

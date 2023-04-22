@@ -133,13 +133,21 @@ namespace GameBoard
         {
             _grid.UpdateGrid(_tiles);
         }
-        
+
         public IEnumerable<Tile> GetNearbyTiles(Vector2Int position)
         {
             yield return GetTile(new Vector2Int(position.x - 1, position.y));
             yield return GetTile(new Vector2Int(position.x + 1, position.y));
             yield return GetTile(new Vector2Int(position.x, position.y - 1));
             yield return GetTile(new Vector2Int(position.x, position.y + 1));
+        }
+
+        public IEnumerable<Tile> GetDiagonalTiles(Vector2Int position)
+        {
+            yield return GetTile(new Vector2Int(position.x - 1, position.y - 1));
+            yield return GetTile(new Vector2Int(position.x - 1, position.y + 1));
+            yield return GetTile(new Vector2Int(position.x + 1, position.y - 1));
+            yield return GetTile(new Vector2Int(position.x + 1, position.y + 1));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace GameBoard.Turns.Merge
 
         public override async UniTask Run()
         {
-            Debug.Log($"{GetType()} turn START");
+            Debug.Log($"{GetType()} turn");
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
 
@@ -31,8 +31,6 @@ namespace GameBoard.Turns.Merge
 
             int count = _mergeTileContainers.Count();
             _tileContainer.IncrementValue(count);
-
-            Debug.Log($"{GetType()} turn FINISH");
         }
 
         public override UniTask Undo()

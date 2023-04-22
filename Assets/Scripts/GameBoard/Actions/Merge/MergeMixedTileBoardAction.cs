@@ -4,7 +4,7 @@ using Tiles;
 using Tiles.Containers;
 using Tiles.Data;
 
-namespace GameBoard.Actions
+namespace GameBoard.Actions.Merge
 {
     public class MergeMixedTileBoardAction : BoardAction
     {

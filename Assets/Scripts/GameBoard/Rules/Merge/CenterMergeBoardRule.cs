@@ -5,9 +5,9 @@ using GameBoard.Turns.Merge;
 using Tiles;
 using Tiles.Containers;
 
-namespace GameBoard.Rules
+namespace GameBoard.Rules.Merge
 {
-    public class CenterMergeBoardRule : BoardRule
+    public class CenterMergeBoardRule : MergeBoardRule
     {
         public CenterMergeBoardRule(Board board) : base(board)
         {

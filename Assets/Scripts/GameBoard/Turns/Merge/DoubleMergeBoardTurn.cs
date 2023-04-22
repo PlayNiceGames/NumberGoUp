@@ -6,15 +6,17 @@ using UnityEngine;
 
 namespace GameBoard.Turns.Merge
 {
-    public class SimpleMergeBoardTurn : MergeBoardTurn
+    public class DoubleMergeBoardTurn : MergeBoardTurn
     {
-        private IValueTileContainer _tileContainer;
+        private IValueTileContainer _firstContainer;
+        private IValueTileContainer _secondContainer;
         private IEnumerable<IValueTileContainer> _mergeTileContainers;
         private Board _board;
 
-        public SimpleMergeBoardTurn(IValueTileContainer tileContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board)
+        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board)
         {
-            _tileContainer = tileContainer;
+            _firstContainer = firstContainer;
+            _secondContainer = secondContainer;
             _mergeTileContainers = mergeTileContainers;
             _board = board;
         }
@@ -28,7 +30,8 @@ namespace GameBoard.Turns.Merge
             IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
             await UniTask.WhenAll(mergeTasks);
 
-            _tileContainer.IncrementValue();
+            _firstContainer.IncrementValue();
+            _secondContainer.IncrementValue();
         }
 
         public override UniTask Undo()
