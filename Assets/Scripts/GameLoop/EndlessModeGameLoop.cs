@@ -5,6 +5,7 @@ using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
 using GameLoop.Rules;
+using GameScore;
 using GameTileQueue;
 using Tiles;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace GameLoop
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
+        [SerializeField] private ScoreSystem _scoreSystem;
 
         [SerializeField] private DebugController _debugController;
 
@@ -24,15 +26,19 @@ namespace GameLoop
 
         private void Start()
         {
+            _boardRules = new BoardRules(_board);
+
             _gameRules.Setup();
             _tileQueue.Setup();
 
-            _board.Setup(7);
+            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
+            _board.Setup(initialBoardSize);
             _board.OnTileClick += OnTileClicked;
 
-            _boardRules = new BoardRules(_board);
-
             Run().Forget();
+
+            if (_debugController != null)
+                _debugController.Setup();
         }
 
         public override async UniTask Run()
@@ -40,12 +46,22 @@ namespace GameLoop
             while (true)
             {
                 await ProcessUserInput();
-                await ProcessRules();
+                await ProcessBoardRules();
                 AgeTiles();
+                _scoreSystem.IncrementScore(1); //TODO TEMP
+                UpdateGameRules();
             }
         }
 
-        private async UniTask ProcessRules()
+        private void UpdateGameRules()
+        {
+            _gameRules.UpdateCurrentRules();
+
+            int boardSize = _gameRules.CurrentRules.BoardSize;
+            _board.UpdateBoardSize(boardSize);
+        }
+
+        private async UniTask ProcessBoardRules()
         {
             while (true)
             {
@@ -73,7 +89,7 @@ namespace GameLoop
 
         private Tile GetNextTile()
         {
-            if (DebugController.IsDebug && _debugController.DebugPlaceTiles)
+            if (IsDebugPlaceTiles())
                 return _debugController.GetTestTile();
 
             return _tileQueue.GetNextTile();
@@ -87,7 +103,7 @@ namespace GameLoop
 
         private void OnTileClicked(Tile tile)
         {
-            if (tile.Type == TileType.Empty)
+            if (tile.Type == TileType.Empty || IsDebugPlaceTiles())
             {
                 _emptyTileClicked?.TrySetResult(tile);
             }
@@ -97,6 +113,11 @@ namespace GameLoop
         {
             AgeTilesBoardTurn turn = new AgeTilesBoardTurn(_board);
             turn.Run().Forget();
+        }
+
+        private bool IsDebugPlaceTiles()
+        {
+            return DebugController.IsDebug && _debugController.DebugPlaceTiles; //TODO rewrite debug
         }
     }
 }

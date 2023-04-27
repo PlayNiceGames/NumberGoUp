@@ -1,5 +1,8 @@
-﻿namespace Tiles.Data
+﻿using System;
+
+namespace Tiles.Data
 {
+    [Serializable]
     public class MixedTileData : ValueTileData
     {
         public override TileType Type => TileType.Mixed;

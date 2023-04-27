@@ -1,5 +1,8 @@
-﻿namespace Tiles.Data
+﻿using System;
+
+namespace Tiles.Data
 {
+    [Serializable]
     public class RegularTileData : ValueTileData
     {
         public override TileType Type => TileType.Regular;

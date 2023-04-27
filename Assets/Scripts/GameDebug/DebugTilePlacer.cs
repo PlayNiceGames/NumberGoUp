@@ -9,32 +9,56 @@ namespace GameDebug
 {
     public class DebugTilePlacer : MonoBehaviour
     {
-        [SerializeField] private int _value;
-        [SerializeField] private int _gameColorIndex;
         [SerializeField] private TileType _type;
 
         [Space]
-        [SerializeField] [ReadOnly] private Color _displayedColor;
+        [SerializeField] private int _firstValue;
+        [SerializeField] private int _secondValue;
+
+        [Space]
+        [SerializeField] private int _firstGameColor;
+        [SerializeField] private int _secondGameColor;
+
+        [Space]
+        [SerializeField] [ReadOnly] private Color _firstDisplayedColor;
+        [SerializeField] [ReadOnly] private Color _secondDisplayedColor;
 
         [Space]
         [SerializeField] private TileFactory _factory;
-
         [SerializeField] private GameRules _rules;
         [SerializeField] private TileColorsDatabase _colorsDatabase;
 
-        private void Update()
+        private bool _isSetup;
+
+        public void Setup()
         {
-            if (!Application.isPlaying)
+            _isSetup = true;
+
+            UpdateColors();
+        }
+
+        private void OnValidate()
+        {
+            if (!Application.isPlaying || !_isSetup)
                 return;
 
-            int actualColorIndex = _rules.GetColor(_gameColorIndex);
-            _displayedColor = _colorsDatabase.GetColor(actualColorIndex);
+            UpdateColors();
+        }
+
+        private void UpdateColors()
+        {
+            _firstDisplayedColor = GetColor(_firstGameColor);
+            _secondDisplayedColor = GetColor(_secondGameColor);
+        }
+
+        private Color GetColor(int gameColorIndex)
+        {
+            int actualColorIndex = _rules.GetColor(gameColorIndex);
+            return _colorsDatabase.GetColor(actualColorIndex);
         }
 
         public Tile GetNextTile()
         {
-            int actualColorIndex = _rules.GetColor(_gameColorIndex);
-
             TileData data;
 
             switch (_type)
@@ -43,10 +67,13 @@ namespace GameDebug
                     data = new EmptyTileData();
                     break;
                 case TileType.Regular:
-                    data = new RegularTileData(_value, actualColorIndex);
+                    int colorIndex = _rules.GetColor(_firstGameColor);
+                    data = new RegularTileData(_firstValue, colorIndex);
                     break;
                 case TileType.Mixed:
-                    data = new MixedTileData(_value, actualColorIndex, _value, actualColorIndex);
+                    int topColorIndex = _rules.GetColor(_firstGameColor);
+                    int bottomColorIndex = _rules.GetColor(_secondGameColor);
+                    data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameLoop.Rules.TileRules;
+using GameScore;
 using Tiles;
 using UnityEngine;
 using Utils;
@@ -11,6 +12,7 @@ namespace GameLoop.Rules
     {
         [SerializeField] private GameRulesDatabase _rulesDatabase;
         [SerializeField] private TileColorsDatabase _colorsDatabase;
+        [SerializeField] private ScoreSystem _scoreSystem;
 
         public GameRulesData CurrentRules { get; private set; }
 
@@ -18,8 +20,16 @@ namespace GameLoop.Rules
 
         public void Setup()
         {
-            CurrentRules = _rulesDatabase.InitialRules;
+            CurrentRules = _rulesDatabase.GetInitialRules();
             _mixedColors = _colorsDatabase.GetRandomColors();
+        }
+
+        public void UpdateCurrentRules()
+        {
+            int currentScore = _scoreSystem.Score;
+            CurrentRules = _rulesDatabase.GetRules(currentScore);
+
+            Debug.Log($"Set rules for score: {currentScore} : {CurrentRules.RuleApplyStartingScore}");
         }
 
         public List<int> GetAvailableColors()
@@ -31,7 +41,7 @@ namespace GameLoop.Rules
         {
             return _mixedColors[gameColorIndex];
         }
-        
+
         public int GetRandomTileColor()
         {
             return _mixedColors[RandomColorIndex()];

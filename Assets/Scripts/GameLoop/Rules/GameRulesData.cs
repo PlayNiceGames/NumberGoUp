@@ -7,6 +7,7 @@ namespace GameLoop.Rules
     public class GameRulesData
     {
         public int RuleApplyStartingScore;
+        public int BoardSize;
         public int AvailableColorCount;
         public bool IncludeBigTiles;
         public bool IncludeMixedTiles;

@@ -15,25 +15,17 @@ namespace GameBoard
         [SerializeField] private TileFactory _factory;
 
         private Tile[,] _tiles;
+        private BoardResizer _resizer;
 
         public void Setup(int size)
         {
             ClearBoard();
 
             _tiles = new Tile[size, size];
+            _resizer = new BoardResizer(this, _factory);
             Size = size;
 
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    EmptyTile tile = _factory.InstantiateTile<EmptyTile>();
-
-                    AddTile(tile, new Vector2Int(i, j));
-                }
-            }
-
-            UpdateGrid();
+            ValidateBoard();
         }
 
         private void ClearBoard()
@@ -148,6 +140,41 @@ namespace GameBoard
             yield return GetTile(new Vector2Int(position.x - 1, position.y + 1));
             yield return GetTile(new Vector2Int(position.x + 1, position.y - 1));
             yield return GetTile(new Vector2Int(position.x + 1, position.y + 1));
+        }
+
+        public void UpdateBoardSize(int size)
+        {
+            if (size == Size)
+                return;
+
+            _tiles = _resizer.ResizeBoard(size, _tiles);
+
+            Size = size;
+
+            ValidateBoard();
+        }
+
+        private void ValidateBoard()
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Tile tile = _tiles[i, j];
+
+                    if (tile == null)
+                    {
+                        EmptyTile emptyTile = _factory.InstantiateTile<EmptyTile>();
+                        AddTile(emptyTile, new Vector2Int(i, j));
+                    }
+                    else
+                    {
+                        tile.BoardPosition = new Vector2Int(i, j);
+                    }
+                }
+            }
+            
+            UpdateGrid();
         }
     }
 }

@@ -12,8 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616447a15310487ea3ac8686d3ee6e16, type: 3}
   m_Name: RulesSet
   m_EditorClassIdentifier: 
-  InitialRules:
-    RuleApplyStartingScore: 0
+  _rulesSet:
+  - RuleApplyStartingScore: 0
+    BoardSize: 3
+    AvailableColorCount: 2
+    IncludeBigTiles: 1
+    IncludeMixedTiles: 1
+    MixedTileRules:
+      ColorIndexCombinations:
+      - TopColorIndex: 0
+        BottomColorIndex: 1
+  - RuleApplyStartingScore: 10
+    BoardSize: 4
+    AvailableColorCount: 3
+    IncludeBigTiles: 1
+    IncludeMixedTiles: 1
+    MixedTileRules:
+      ColorIndexCombinations:
+      - TopColorIndex: 0
+        BottomColorIndex: 1
+      - TopColorIndex: 1
+        BottomColorIndex: 2
+  - RuleApplyStartingScore: 20
+    BoardSize: 5
     AvailableColorCount: 4
     IncludeBigTiles: 1
     IncludeMixedTiles: 1
@@ -21,3 +42,45 @@ MonoBehaviour:
       ColorIndexCombinations:
       - TopColorIndex: 0
         BottomColorIndex: 1
+      - TopColorIndex: 0
+        BottomColorIndex: 3
+      - TopColorIndex: 1
+        BottomColorIndex: 2
+      - TopColorIndex: 2
+        BottomColorIndex: 3
+  - RuleApplyStartingScore: 30
+    BoardSize: 6
+    AvailableColorCount: 4
+    IncludeBigTiles: 1
+    IncludeMixedTiles: 1
+    MixedTileRules:
+      ColorIndexCombinations:
+      - TopColorIndex: 0
+        BottomColorIndex: 1
+      - TopColorIndex: 0
+        BottomColorIndex: 2
+      - TopColorIndex: 0
+        BottomColorIndex: 3
+      - TopColorIndex: 1
+        BottomColorIndex: 2
+      - TopColorIndex: 1
+        BottomColorIndex: 3
+  - RuleApplyStartingScore: 40
+    BoardSize: 7
+    AvailableColorCount: 4
+    IncludeBigTiles: 1
+    IncludeMixedTiles: 1
+    MixedTileRules:
+      ColorIndexCombinations:
+      - TopColorIndex: 0
+        BottomColorIndex: 1
+      - TopColorIndex: 0
+        BottomColorIndex: 2
+      - TopColorIndex: 0
+        BottomColorIndex: 3
+      - TopColorIndex: 1
+        BottomColorIndex: 2
+      - TopColorIndex: 1
+        BottomColorIndex: 3
+      - TopColorIndex: 2
+        BottomColorIndex: 3
