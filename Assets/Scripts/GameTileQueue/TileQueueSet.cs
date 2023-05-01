@@ -106,7 +106,7 @@ namespace GameTileQueue
             float randomValue = Random.value;
 
             bool isMixedTileGuaranteed = _prevSet != null && !_prevSet._mixedTileGenerated;
-            if (isMixedTileGuaranteed || randomValue <= _settings.MixedTileQueueGenerationChance)
+            if (isMixedTileGuaranteed || randomValue <= _rules.CurrentRules.MixedTileRules.QueueGenerationChance)
             {
                 (int topColor, int bottomColor) = _rules.GetRandomMixedTileColors();
                 MixedTileData mixedTile = new MixedTileData(_settings.MixedTileValue, topColor, _settings.MixedTileValue, bottomColor);

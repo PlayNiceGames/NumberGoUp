@@ -17,8 +17,7 @@ MonoBehaviour:
   GuaranteedColorNotAppearingMaxCount: 6
   BigTileQueueGenerationChance: 0.5
   BigTileValue: 2
-  MixedTileQueueGenerationChance: 0.5
   MixedTileValue: 1
   RemainingTileValue: 1
   MaxRepeatingTileCount: 2
-  RepeatingFixTileValue: 13
+  RepeatingFixTileValue: 1

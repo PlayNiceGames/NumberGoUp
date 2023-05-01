@@ -12,7 +12,6 @@ namespace GameTileQueue
         public float BigTileQueueGenerationChance;
         public int BigTileValue;
 
-        public float MixedTileQueueGenerationChance;
         public int MixedTileValue;
 
         public int RemainingTileValue;
