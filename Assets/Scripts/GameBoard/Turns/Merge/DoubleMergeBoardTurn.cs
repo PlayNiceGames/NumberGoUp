@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using GameScore;
 using Tiles.Containers;
 using UnityEngine;
 
@@ -12,13 +13,15 @@ namespace GameBoard.Turns.Merge
         private IValueTileContainer _secondContainer;
         private IEnumerable<IValueTileContainer> _mergeTileContainers;
         private Board _board;
+        private ScoreSystem _scoreSystem;
 
-        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board)
+        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem)
         {
             _firstContainer = firstContainer;
             _secondContainer = secondContainer;
             _mergeTileContainers = mergeTileContainers;
             _board = board;
+            _scoreSystem = scoreSystem;
         }
 
         public override async UniTask Run()
@@ -31,6 +34,8 @@ namespace GameBoard.Turns.Merge
             await UniTask.WhenAll(mergeTasks);
 
             _firstContainer.IncrementValue();
+            _scoreSystem.IncrementScoreForMerge(_firstContainer.GetValue());
+
             _secondContainer.IncrementValue();
         }
 

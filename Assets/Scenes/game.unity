@@ -422,8 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d33d4559c484cf1aed3cc73fa0e5680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rulesDatabase: {fileID: 11400000, guid: 0ec8d42b5325e914b9639c154f485608, type: 2}
-  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
+  _rulesData: {fileID: 11400000, guid: 0ec8d42b5325e914b9639c154f485608, type: 2}
+  _colorsData: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
   _scoreSystem: {fileID: 491655412}
 --- !u!1 &466784176
 GameObject:
@@ -602,6 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634b7fc83add4682b9b9ff68bede032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 146ba04bfa7516b44bc6fbe3ca083822, type: 2}
   _text: {fileID: 1469349621}
 --- !u!224 &491655413
 RectTransform:
@@ -899,7 +900,7 @@ MonoBehaviour:
   _secondDisplayedColor: {r: 0, g: 0, b: 0, a: 0}
   _factory: {fileID: 687023122}
   _rules: {fileID: 351035007}
-  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
+  _colorsData: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
 --- !u!1 &687023121
 GameObject:
   m_ObjectHideFlags: 0

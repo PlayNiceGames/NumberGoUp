@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameScore;
 using Tiles;
 using Tiles.Containers;
 
@@ -7,8 +8,11 @@ namespace GameBoard.Rules.Merge
 {
     public abstract class MergeBoardRule : BoardRule
     {
-        protected MergeBoardRule(Board board) : base(board)
+        protected ScoreSystem _scoreSystem;
+
+        protected MergeBoardRule(Board board, ScoreSystem scoreSystem) : base(board)
         {
+            _scoreSystem = scoreSystem;
         }
 
         protected IEnumerable<IValueTileContainer> GetAllMergeableTileParts(IEnumerable<ValueTile> tiles)

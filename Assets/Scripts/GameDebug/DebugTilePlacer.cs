@@ -26,7 +26,7 @@ namespace GameDebug
         [Space]
         [SerializeField] private TileFactory _factory;
         [SerializeField] private GameRules _rules;
-        [SerializeField] private TileColorsDatabase _colorsDatabase;
+        [SerializeField] private TileColorsData _colorsData;
 
         private bool _isSetup;
 
@@ -54,7 +54,7 @@ namespace GameDebug
         private Color GetColor(int gameColorIndex)
         {
             int actualColorIndex = _rules.GetColor(gameColorIndex);
-            return _colorsDatabase.GetColor(actualColorIndex);
+            return _colorsData.GetColor(actualColorIndex);
         }
 
         public Tile GetNextTile()

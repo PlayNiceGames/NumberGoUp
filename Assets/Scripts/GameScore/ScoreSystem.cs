@@ -7,6 +7,7 @@ namespace GameScore
     {
         public int Score { get; private set; }
 
+        [SerializeField] private ScoreData _settings;
         [SerializeField] private TextMeshProUGUI _text;
 
         private void Start()
@@ -14,9 +15,9 @@ namespace GameScore
             UpdateText();
         }
 
-        public void IncrementScore(int scoreDelta)
+        public void IncrementScoreForMerge(int startingValue, int deltaValue = 1)
         {
-            Score += scoreDelta;
+            //Score += scoreDelta;
 
             UpdateText();
         }

@@ -16,7 +16,7 @@ namespace Tiles
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
 
-        [SerializeField] private TileColorsDatabase _colorsDatabase;
+        [SerializeField] private TileColorsData _colorsData;
 
         public void Setup(RegularTileData data)
         {
@@ -42,7 +42,7 @@ namespace Tiles
         {
             Color = colorIndex;
 
-            Color color = _colorsDatabase.GetColor(colorIndex);
+            Color color = _colorsData.GetColor(colorIndex);
 
             _background.color = color;
         }

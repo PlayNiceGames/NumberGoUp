@@ -2,6 +2,7 @@
 using System.Linq;
 using GameBoard.Turns;
 using GameBoard.Turns.Merge;
+using GameScore;
 using Tiles;
 using Tiles.Containers;
 using Utils;
@@ -10,7 +11,7 @@ namespace GameBoard.Rules.Merge
 {
     public class SimpleMergeBoardRule : MergeBoardRule
     {
-        public SimpleMergeBoardRule(Board board) : base(board)
+        public SimpleMergeBoardRule(Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
         }
 
@@ -27,7 +28,7 @@ namespace GameBoard.Rules.Merge
 
                 SimpleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, mergeableContainers);
 
-                return bothPartsTurn ?? new SimpleMergeBoardTurn(container, mergeableContainers, _board);
+                return bothPartsTurn ?? new SimpleMergeBoardTurn(container, mergeableContainers, _board, _scoreSystem);
             }
 
             return null;
@@ -50,7 +51,7 @@ namespace GameBoard.Rules.Merge
             IEnumerable<IValueTileContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
                 IValueTileContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
-            return new SimpleMergeBoardTurn(bothPartsContainer, bothPartsMergeableContainers, _board);
+            return new SimpleMergeBoardTurn(bothPartsContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
 
         private List<IValueTileContainer> GetMergeableContainers(IValueTileContainer container)

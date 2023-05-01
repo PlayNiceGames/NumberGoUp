@@ -1,17 +1,21 @@
-﻿using System;
-using GameLoop.Rules.TileRules;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace GameLoop.Rules
 {
-    [Serializable]
-    public class GameRulesData
+    public class GameRulesData : ScriptableObject
     {
-        public int RuleApplyStartingScore;
-        public int BoardSize;
-        public int AvailableColorCount;
-        public bool IncludeBigTiles;
-        public bool IncludeMixedTiles;
-        public RegularTileRulesData RegularTileRules;
-        public MixedTileRulesData MixedTileRules;
+        [field: SerializeField] private List<GameRulesSet> _rulesSets;
+
+        public GameRulesSet GetInitialRules()
+        {
+            return _rulesSets[0];
+        }
+
+        public GameRulesSet GetRules(int score)
+        {
+            return _rulesSets.LastOrDefault(rule => rule.RuleApplyStartingScore <= score);
+        }
     }
 }

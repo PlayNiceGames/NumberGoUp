@@ -26,7 +26,7 @@ namespace GameLoop
 
         private void Start()
         {
-            _boardRules = new BoardRules(_board);
+            _boardRules = new BoardRules(_board, _scoreSystem);
 
             _gameRules.Setup();
             _tileQueue.Setup();
@@ -48,7 +48,6 @@ namespace GameLoop
                 await ProcessUserInput();
                 await ProcessBoardRules();
                 AgeTiles();
-                _scoreSystem.IncrementScore(1); //TODO TEMP
                 UpdateGameRules();
             }
         }

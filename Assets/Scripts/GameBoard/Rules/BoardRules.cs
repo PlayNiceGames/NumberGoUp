@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using GameBoard.Rules.Merge;
 using GameBoard.Turns;
+using GameScore;
 
 namespace GameBoard.Rules
 {
     public class BoardRules //TODO maybe move rules to RegularTile and MixedTile?
     {
         private Board _board;
+        private ScoreSystem _scoreSystem;
         private List<BoardRule> _boardRules;
 
-        public BoardRules(Board board)
+        public BoardRules(Board board, ScoreSystem scoreSystem)
         {
             _board = board;
+            _scoreSystem = scoreSystem;
 
             InitializeRules();
         }
@@ -20,9 +23,9 @@ namespace GameBoard.Rules
         {
             _boardRules = new List<BoardRule>
             {
-                new CenterMergeBoardRule(_board),
-                new DoubleMergeBoardRule(_board),
-                new SimpleMergeBoardRule(_board)
+                new CenterMergeBoardRule(_board, _scoreSystem),
+                new DoubleMergeBoardRule(_board, _scoreSystem),
+                new SimpleMergeBoardRule(_board, _scoreSystem)
             };
         }
 

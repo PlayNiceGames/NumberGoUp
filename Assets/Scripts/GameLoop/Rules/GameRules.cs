@@ -10,24 +10,24 @@ namespace GameLoop.Rules
 {
     public class GameRules : MonoBehaviour
     {
-        [SerializeField] private GameRulesDatabase _rulesDatabase;
-        [SerializeField] private TileColorsDatabase _colorsDatabase;
+        [SerializeField] private GameRulesData _rulesData;
+        [SerializeField] private TileColorsData _colorsData;
         [SerializeField] private ScoreSystem _scoreSystem;
 
-        public GameRulesData CurrentRules { get; private set; }
+        public GameRulesSet CurrentRules { get; private set; }
 
         private List<int> _mixedColors;
 
         public void Setup()
         {
-            CurrentRules = _rulesDatabase.GetInitialRules();
-            _mixedColors = _colorsDatabase.GetRandomColors();
+            CurrentRules = _rulesData.GetInitialRules();
+            _mixedColors = _colorsData.GetRandomColors();
         }
 
         public void UpdateCurrentRules()
         {
             int currentScore = _scoreSystem.Score;
-            CurrentRules = _rulesDatabase.GetRules(currentScore);
+            CurrentRules = _rulesData.GetRules(currentScore);
 
             Debug.Log($"Set rules for score: {currentScore} : {CurrentRules.RuleApplyStartingScore}");
         }

@@ -2,6 +2,7 @@
 using System.Linq;
 using GameBoard.Turns;
 using GameBoard.Turns.Merge;
+using GameScore;
 using Tiles;
 using Tiles.Containers;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace GameBoard.Rules.Merge
 {
     public class DoubleMergeBoardRule : MergeBoardRule
     {
-        public DoubleMergeBoardRule(Board board) : base(board)
+        public DoubleMergeBoardRule(Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
         }
 
@@ -30,7 +31,7 @@ namespace GameBoard.Rules.Merge
                         continue;
 
                     DoubleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, diagonalContainer, mergeableContainers);
-                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board);
+                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _scoreSystem);
                 }
             }
 
@@ -56,7 +57,7 @@ namespace GameBoard.Rules.Merge
             IEnumerable<IValueTileContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
                 IValueTileContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
-            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board);
+            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
 
         private List<IValueTileContainer> GetMergeableContainers(IValueTileContainer container, IValueTileContainer diagonalContainer)

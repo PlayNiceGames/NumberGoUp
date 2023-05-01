@@ -2,6 +2,7 @@
 using System.Linq;
 using GameBoard.Turns;
 using GameBoard.Turns.Merge;
+using GameScore;
 using Tiles;
 using Tiles.Containers;
 
@@ -9,8 +10,9 @@ namespace GameBoard.Rules.Merge
 {
     public class CenterMergeBoardRule : MergeBoardRule
     {
-        public CenterMergeBoardRule(Board board) : base(board)
+        public CenterMergeBoardRule(Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
+            _scoreSystem = scoreSystem;
         }
 
         public override BoardTurn GetTurn()
@@ -27,7 +29,7 @@ namespace GameBoard.Rules.Merge
 
                 int sameTilesCount = sameTileContainers.Count;
                 if (sameTilesCount > 1)
-                    return new CenterMergeBoardTurn(tileContainer, sameTileContainers, _board);
+                    return new CenterMergeBoardTurn(tileContainer, sameTileContainers, _board, _scoreSystem);
             }
 
             return null;

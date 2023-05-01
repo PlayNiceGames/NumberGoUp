@@ -5,7 +5,7 @@ using Utils;
 
 namespace Tiles
 {
-    public class TileColorsDatabase : ScriptableObject
+    public class TileColorsData : ScriptableObject
     {
         [SerializeField] private List<Color> Colors;
 

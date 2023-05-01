@@ -4,7 +4,7 @@ using Utils;
 
 namespace GameScore
 {
-    public class ScoreSettings : ScriptableObject
+    public class ScoreData : ScriptableObject
     {
         [SerializeField] private SerializedDictionary<int, int> _scoreForMergeValue;
 
