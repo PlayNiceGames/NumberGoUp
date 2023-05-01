@@ -6,7 +6,7 @@ namespace GameScore
 {
     public class ScoreSettings : ScriptableObject
     {
-        [SerializeField] private UnitySerializedDictionary<int, int> _scoreForMergeValue;
+        [SerializeField] private SerializedDictionary<int, int> _scoreForMergeValue;
 
         public int GetScoreForMerge(int mergeValue)
         {
