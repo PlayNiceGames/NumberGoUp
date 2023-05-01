@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ScoreData
   m_EditorClassIdentifier: 
   _scoreForMergeValue:
-    keyData: 
-    valueData: 
+    _keyData: 
+    _valueData: 

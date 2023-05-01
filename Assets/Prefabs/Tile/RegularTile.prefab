@@ -194,7 +194,7 @@ MonoBehaviour:
   Age: 0
   _numberText: {fileID: 5353836641061641243}
   _background: {fileID: 4989887296547648431}
-  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
+  _colorsData: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
 --- !u!222 &2060970891727607124
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameDebug
@@ -35,6 +36,12 @@ namespace GameDebug
             _isSetup = true;
 
             UpdateColors();
+        }
+
+        [Button]
+        public void Pipi()
+        {
+            AssetDatabase.ForceReserializeAssets();
         }
 
         private void OnValidate()

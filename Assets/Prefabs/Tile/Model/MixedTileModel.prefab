@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numberText: {fileID: 4830665979684196157}
   _background: {fileID: 5510993198021075081}
-  _colorsDatabase: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
+  _colorsData: {fileID: 11400000, guid: ddc71364bc7426f489a34358bfdcbeef, type: 2}
 --- !u!1 &5008818153250422270
 GameObject:
   m_ObjectHideFlags: 0
