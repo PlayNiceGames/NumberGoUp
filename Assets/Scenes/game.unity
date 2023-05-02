@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634b7fc83add4682b9b9ff68bede032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: 146ba04bfa7516b44bc6fbe3ca083822, type: 2}
+  _data: {fileID: 11400000, guid: 146ba04bfa7516b44bc6fbe3ca083822, type: 2}
   _text: {fileID: 1469349621}
 --- !u!224 &491655413
 RectTransform:

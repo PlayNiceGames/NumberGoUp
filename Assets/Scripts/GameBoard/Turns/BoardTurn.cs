@@ -6,6 +6,13 @@ namespace GameBoard.Turns
 {
     public abstract class BoardTurn
     {
+        protected Board _board;
+
+        public BoardTurn(Board board)
+        {
+            _board = board;
+        }
+
         public abstract UniTask Run();
         public abstract UniTask Undo();
 

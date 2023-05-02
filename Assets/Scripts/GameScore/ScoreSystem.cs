@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Tiles;
+using TMPro;
 using UnityEngine;
 
 namespace GameScore
@@ -7,7 +8,7 @@ namespace GameScore
     {
         public int Score { get; private set; }
 
-        [SerializeField] private ScoreData _settings;
+        [SerializeField] private ScoreData _data;
         [SerializeField] private TextMeshProUGUI _text;
 
         private void Start()
@@ -15,9 +16,11 @@ namespace GameScore
             UpdateText();
         }
 
-        public void IncrementScoreForMerge(int startingValue, int deltaValue = 1)
+        public void IncrementScoreForMerge(int startingValue, int deltaValue, TileType tileType)
         {
-            //Score += scoreDelta;
+            int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, tileType);
+
+            Score += scoreDelta;
 
             UpdateText();
         }

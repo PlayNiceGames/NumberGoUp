@@ -6,17 +6,14 @@ namespace GameBoard.Turns
 {
     public class AgeTilesBoardTurn : BoardTurn
     {
-        private Board _board;
-
-        public AgeTilesBoardTurn(Board board)
+        public AgeTilesBoardTurn(Board board) : base(board)
         {
-            _board = board;
         }
 
         public override UniTask Run()
         {
             Debug.Log($"{GetType()} turn START");
-            
+
             foreach (ValueTile tile in _board.GetAllTiles<ValueTile>())
             {
                 tile.Age++;

@@ -38,12 +38,6 @@ namespace GameDebug
             UpdateColors();
         }
 
-        [Button]
-        public void Pipi()
-        {
-            AssetDatabase.ForceReserializeAssets();
-        }
-
         private void OnValidate()
         {
             if (!Application.isPlaying || !_isSetup)

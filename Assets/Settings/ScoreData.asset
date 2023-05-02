@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ScoreData
   m_EditorClassIdentifier: 
   _scoreForMergeValue:
-    _keyData: 
-    _valueData: 
+    _keyData: 02000000030000000400000005000000
+    _valueData: 140000003c0000005a00000078000000
+  _mixedTileScoreMultiplier: 0.5

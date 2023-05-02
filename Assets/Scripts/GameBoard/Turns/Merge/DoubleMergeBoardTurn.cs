@@ -12,10 +12,8 @@ namespace GameBoard.Turns.Merge
         private IValueTileContainer _firstContainer;
         private IValueTileContainer _secondContainer;
         private IEnumerable<IValueTileContainer> _mergeTileContainers;
-        private Board _board;
-        private ScoreSystem _scoreSystem;
 
-        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem)
+        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
             _firstContainer = firstContainer;
             _secondContainer = secondContainer;
@@ -33,10 +31,8 @@ namespace GameBoard.Turns.Merge
             IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
             await UniTask.WhenAll(mergeTasks);
 
-            _firstContainer.IncrementValue();
-            _scoreSystem.IncrementScoreForMerge(_firstContainer.GetValue());
-
-            _secondContainer.IncrementValue();
+            IncrementContainerValue(_firstContainer);
+            IncrementContainerValue(_secondContainer);
         }
 
         public override UniTask Undo()
