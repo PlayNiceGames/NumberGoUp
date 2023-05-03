@@ -1,4 +1,5 @@
 ﻿using Tiles;
+using Tiles.Containers;
 using TMPro;
 using UnityEngine;
 
@@ -16,9 +17,9 @@ namespace GameScore
             UpdateText();
         }
 
-        public void IncrementScoreForMerge(int startingValue, int deltaValue, TileType tileType)
+        public void IncrementScoreForMerge(int startingValue, int deltaValue, IValueTileContainer container)
         {
-            int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, tileType);
+            int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, container);
 
             Score += scoreDelta;
 

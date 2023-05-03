@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Tiles;
+using Tiles.Containers;
 using UnityEngine;
 using Utils;
 
@@ -7,17 +9,20 @@ namespace GameScore
 {
     public class ScoreData : ScriptableObject
     {
-        [SerializeField] private SerializedDictionary<int, int> _scoreForRegularTileMergeValue;
-        [SerializeField] private SerializedDictionary<int, int> _scoreForMixedTileMergeValue;
+        [SerializeField] private SerializedDictionary<int, int> _scoreOverrideForRegularTileMerge;
+        [SerializeField] private SerializedDictionary<int, int> _scoreOverrideForMixedTileMerge;
+        [SerializeField] private int _regularTileScoreIncrement;
+        [SerializeField] private int _mixedTileScoreIncrement;
 
-        public int GetScoreForMerge(int startingValue, int deltaValue, TileType tileType)
+        public int GetScoreForMerge(int startingValue, int deltaValue, IValueTileContainer container)
         {
             int endValue = startingValue + deltaValue;
             int scoreSum = 0;
 
+
             for (int intermediateValue = startingValue + 1; intermediateValue <= endValue; intermediateValue++)
             {
-                int scoreForValue = GetScoreForMerge(intermediateValue, tileType);
+                int scoreForValue = GetScoreForMerge(intermediateValue, container);
 
                 scoreSum += scoreForValue;
             }
@@ -25,33 +30,54 @@ namespace GameScore
             return scoreSum;
         }
 
-        private int GetScoreForMerge(int value, TileType type)
+        private int GetScoreForMerge(int value, IValueTileContainer container)
         {
-            switch (type)
+            int score = 0;
+
+            if (container is RegularTileContainer)
             {
-                case TileType.Regular:
-                    return GetScoreForRegularTileMerge(value);
-                case TileType.Mixed:
-                    return GetScoreForMixedTileMerge(value);
+                score = GetScoreForRegularTileMerge(value);
+            }
+            else if (container is MixedTileContainer mixedTileContainer)
+            {
+                score = GetScoreForMixedTileMerge(value);
+
+                if (mixedTileContainer.PartType == MixedTilePartType.Both)
+                    score *= 2;
             }
 
-            return 0;
+            return score;
         }
 
         private int GetScoreForRegularTileMerge(int value)
         {
-            if (_scoreForMixedTileMergeValue.TryGetValue(value, out int score))
-                return score;
-
-            return _scoreForMixedTileMergeValue.Values.Last();
+            int score = GetScoreForMerge(value, _regularTileScoreIncrement, _scoreOverrideForRegularTileMerge);
+            return score;
         }
 
         private int GetScoreForMixedTileMerge(int value)
         {
-            if (_scoreForMixedTileMergeValue.TryGetValue(value, out int score))
-                return score;
+            int score = GetScoreForMerge(value, _mixedTileScoreIncrement, _scoreOverrideForMixedTileMerge);
+            return score;
+        }
 
-            return _scoreForMixedTileMergeValue.Values.Last();
+        private int GetScoreForMerge(int value, int scoreIncrement, Dictionary<int, int> overrides)
+        {
+            if (overrides.TryGetValue(value, out int overrideScore))
+                return overrideScore;
+
+            int lastOverrideValue = overrides.Keys.Last();
+            int lastOverrideScore = overrides[lastOverrideValue];
+
+            if (value > lastOverrideValue)
+            {
+                int valueDeltaFromLastOverride = value - lastOverrideValue;
+                int score = valueDeltaFromLastOverride * scoreIncrement + lastOverrideScore;
+
+                return score;
+            }
+
+            return 0;
         }
     }
 }

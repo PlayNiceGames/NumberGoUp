@@ -41,7 +41,7 @@ namespace GameBoard.Turns.Merge
 
             container.IncrementValue(valueDelta);
 
-            _scoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container.Tile.Type);
+            _scoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
         }
     }
 }
