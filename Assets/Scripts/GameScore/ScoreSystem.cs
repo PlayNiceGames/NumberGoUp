@@ -9,7 +9,7 @@ namespace GameScore
         public int Score { get; private set; }
 
         [SerializeField] private ScoreData _data;
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private TextMeshProUGUI _label;
 
         private void Start()
         {
@@ -27,7 +27,7 @@ namespace GameScore
 
         private void UpdateText()
         {
-            _text.text = Score.ToString();
+            _label.text = Score.ToString();
         }
     }
 }
