@@ -17,7 +17,7 @@ namespace GameBoard.Actions.Merge
 
         public override UniTask Run()
         {
-            _board.CreateEmptyTile(_tile.BoardPosition); //TODO free tile from board and animate it
+            _board.ClearTile(_tile.BoardPosition); //TODO free tile from board and animate it
             
             return UniTask.CompletedTask;
         }

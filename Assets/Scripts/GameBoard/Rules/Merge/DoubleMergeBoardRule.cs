@@ -17,15 +17,15 @@ namespace GameBoard.Rules.Merge
 
         public override BoardTurn GetTurn()
         {
-            IEnumerable<IValueTileContainer> sortedTiles = GetSortedTileContainers();
+            IEnumerable<MergeContainer> sortedTiles = GetSortedTileContainers();
 
-            foreach (IValueTileContainer container in sortedTiles)
+            foreach (MergeContainer container in sortedTiles)
             {
-                IEnumerable<IValueTileContainer> diagonalContainers = GetDiagonalTileContainers(container);
+                IEnumerable<MergeContainer> diagonalContainers = GetDiagonalTileContainers(container);
 
-                foreach (IValueTileContainer diagonalContainer in diagonalContainers)
+                foreach (MergeContainer diagonalContainer in diagonalContainers)
                 {
-                    List<IValueTileContainer> mergeableContainers = GetMergeableContainers(container, diagonalContainer);
+                    List<MergeContainer> mergeableContainers = GetMergeableContainers(container, diagonalContainer);
 
                     if (mergeableContainers == null)
                         continue;
@@ -38,7 +38,7 @@ namespace GameBoard.Rules.Merge
             return null;
         }
 
-        private DoubleMergeBoardTurn TryGetBothPartsTurn(IValueTileContainer container, IValueTileContainer diagonalContainer, IEnumerable<IValueTileContainer> mergeableContainers)
+        private DoubleMergeBoardTurn TryGetBothPartsTurn(MergeContainer container, MergeContainer diagonalContainer, IEnumerable<MergeContainer> mergeableContainers)
         {
             if (container is not MixedTileContainer mixedContainer || diagonalContainer is not MixedTileContainer mixedDiagonalContainer)
                 return null;
@@ -46,7 +46,7 @@ namespace GameBoard.Rules.Merge
             MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
             MixedTileContainer otherDiagonalContainer = mixedDiagonalContainer.GetOtherPart();
 
-            List<IValueTileContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer, otherDiagonalContainer);
+            List<MergeContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer, otherDiagonalContainer);
 
             if (otherPartMergeableContainers == null)
                 return null;
@@ -54,13 +54,13 @@ namespace GameBoard.Rules.Merge
             MixedTileContainer bothPartsContainer = new MixedTileContainer(mixedContainer.MixedTile, MixedTilePartType.Both);
             MixedTileContainer bothPartsDiagonalContainer = new MixedTileContainer(mixedDiagonalContainer.MixedTile, MixedTilePartType.Both);
 
-            IEnumerable<IValueTileContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                IValueTileContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
+            IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
+                MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
             return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
 
-        private List<IValueTileContainer> GetMergeableContainers(IValueTileContainer container, IValueTileContainer diagonalContainer)
+        private List<MergeContainer> GetMergeableContainers(MergeContainer container, MergeContainer diagonalContainer)
         {
             Vector2Int firstPosition = new Vector2Int(container.Tile.BoardPosition.x, diagonalContainer.Tile.BoardPosition.y);
             Vector2Int secondPosition = new Vector2Int(diagonalContainer.Tile.BoardPosition.x, container.Tile.BoardPosition.y);
@@ -68,8 +68,8 @@ namespace GameBoard.Rules.Merge
             if (_board.GetTile(firstPosition) is not ValueTile firstTile || _board.GetTile(secondPosition) is not ValueTile secondTile)
                 return null;
 
-            IValueTileContainer firstTileContainer = IValueTileContainer.GetMergeContainer(firstTile, container);
-            IValueTileContainer secondTileContainer = IValueTileContainer.GetMergeContainer(secondTile, container);
+            MergeContainer firstTileContainer = MergeContainer.GetMergeContainer(firstTile, container);
+            MergeContainer secondTileContainer = MergeContainer.GetMergeContainer(secondTile, container);
 
             if (!firstTileContainer.IsMergeable(container) || !secondTileContainer.IsMergeable(container))
                 return null;
@@ -79,14 +79,14 @@ namespace GameBoard.Rules.Merge
             if (sum != container.GetValue())
                 return null;
 
-            return new List<IValueTileContainer> {firstTileContainer, secondTileContainer};
+            return new List<MergeContainer> {firstTileContainer, secondTileContainer};
         }
 
-        private IEnumerable<IValueTileContainer> GetDiagonalTileContainers(IValueTileContainer container)
+        private IEnumerable<MergeContainer> GetDiagonalTileContainers(MergeContainer container)
         {
             IEnumerable<ValueTile> diagonalTiles = _board.GetDiagonalTiles(container.Tile.BoardPosition).OfType<ValueTile>();
             IEnumerable<ValueTile> sameDiagonalTiles = diagonalTiles.Where(tile => tile.Equals(container.Tile));
-            IEnumerable<IValueTileContainer> diagonalContainers = sameDiagonalTiles.Select(sameTile => IValueTileContainer.GetMergeContainer(sameTile, container));
+            IEnumerable<MergeContainer> diagonalContainers = sameDiagonalTiles.Select(sameTile => MergeContainer.GetMergeContainer(sameTile, container));
 
             return diagonalContainers;
         }

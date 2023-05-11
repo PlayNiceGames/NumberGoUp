@@ -15,7 +15,7 @@ namespace GameBoard.Rules.Merge
             _scoreSystem = scoreSystem;
         }
 
-        protected IEnumerable<IValueTileContainer> GetAllMergeableTileParts(IEnumerable<ValueTile> tiles)
+        protected IEnumerable<MergeContainer> GetAllMergeableTileParts(IEnumerable<ValueTile> tiles)
         {
             foreach (ValueTile tile in tiles)
             {
@@ -31,19 +31,19 @@ namespace GameBoard.Rules.Merge
             }
         }
 
-        protected IEnumerable<IValueTileContainer> GetSortedTileContainers()
+        protected IEnumerable<MergeContainer> GetSortedTileContainers()
         {
             IEnumerable<ValueTile> allValueTiles = _board.GetAllTiles<ValueTile>();
-            IEnumerable<IValueTileContainer> tiles = GetAllMergeableTileParts(allValueTiles);
+            IEnumerable<MergeContainer> tiles = GetAllMergeableTileParts(allValueTiles);
             return tiles.OrderByDescending(LargestTileSortingRule).ThenByDescending(AgeTileSortingRule);
         }
 
-        private int LargestTileSortingRule(IValueTileContainer container)
+        private int LargestTileSortingRule(MergeContainer container)
         {
             return container.GetValue();
         }
 
-        private int AgeTileSortingRule(IValueTileContainer container)
+        private int AgeTileSortingRule(MergeContainer container)
         {
             return container.Tile.Age;
         }

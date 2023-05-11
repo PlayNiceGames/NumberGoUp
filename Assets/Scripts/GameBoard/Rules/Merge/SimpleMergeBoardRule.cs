@@ -17,11 +17,11 @@ namespace GameBoard.Rules.Merge
 
         public override BoardTurn GetTurn()
         {
-            IEnumerable<IValueTileContainer> sortedTiles = GetSortedTileContainers();
+            IEnumerable<MergeContainer> sortedTiles = GetSortedTileContainers();
 
-            foreach (IValueTileContainer container in sortedTiles)
+            foreach (MergeContainer container in sortedTiles)
             {
-                List<IValueTileContainer> mergeableContainers = GetMergeableContainers(container);
+                List<MergeContainer> mergeableContainers = GetMergeableContainers(container);
 
                 if (mergeableContainers == null)
                     continue;
@@ -34,43 +34,43 @@ namespace GameBoard.Rules.Merge
             return null;
         }
 
-        private SimpleMergeBoardTurn TryGetBothPartsTurn(IValueTileContainer container, IEnumerable<IValueTileContainer> mergeableContainers)
+        private SimpleMergeBoardTurn TryGetBothPartsTurn(MergeContainer container, IEnumerable<MergeContainer> mergeableContainers)
         {
             if (container is not MixedTileContainer mixedContainer)
                 return null;
 
             MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
 
-            List<IValueTileContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer);
+            List<MergeContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer);
 
             if (otherPartMergeableContainers == null)
                 return null;
 
             MixedTileContainer bothPartsContainer = new MixedTileContainer(mixedContainer.MixedTile, MixedTilePartType.Both);
 
-            IEnumerable<IValueTileContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                IValueTileContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
+            IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
+                MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
             return new SimpleMergeBoardTurn(bothPartsContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
 
-        private List<IValueTileContainer> GetMergeableContainers(IValueTileContainer container)
+        private List<MergeContainer> GetMergeableContainers(MergeContainer container)
         {
             List<ValueTile> validNearbyTiles = _board.GetNearbyTiles(container.Tile.BoardPosition).OfType<ValueTile>().ToList();
-            List<IValueTileContainer> tiles = GetNearbyMergeableTiles(container, validNearbyTiles);
+            List<MergeContainer> tiles = GetNearbyMergeableTiles(container, validNearbyTiles);
 
             return tiles;
         }
 
-        private List<IValueTileContainer> GetNearbyMergeableTiles(IValueTileContainer container, List<ValueTile> validNearbyTiles)
+        private List<MergeContainer> GetNearbyMergeableTiles(MergeContainer container, List<ValueTile> validNearbyTiles)
         {
-            IEnumerable<IValueTileContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => IValueTileContainer.GetMergeContainer(tile, container));
-            IEnumerable<IValueTileContainer> mergeableTiles = validNearbyTileContainers.Where(tile => tile.IsMergeable(container));
-            IEnumerable<IEnumerable<IValueTileContainer>> combinations = mergeableTiles.Combinations();
+            IEnumerable<MergeContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => MergeContainer.GetMergeContainer(tile, container));
+            IEnumerable<MergeContainer> mergeableTiles = validNearbyTileContainers.Where(tile => tile.IsMergeable(container));
+            IEnumerable<IEnumerable<MergeContainer>> combinations = mergeableTiles.Combinations();
 
-            foreach (IEnumerable<IValueTileContainer> combination in combinations)
+            foreach (IEnumerable<MergeContainer> combination in combinations)
             {
-                List<IValueTileContainer> combinationList = combination.ToList();
+                List<MergeContainer> combinationList = combination.ToList();
 
                 int sum = combinationList.Sum(combinationContainer => combinationContainer.GetValue());
                 if (sum == container.GetValue())

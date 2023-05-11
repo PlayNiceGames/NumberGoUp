@@ -16,9 +16,9 @@ namespace GameBoard.Turns.Merge
             _scoreSystem = scoreSystem;
         }
 
-        protected IEnumerable<UniTask> RunMergeTasks(IEnumerable<IValueTileContainer> mergeTiles, Board board)
+        protected IEnumerable<UniTask> RunMergeTasks(IEnumerable<MergeContainer> mergeTiles, Board board)
         {
-            foreach (IValueTileContainer mergedTile in mergeTiles)
+            foreach (MergeContainer mergedTile in mergeTiles)
             {
                 if (mergedTile.Tile is RegularTile mergeRegularTile)
                 {
@@ -35,7 +35,7 @@ namespace GameBoard.Turns.Merge
             }
         }
 
-        protected void IncrementContainerValue(IValueTileContainer container, int valueDelta = 1)
+        protected void IncrementContainerValue(MergeContainer container, int valueDelta = 1)
         {
             int startingValue = container.GetValue();
 

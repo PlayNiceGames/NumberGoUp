@@ -47,7 +47,7 @@ namespace GameBoard
             return tile;
         }
 
-        public void CreateEmptyTile(Vector2Int position)
+        public void ClearTile(Vector2Int position)
         {
             Tile tile = _tiles[position.x, position.y];
             if (tile.Type == TileType.Empty)
@@ -173,7 +173,7 @@ namespace GameBoard
                     }
                 }
             }
-            
+
             UpdateGrid();
         }
     }

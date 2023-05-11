@@ -1,4 +1,5 @@
-﻿using Tiles.Data;
+﻿using System;
+using Tiles.Data;
 using UnityEngine;
 
 namespace Tiles
@@ -19,6 +20,11 @@ namespace Tiles
         public override bool HasColor(int color)
         {
             return Top.Color == color || Bottom.Color == color;
+        }
+
+        public override TileData GetData()
+        {
+            return new MixedTileData(Top.Value, Top.Color, Bottom.Value, Bottom.Color);
         }
 
         public override bool Equals(Tile other)

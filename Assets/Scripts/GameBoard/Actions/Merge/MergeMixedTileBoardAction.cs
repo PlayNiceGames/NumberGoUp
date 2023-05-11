@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Tiles;
 using Tiles.Containers;
 using Tiles.Data;
+using UnityEngine;
 
 namespace GameBoard.Actions.Merge
 {
@@ -20,11 +21,12 @@ namespace GameBoard.Actions.Merge
         public override UniTask Run()
         {
             RegularTileData leftoverTile = GetLeftoverTile();
+            Vector2Int tilePosition = _tileContainer.Tile.BoardPosition;
 
             if (leftoverTile == null)
-                _board.CreateEmptyTile(_tileContainer.Tile.BoardPosition);
+                _board.ClearTile(tilePosition);
             else
-                _board.CreateTile(leftoverTile, _tileContainer.Tile.BoardPosition); //TODO free tile from board and animate it
+                _board.CreateTile(leftoverTile, tilePosition); //TODO free tile from board and animate it
 
             return UniTask.CompletedTask;
         }

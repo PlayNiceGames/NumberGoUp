@@ -5,6 +5,7 @@ using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
 using GameLoop.Rules;
+using GameOver;
 using GameScore;
 using GameTileQueue;
 using Tiles;
@@ -14,20 +15,25 @@ namespace GameLoop
 {
     public class EndlessModeGameLoop : GameLoop
     {
+        [SerializeField] private GameLoopSettings _settings;
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] private GameOverUI _gameOverUI;
 
         [SerializeField] private DebugController _debugController;
 
         private UniTaskCompletionSource<Tile> _emptyTileClicked;
         private BoardRules _boardRules;
+        private GameOverController _gameOver;
 
         private void Start()
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
+            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings);
 
+            _gameOver.Setup();
             _gameRules.Setup();
             _tileQueue.Setup();
 
@@ -49,6 +55,14 @@ namespace GameLoop
                 await ProcessBoardRules();
                 AgeTiles();
                 UpdateGameRules();
+
+                bool shouldEndGame = await _gameOver.TryProcessGameOver();
+
+                if (shouldEndGame)
+                {
+                    Debug.LogError("GAME OVER");
+                    return;
+                }
             }
         }
 

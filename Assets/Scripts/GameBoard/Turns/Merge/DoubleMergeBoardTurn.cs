@@ -9,11 +9,11 @@ namespace GameBoard.Turns.Merge
 {
     public class DoubleMergeBoardTurn : MergeBoardTurn
     {
-        private IValueTileContainer _firstContainer;
-        private IValueTileContainer _secondContainer;
-        private IEnumerable<IValueTileContainer> _mergeTileContainers;
+        private MergeContainer _firstContainer;
+        private MergeContainer _secondContainer;
+        private IEnumerable<MergeContainer> _mergeTileContainers;
 
-        public DoubleMergeBoardTurn(IValueTileContainer firstContainer, IValueTileContainer secondContainer, IEnumerable<IValueTileContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
+        public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
             _firstContainer = firstContainer;
             _secondContainer = secondContainer;

@@ -24,8 +24,8 @@ namespace GameBoard.Rules.Merge
 
                 IEnumerable<ValueTile> sameTiles = nearbyTiles.Where(nearbyTile => nearbyTile.Equals(tile)).ToList();
 
-                IValueTileContainer tileContainer = GetContainer(tile);
-                List<IValueTileContainer> sameTileContainers = sameTiles.Select(sameTile => IValueTileContainer.GetMergeContainer(sameTile, tileContainer)).ToList();
+                MergeContainer tileContainer = GetContainer(tile);
+                List<MergeContainer> sameTileContainers = sameTiles.Select(sameTile => MergeContainer.GetMergeContainer(sameTile, tileContainer)).ToList();
 
                 int sameTilesCount = sameTileContainers.Count;
                 if (sameTilesCount > 1)
@@ -35,7 +35,7 @@ namespace GameBoard.Rules.Merge
             return null;
         }
 
-        private IValueTileContainer GetContainer(ValueTile tile)
+        private MergeContainer GetContainer(ValueTile tile)
         {
             if (tile is RegularTile regularTile)
                 return new RegularTileContainer(regularTile);

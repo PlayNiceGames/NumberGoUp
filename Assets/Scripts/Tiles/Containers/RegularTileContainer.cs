@@ -1,8 +1,8 @@
 ﻿namespace Tiles.Containers
 {
-    public class RegularTileContainer : IValueTileContainer
+    public class RegularTileContainer : MergeContainer
     {
-        public ValueTile Tile => RegularTile;
+        public override ValueTile Tile => RegularTile;
         public RegularTile RegularTile { get; private set; }
 
         public RegularTileContainer(RegularTile regularTile)
@@ -10,22 +10,22 @@
             RegularTile = regularTile;
         }
 
-        public int GetValue()
+        public override int GetValue()
         {
             return RegularTile.Value;
         }
 
-        public int? GetColor()
+        public override int? GetColor()
         {
             return RegularTile.Color;
         }
 
-        public void IncrementValue(int value)
+        public override void IncrementValue(int value = 1)
         {
             RegularTile.IncrementValue(value);
         }
 
-        public bool IsMergeable(IValueTileContainer other)
+        public override bool IsMergeable(MergeContainer other)
         {
             int? otherColor = other.GetColor();
             return otherColor != null && otherColor == GetColor();

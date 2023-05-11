@@ -1,4 +1,5 @@
 using System;
+using Tiles.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ namespace Tiles
             Destroy(gameObject);
         }
 
+        public abstract TileData GetData();
         public abstract bool Equals(Tile other);
     }
 }

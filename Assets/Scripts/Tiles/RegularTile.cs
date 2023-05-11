@@ -52,11 +52,16 @@ namespace Tiles
             return Color == color;
         }
 
+        public override TileData GetData()
+        {
+            return new RegularTileData(Value, Color);
+        }
+
         public override bool Equals(Tile other)
         {
             if (other is RegularTile regularTile)
                 return regularTile.Color == Color && regularTile.Value == Value;
-            
+
             return false;
         }
     }

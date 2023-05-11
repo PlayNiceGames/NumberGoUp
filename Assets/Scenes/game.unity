@@ -373,10 +373,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4c034753544a8185a8f030e9234ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 15e8cc9a824a90b4985c16be54bdcd57, type: 2}
   _board: {fileID: 936146793}
   _tileQueue: {fileID: 466784179}
   _gameRules: {fileID: 351035007}
   _scoreSystem: {fileID: 491655412}
+  _gameOverUI: {fileID: 2161604514962853608}
   _debugController: {fileID: 583684506}
 --- !u!1 &1866837305
 GameObject:
@@ -829,6 +831,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 871683980822034999, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
+      propertyPath: _tileFactory
+      value: 
+      objectReference: {fileID: 687023122}
     - target: {fileID: 1003637341923201048, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
       propertyPath: m_Camera
       value: 
@@ -839,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3179867111209384168, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8433844708519082853, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
       propertyPath: m_Pivot.x
@@ -930,6 +936,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
+--- !u!114 &2161604514962853608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 871683980822034999, guid: 6c6d75a4857a9d44fa5bd40f072e29f3, type: 3}
+  m_PrefabInstance: {fileID: 2161604514962853607}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828804ee2202447e99b69bc2b8ea0540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8447473076170093168
 PrefabInstance:
   m_ObjectHideFlags: 0

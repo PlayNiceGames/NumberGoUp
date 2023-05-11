@@ -2,11 +2,11 @@
 
 namespace Tiles.Containers
 {
-    public class MixedTileContainer : IValueTileContainer
+    public class MixedTileContainer : MergeContainer
     {
-        public ValueTile Tile => MixedTile;
-        public MixedTilePartType PartType { get; private set; }
-        public MixedTile MixedTile { get; private set; }
+        public override ValueTile Tile => MixedTile;
+        public MixedTilePartType PartType { get; }
+        public MixedTile MixedTile { get; }
 
         public MixedTileContainer(MixedTile mixedTile, MixedTilePartType partType)
         {
@@ -14,7 +14,7 @@ namespace Tiles.Containers
             PartType = partType;
         }
 
-        public int GetValue()
+        public override int GetValue()
         {
             return GetValue(PartType);
         }
@@ -34,7 +34,7 @@ namespace Tiles.Containers
             }
         }
 
-        public int? GetColor()
+        public override int? GetColor()
         {
             return GetColor(PartType);
         }
@@ -52,7 +52,7 @@ namespace Tiles.Containers
             }
         }
 
-        public void IncrementValue(int value = 1)
+        public override void IncrementValue(int value = 1)
         {
             switch (PartType)
             {
@@ -69,7 +69,7 @@ namespace Tiles.Containers
             }
         }
 
-        public bool IsMergeable(IValueTileContainer other)
+        public override bool IsMergeable(MergeContainer other)
         {
             if (PartType == MixedTilePartType.None)
                 return false;

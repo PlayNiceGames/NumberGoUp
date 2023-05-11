@@ -14,7 +14,7 @@ namespace GameScore
         [SerializeField] private int _regularTileScoreIncrement;
         [SerializeField] private int _mixedTileScoreIncrement;
 
-        public int GetScoreForMerge(int startingValue, int deltaValue, IValueTileContainer container)
+        public int GetScoreForMerge(int startingValue, int deltaValue, MergeContainer container)
         {
             int endValue = startingValue + deltaValue;
             int scoreSum = 0;
@@ -30,7 +30,7 @@ namespace GameScore
             return scoreSum;
         }
 
-        private int GetScoreForMerge(int value, IValueTileContainer container)
+        private int GetScoreForMerge(int value, MergeContainer container)
         {
             int score = 0;
 
