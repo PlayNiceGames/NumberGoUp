@@ -10,7 +10,7 @@ namespace GameDebug
         [field: SerializeField] public bool DebugPlaceTiles { get; private set; }
 
         [SerializeField] private Board _board;
-        [SerializeField] private DebugTilePlacer _tilePlacer;
+        [SerializeField] private DebugTilePlacer _tilePlacer; to public
         
         public static bool IsDebug { get; private set; }
 

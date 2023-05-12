@@ -4,40 +4,37 @@ using GameBoard;
 using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
+using GameLoop;
 using GameLoop.Rules;
-using GameOver;
 using GameScore;
 using GameTileQueue;
 using Tiles;
 using UnityEngine;
 
-namespace GameLoop
+namespace Tutorial
 {
-    public class EndlessModeGameLoop : AbstractGameLoop
+    public class TutorialLoop : AbstractGameLoop
     {
-        [SerializeField] private GameLoopSettings _settings;
         [SerializeField] private Board _board;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
-        [SerializeField] private GameOverUI _gameOverUI;
 
         [SerializeField] private DebugController _debugController;
 
+        private UniTaskCompletionSource<Tile> _emptyTileClicked;
         private BoardRules _boardRules;
-        private GameOverController _gameOver;
 
         private void Start()
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
-            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings);
 
-            _gameOver.Setup();
             _gameRules.Setup();
             _tileQueue.Setup();
 
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;
             _board.Setup(initialBoardSize);
+            _board.OnTileClick += OnTileClicked;
 
             Run().Forget();
 
@@ -50,18 +47,14 @@ namespace GameLoop
             while (true)
             {
                 await ProcessUserInput();
+
                 await _boardRules.ProcessRules();
-                AgeTiles();
+
+                await AgeTiles();
+
                 _gameRules.UpdateCurrentRules();
+
                 UpdateBoardSize();
-
-                bool shouldEndGame = await _gameOver.TryProcessGameOver();
-
-                if (shouldEndGame)
-                {
-                    Debug.LogError("GAME OVER");
-                    return;
-                }
             }
         }
 
@@ -89,10 +82,24 @@ namespace GameLoop
             return _tileQueue.GetNextTile();
         }
 
-        private void AgeTiles()
+        private UniTask<Tile> WaitTileClicked()
+        {
+            _emptyTileClicked = new UniTaskCompletionSource<Tile>();
+            return _emptyTileClicked.Task;
+        }
+
+        private void OnTileClicked(Tile tile)
+        {
+            if (tile.Type == TileType.Empty || IsDebugPlaceTiles())
+            {
+                _emptyTileClicked?.TrySetResult(tile);
+            }
+        }
+
+        private UniTask AgeTiles()
         {
             AgeTilesBoardTurn turn = new AgeTilesBoardTurn(_board);
-            turn.Run().Forget();
+            return turn.Run();
         }
 
         private bool IsDebugPlaceTiles()

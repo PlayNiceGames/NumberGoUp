@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using GameBoard.Rules.Merge;
 using GameBoard.Turns;
 using GameScore;
+using UnityEngine;
 
 namespace GameBoard.Rules
 {
-    public class BoardRules //TODO maybe move rules to RegularTile and MixedTile?
+    public class BoardRules
     {
+        private List<BoardRule> _boardRules;
+
         private Board _board;
         private ScoreSystem _scoreSystem;
-        private List<BoardRule> _boardRules;
 
         public BoardRules(Board board, ScoreSystem scoreSystem)
         {
@@ -27,6 +30,22 @@ namespace GameBoard.Rules
                 new DoubleMergeBoardRule(_board, _scoreSystem),
                 new SimpleMergeBoardRule(_board, _scoreSystem)
             };
+        }
+
+        public async UniTask ProcessRules()
+        {
+            while (true)
+            {
+                BoardTurn turn = GetFirstAvailableTurn();
+
+                if (turn == null)
+                    return;
+
+                await turn.Run();
+                await UniTask.Yield();
+
+                Debug.Log($"RAN turn {turn.GetType()}");
+            }
         }
 
         public BoardTurn GetFirstAvailableTurn()

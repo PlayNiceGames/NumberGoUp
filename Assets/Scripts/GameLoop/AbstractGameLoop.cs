@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameLoop
 {
-    public abstract class GameLoop : MonoBehaviour
+    public abstract class AbstractGameLoop : MonoBehaviour
     {
         public abstract UniTask Run();
     }
