@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DebugPlaceTiles>k__BackingField: 0
+  <TilePlacer>k__BackingField: {fileID: 7187068695190948215}
   _board: {fileID: 0}
-  _tilePlacer: {fileID: 7187068695190948215}
 --- !u!114 &7187068695190948215
 MonoBehaviour:
   m_ObjectHideFlags: 0

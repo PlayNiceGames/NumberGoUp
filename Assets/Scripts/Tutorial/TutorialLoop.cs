@@ -16,16 +16,16 @@ namespace Tutorial
     public class TutorialLoop : AbstractGameLoop
     {
         [SerializeField] private Board _board;
+        [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
 
         [SerializeField] private DebugController _debugController;
 
-        private UniTaskCompletionSource<Tile> _emptyTileClicked;
         private BoardRules _boardRules;
 
-        private void Start()
+        private void Setup()
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
 
@@ -34,9 +34,6 @@ namespace Tutorial
 
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;
             _board.Setup(initialBoardSize);
-            _board.OnTileClick += OnTileClicked;
-
-            Run().Forget();
 
             if (_debugController != null)
                 _debugController.Setup();
@@ -66,7 +63,7 @@ namespace Tutorial
 
         private async Task ProcessUserInput()
         {
-            Tile clickedTile = await WaitTileClicked();
+            Tile clickedTile = await _boardInput.WaitUntilTileClicked(TileType.Empty);
 
             Tile newTile = GetNextTile();
             newTile.transform.position = new Vector3(clickedTile.transform.position.x, clickedTile.transform.position.y, 0); //TODO temp
@@ -80,20 +77,6 @@ namespace Tutorial
                 return _debugController.GetTestTile();
 
             return _tileQueue.GetNextTile();
-        }
-
-        private UniTask<Tile> WaitTileClicked()
-        {
-            _emptyTileClicked = new UniTaskCompletionSource<Tile>();
-            return _emptyTileClicked.Task;
-        }
-
-        private void OnTileClicked(Tile tile)
-        {
-            if (tile.Type == TileType.Empty || IsDebugPlaceTiles())
-            {
-                _emptyTileClicked?.TrySetResult(tile);
-            }
         }
 
         private UniTask AgeTiles()
