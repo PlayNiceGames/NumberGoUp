@@ -54,7 +54,7 @@ namespace Tiles
 
         public override TileData GetData()
         {
-            return new RegularTileData(Value, Color);
+            return new RegularTileData(Value, Color, Age);
         }
 
         public override bool Equals(Tile other)

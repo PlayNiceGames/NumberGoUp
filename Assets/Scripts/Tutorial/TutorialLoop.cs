@@ -15,6 +15,7 @@ namespace Tutorial
 {
     public class TutorialLoop : AbstractGameLoop
     {
+        [SerializeField] private TutorialData _data;
         [SerializeField] private Board _board;
         [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;

@@ -48,8 +48,7 @@ namespace GameBoard.Actions.Merge
 
         private RegularTileData GetLeftoverTile(MixedTileModel model)
         {
-            RegularTileData leftoverTile = new RegularTileData(model.Value, model.Color);
-            leftoverTile.Age = _tileContainer.MixedTile.Age;
+            RegularTileData leftoverTile = new RegularTileData(model.Value, model.Color, _tileContainer.MixedTile.Age);
 
             return leftoverTile;
         }

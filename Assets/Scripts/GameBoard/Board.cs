@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Serialization;
 using Tiles;
 using Tiles.Data;
 using UnityEngine;
 
 namespace GameBoard
 {
-    public class Board : MonoBehaviour
+    public class Board : MonoBehaviour, IDataSerializable<BoardData>
     {
         public event Action<Tile> OnTileClick;
         public int Size { get; private set; }
@@ -175,6 +176,67 @@ namespace GameBoard
             }
 
             UpdateGrid();
+        }
+
+        public BoardData GetData()
+        {
+            TileData[,] tilesData = GetTilesData();
+            return new BoardData(tilesData);
+        }
+
+        private TileData[,] GetTilesData()
+        {
+            TileData[,] tilesData = new TileData[_tiles.GetLength(0), _tiles.GetLength(1)];
+
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Tile tile = _tiles[i, j];
+
+                    if (tile == null)
+                        continue;
+
+                    TileData tileData = tile.GetData();
+                    tilesData[i, j] = tileData;
+                }
+            }
+
+            return tilesData;
+        }
+
+        public void SetData(BoardData data)
+        {
+            ClearBoard();
+
+            TileData[,] tilesData = data.Tiles;
+            SetTilesData(tilesData);
+
+            ValidateBoard();
+        }
+
+        private void SetTilesData(TileData[,] tilesData)
+        {
+            int sizeX = tilesData.GetLength(0);
+            int sizeY = tilesData.GetLength(1);
+
+            _tiles = new Tile[sizeX, sizeY];
+            Size = sizeX;
+
+            for (int i = 0; i < sizeX; i++)
+            {
+                for (int j = 0; j < sizeY; j++)
+                {
+                    TileData tileData = tilesData[i, j];
+
+                    if (tileData == null)
+                        continue;
+
+                    Tile tile = _factory.InstantiateTile(tileData);
+
+                    AddTile(tile, new Vector2Int(i, j));
+                }
+            }
         }
     }
 }

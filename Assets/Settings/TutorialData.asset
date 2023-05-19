@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb3df1e2964285af1b0e9362df3025, type: 3}
+  m_Name: TutorialData
+  m_EditorClassIdentifier: 
+  _steps:
+  - rid: 8647209675598069772
+  - rid: 8647209653414658077
+  references:
+    version: 2
+    RefIds:
+    - rid: 8647209653414658077
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TextKey: nn
+    - rid: 8647209675598069772
+      type: {class: BoardTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209675598069773
+    - rid: 8647209675598069773
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209675598069774
+        - rid: 8647209675598069775
+        - rid: 8647209675598069776
+        - rid: 8647209675598069777
+        - rid: 8647209675598069778
+        - rid: 8647209675598069779
+        - rid: 8647209675598069780
+        - rid: 8647209675598069781
+        - rid: 8647209675598069782
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209675598069774
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 3
+        Value: 1
+        Color: 2
+    - rid: 8647209675598069775
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209675598069776
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 1
+        Value: 2
+        Color: 0
+    - rid: 8647209675598069777
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209675598069778
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209675598069779
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209675598069780
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209675598069781
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 2
+        Value: 1
+        Color: 2
+    - rid: 8647209675598069782
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}

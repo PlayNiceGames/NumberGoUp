@@ -6,7 +6,7 @@ namespace GameLoop.Rules
 {
     public class GameRulesData : ScriptableObject
     {
-        [field: SerializeField] private List<GameRulesSet> _rulesSets;
+        [SerializeField] private List<GameRulesSet> _rulesSets;
 
         public GameRulesSet GetInitialRules()
         {

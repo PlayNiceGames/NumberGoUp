@@ -3,7 +3,6 @@ using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
-using UnityEditor;
 using UnityEngine;
 
 namespace GameDebug
@@ -69,12 +68,12 @@ namespace GameDebug
                     break;
                 case TileType.Regular:
                     int colorIndex = _rules.GetColor(_firstGameColor);
-                    data = new RegularTileData(_firstValue, colorIndex);
+                    data = new RegularTileData(_firstValue, colorIndex, 0);
                     break;
                 case TileType.Mixed:
                     int topColorIndex = _rules.GetColor(_firstGameColor);
                     int bottomColorIndex = _rules.GetColor(_secondGameColor);
-                    data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex);
+                    data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex, 0);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

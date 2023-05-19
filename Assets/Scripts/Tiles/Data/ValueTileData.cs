@@ -5,5 +5,10 @@
         public int Age;
 
         public abstract bool HasColor(int color);
+
+        protected ValueTileData(int age)
+        {
+            Age = age;
+        }
     }
 }
