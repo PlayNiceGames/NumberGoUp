@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 
 namespace Tutorial
 {
-    [Serializable]
-    public class TutorialStep
+    public abstract class TutorialStep
     {
+        public abstract UniTask Run();
     }
 }

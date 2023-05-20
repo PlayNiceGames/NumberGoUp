@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5882541383631686988}
   - component: {fileID: 8800615986222932825}
   - component: {fileID: 8338417517786595613}
+  - component: {fileID: 3637920359493804421}
   - component: {fileID: 1941510819157734220}
   - component: {fileID: 4673381475478645998}
   - component: {fileID: 7550861565388877824}
-  - component: {fileID: 3637920359493804421}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _board: {fileID: 5882541383631686988}
-  _debugController: {fileID: 0}
+  _debugTilePlacer: {fileID: 0}
 --- !u!114 &8338417517786595613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +86,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _board: {fileID: 5882541383631686988}
   _factory: {fileID: 0}
+--- !u!114 &3637920359493804421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550005080136573691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca084d1724a46fbb5a9b0f1a950f97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    _tilesFlatten: []
+    _sizeX: 0
+    _sizeY: 0
+  _board: {fileID: 5882541383631686988}
+  references:
+    version: 2
+    RefIds: []
 --- !u!223 &1941510819157734220
 Canvas:
   m_ObjectHideFlags: 0
@@ -149,26 +169,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &3637920359493804421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550005080136573691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca084d1724a46fbb5a9b0f1a950f97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data:
-    _tilesFlatten: []
-    _sizeX: 0
-    _sizeY: 0
-  _board: {fileID: 5882541383631686988}
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &4725535658817130352
 GameObject:
   m_ObjectHideFlags: 0

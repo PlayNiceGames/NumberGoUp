@@ -1,10 +1,7 @@
-﻿using JetBrains.Annotations;
-
-namespace Tutorial.Data
+﻿namespace Tutorial.Data
 {
-    [UsedImplicitly]
     public struct DialogTutorialStepData : ITutorialStepData
     {
-        public string TextKey;
+        public string DialogKey;
     }
 }

@@ -9,6 +9,8 @@ namespace GameDebug
 {
     public class DebugTilePlacer : MonoBehaviour
     {
+        [field: SerializeField] public bool DebugPlaceTiles { get; private set; }
+
         [SerializeField] private TileType _type;
 
         [Space]

@@ -254,8 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1aaf31200654b9a9f97518732fb7276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _key: game_over
-  _fillOnStart: 1
+  Key: game_over
+  FillOnStart: 1
   _database: {fileID: 11400000, guid: 92c48a6f8ce878240b730c4f59da0ce6, type: 2}
 --- !u!114 &6688958834385236715
 MonoBehaviour:
@@ -441,8 +441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1aaf31200654b9a9f97518732fb7276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _key: current_score
-  _fillOnStart: 0
+  Key: current_score
+  FillOnStart: 0
   _database: {fileID: 11400000, guid: 92c48a6f8ce878240b730c4f59da0ce6, type: 2}
 --- !u!114 &593751092328993182
 MonoBehaviour:
@@ -592,8 +592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1aaf31200654b9a9f97518732fb7276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _key: high_score
-  _fillOnStart: 0
+  Key: high_score
+  FillOnStart: 0
   _database: {fileID: 11400000, guid: 92c48a6f8ce878240b730c4f59da0ce6, type: 2}
 --- !u!114 &517629553377509168
 MonoBehaviour:

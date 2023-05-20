@@ -8,7 +8,7 @@ namespace GameBoard
     public class BoardInput : MonoBehaviour
     {
         [SerializeField] private Board _board;
-        [SerializeField] private DebugController _debugController;
+        [SerializeField] private DebugTilePlacer _debugTilePlacer;
 
         private UniTaskCompletionSource<Tile> _emptyTileClicked;
         private TileType _currentExpectedTileType;
@@ -41,7 +41,7 @@ namespace GameBoard
 
         private bool IsDebugPlaceTiles()
         {
-            return DebugController.IsDebug && _debugController.DebugPlaceTiles; //TODO rewrite debug
+            return DebugController.IsDebug && _debugTilePlacer.DebugPlaceTiles; //TODO rewrite debug
         }
     }
 }

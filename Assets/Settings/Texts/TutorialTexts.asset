@@ -13,5 +13,26 @@ MonoBehaviour:
   m_Name: TutorialTexts
   m_EditorClassIdentifier: 
   _texts:
-    _keyData: []
-    _valueData: []
+    _keyData:
+    - dialog_lets_merge
+    - dialog_nicely_done
+    - dialog_older_blocks
+    - dialog_number_3_up
+    - dialog_number_3_place
+    - dialog_number_3_variants
+    - dialog_number_4
+    - dialog_make_numbers_go_up
+    _valueData:
+    - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
+      the blocks that are up next at the bottom."
+    - Nicely Done! The number goes up by absorbing adjacent blocks of the same color.
+    - Older Blocks absorb newly placed ones. Blocks with the larger number will absorb
+      smaller numbers.
+    - For the number 3 to go up it has to absorb 3 adjacent blocks of the same color.
+    - These blocks can be separate blocks that touch the number 3 from different
+      sides. Place 3 blocks of the same color around the 3 Tile.
+    - You could place three 1 number tiles or One 1 number 1 tile and one 2 number
+      tile or just one 3 number tile.
+    - Well Done! Your tile is number 4 now. For the number to go up, it has to touch
+      4 blocks of the same color.
+    - You will gain more points for larger numbers! Make the number go up!

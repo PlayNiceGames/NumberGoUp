@@ -1,32 +1,29 @@
-﻿using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using GameBoard;
 using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
-using GameLoop;
 using GameLoop.Rules;
 using GameScore;
 using GameTileQueue;
 using Tiles;
 using UnityEngine;
 
-namespace Tutorial
+namespace GameLoop
 {
-    public class TutorialLoop : AbstractGameLoop
+    public class BoardGameLoop : MonoBehaviour
     {
-        [SerializeField] private TutorialData _data;
         [SerializeField] private Board _board;
         [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
 
-        [SerializeField] private DebugController _debugController;
+        [SerializeField] private DebugTilePlacer _debugTilePlacer;
 
         private BoardRules _boardRules;
 
-        private void Setup()
+        public void Setup()
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
 
@@ -35,25 +32,18 @@ namespace Tutorial
 
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;
             _board.Setup(initialBoardSize);
-
-            if (_debugController != null)
-                _debugController.Setup();
         }
 
-        public override async UniTask Run()
+        public async UniTask Run()
         {
-            while (true)
-            {
-                await ProcessUserInput();
+            await ProcessUserInput();
 
-                await _boardRules.ProcessRules();
+            await _boardRules.ProcessRules();
+            _gameRules.UpdateCurrentRules();
 
-                await AgeTiles();
+            AgeTiles();
 
-                _gameRules.UpdateCurrentRules();
-
-                UpdateBoardSize();
-            }
+            UpdateBoardSize();
         }
 
         private void UpdateBoardSize()
@@ -62,7 +52,7 @@ namespace Tutorial
             _board.UpdateBoardSize(boardSize);
         }
 
-        private async Task ProcessUserInput()
+        private async UniTask ProcessUserInput()
         {
             Tile clickedTile = await _boardInput.WaitUntilTileClicked(TileType.Empty);
 
@@ -75,20 +65,20 @@ namespace Tutorial
         private Tile GetNextTile()
         {
             if (IsDebugPlaceTiles())
-                return _debugController.GetTestTile();
+                return _debugTilePlacer.GetNextTile();
 
             return _tileQueue.GetNextTile();
         }
 
-        private UniTask AgeTiles()
+        private void AgeTiles()
         {
             AgeTilesBoardTurn turn = new AgeTilesBoardTurn(_board);
-            return turn.Run();
+            turn.Run().Forget();
         }
 
         private bool IsDebugPlaceTiles()
         {
-            return DebugController.IsDebug && _debugController.DebugPlaceTiles; //TODO rewrite debug
+            return DebugController.IsDebug && _debugTilePlacer.DebugPlaceTiles; //TODO rewrite debug
         }
     }
 }

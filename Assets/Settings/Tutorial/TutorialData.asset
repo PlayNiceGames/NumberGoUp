@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb3df1e2964285af1b0e9362df3025, type: 3}
+  m_Name: TutorialData
+  m_EditorClassIdentifier: 
+  _steps:
+  - rid: 8647209695244451891
+  - rid: 8647209695244451958
+  - rid: 8647209695244451948
+  - rid: 8647209695244451959
+  - rid: 8647209695244451950
+  - rid: 8647209695244451960
+  - rid: 8647209695244451962
+  - rid: 8647209695244451964
+  - rid: 8647209695244451966
+  - rid: 8647209695244451968
+  - rid: 8647209695244451970
+  - rid: 8647209695244451973
+  - rid: 8647209695244451975
+  - rid: 8647209695244451977
+  - rid: 8647209695244451979
+  references:
+    version: 2
+    RefIds:
+    - rid: 8647209695244451891
+      type: {class: SetupBoardTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209695244451892
+    - rid: 8647209695244451892
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209695244451893
+        - rid: 8647209695244451894
+        - rid: 8647209695244451895
+        - rid: 8647209695244451896
+        - rid: 8647209695244451897
+        - rid: 8647209695244451898
+        - rid: 8647209695244451899
+        - rid: 8647209695244451900
+        - rid: 8647209695244451901
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209695244451893
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451894
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451895
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451896
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451897
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 1
+        Value: 1
+        Color: 9
+    - rid: 8647209695244451898
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451899
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451900
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451901
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209695244451948
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209695244451950
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209695244451958
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_lets_merge
+    - rid: 8647209695244451959
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_nicely_done
+    - rid: 8647209695244451960
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_older_blocks
+    - rid: 8647209695244451962
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209695244451964
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_number_3_up
+    - rid: 8647209695244451966
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209695244451968
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_number_3_place
+    - rid: 8647209695244451970
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209695244451973
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_number_3_variants
+    - rid: 8647209695244451975
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 2
+    - rid: 8647209695244451977
+      type: {class: DialogTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        DialogKey: dialog_make_numbers_go_up
+    - rid: 8647209695244451979
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 3

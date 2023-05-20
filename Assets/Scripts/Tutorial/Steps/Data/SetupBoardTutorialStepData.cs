@@ -1,11 +1,9 @@
 ﻿using GameBoard;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Tutorial.Data
 {
-    [UsedImplicitly]
-    public struct BoardTutorialStepData : ITutorialStepData
+    public struct SetupBoardTutorialStepData : ITutorialStepData
     {
         [SerializeReference] public BoardData BoardConfiguration;
     }
