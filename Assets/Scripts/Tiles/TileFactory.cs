@@ -6,12 +6,16 @@ namespace Tiles
 {
     public class TileFactory : MonoBehaviour
     {
+        [SerializeField] private VoidTile _voidTilePrefab;
         [SerializeField] private EmptyTile _emptyTilePrefab;
         [SerializeField] private RegularTile _regularTilePrefab;
         [SerializeField] private MixedTile _mixedTilePrefab;
 
         public Tile InstantiateTile(TileData data)
         {
+            if (data is VoidTileData)
+                return InstantiateTile<VoidTile>();
+
             if (data is EmptyTileData)
                 return InstantiateTile<EmptyTile>();
 
@@ -42,6 +46,8 @@ namespace Tiles
 
         public T InstantiateTile<T>() where T : Tile
         {
+            if (_voidTilePrefab is T voidTile)
+                return Instantiate(voidTile);
             if (_emptyTilePrefab is T emptyTile)
                 return Instantiate(emptyTile);
             if (_regularTilePrefab is T regularTile)
@@ -56,6 +62,8 @@ namespace Tiles
         {
             switch (type)
             {
+                case TileType.Void:
+                    return _voidTilePrefab;
                 case TileType.Empty:
                     return _emptyTilePrefab;
                 case TileType.Regular:

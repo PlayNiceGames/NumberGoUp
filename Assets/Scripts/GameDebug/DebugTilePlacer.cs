@@ -1,5 +1,4 @@
-﻿using System;
-using GameLoop.Rules;
+﻿using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
@@ -78,7 +77,8 @@ namespace GameDebug
                     data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex, 0);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    Tile defaultTile = _factory.InstantiateTile(_type);
+                    return defaultTile;
             }
 
             Tile tile = _factory.InstantiateTile(data);

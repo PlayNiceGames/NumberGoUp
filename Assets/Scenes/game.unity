@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edfcccf9c7540cab7ed26d320306daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _voidTilePrefab: {fileID: 1846703775670571318, guid: 88dd922a72cbc9645860aad24b412ce4, type: 3}
   _emptyTilePrefab: {fileID: 252743325881415059, guid: a1561130ce790e349b5c041dd10e7f22, type: 3}
   _regularTilePrefab: {fileID: 5086808537052546503, guid: 8ed864f4bb3e14b429d73d72a7803bfc, type: 3}
   _mixedTilePrefab: {fileID: -365837659467752304, guid: 276c9e4a589ab554c808350b2f15cad7, type: 3}
