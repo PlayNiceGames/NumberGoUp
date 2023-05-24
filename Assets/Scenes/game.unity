@@ -399,7 +399,6 @@ MonoBehaviour:
   _board: {fileID: 936146793}
   _boardInput: {fileID: 936146799}
   _tileQueue: {fileID: 466784179}
-  _gameRules: {fileID: 351035007}
   _scoreSystem: {fileID: 491655412}
   _debugTilePlacer: {fileID: 583684510}
 --- !u!1 &1808178625
@@ -447,8 +446,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: 15e8cc9a824a90b4985c16be54bdcd57, type: 2}
+  _gameRules: {fileID: 0}
   _boardLoop: {fileID: 1406405856}
   _board: {fileID: 936146793}
+  _tileQueue: {fileID: 466784179}
   _scoreSystem: {fileID: 491655412}
   _gameOverUI: {fileID: 2161604514962853608}
 --- !u!1 &1866837305
@@ -640,6 +641,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: 4ac5dcd0591610d4598c02ff10403fe0, type: 2}
   _stepFactory: {fileID: 2065142833}
   _boardLoop: {fileID: 1406405856}
+  _tileQueue: {fileID: 466784179}
   _dialogUI: {fileID: 6991904325164041236}
 --- !u!114 &2065142833
 MonoBehaviour:

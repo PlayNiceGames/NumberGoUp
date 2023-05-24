@@ -14,15 +14,13 @@ namespace GameTileQueue
         [SerializeField] private TileFactory _factory;
         [SerializeField] private GameRules _rules;
 
-        private TileQueueGenerator _generator;
+        private EndlessModeTileQueueGenerator _generator;
         private Queue<Tile> _tiles;
 
         public void Setup()
         {
-            _generator = new TileQueueGenerator(_settings, _factory, _rules);
+            _generator = new EndlessModeTileQueueGenerator(_settings, _rules);
             _tiles = new Queue<Tile>();
-
-            AddInitialTiles();
         }
 
         public Tile GetNextTile()
@@ -35,7 +33,7 @@ namespace GameTileQueue
         }
 
         [Button]
-        private void AddInitialTiles()
+        public void AddInitialTiles()
         {
             ClearTiles();
 

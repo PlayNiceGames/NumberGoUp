@@ -3,7 +3,6 @@ using GameBoard;
 using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
-using GameLoop.Rules;
 using GameScore;
 using GameTileQueue;
 using Tiles;
@@ -16,7 +15,6 @@ namespace GameLoop
         [SerializeField] private Board _board;
         [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;
-        [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
 
         [SerializeField] private DebugTilePlacer _debugTilePlacer;
@@ -27,11 +25,7 @@ namespace GameLoop
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
 
-            _gameRules.Setup();
             _tileQueue.Setup();
-
-            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
-            _board.Setup(initialBoardSize);
         }
 
         public async UniTask Run()
@@ -39,17 +33,8 @@ namespace GameLoop
             await ProcessUserInput();
 
             await _boardRules.ProcessRules();
-            _gameRules.UpdateCurrentRules();
 
             AgeTiles();
-
-            UpdateBoardSize();
-        }
-
-        private void UpdateBoardSize()
-        {
-            int boardSize = _gameRules.CurrentRules.BoardSize;
-            _board.UpdateBoardSize(boardSize);
         }
 
         private async UniTask ProcessUserInput()

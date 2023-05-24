@@ -5,10 +5,9 @@ using Tiles.Data;
 
 namespace GameTileQueue
 {
-    public class TileQueueGenerator
+    public class EndlessModeTileQueueGenerator
     {
         private TileQueueGeneratorSettings _settings;
-        private TileFactory _factory;
         private GameRules _rules;
 
         private TileQueueSet _currentSet;
@@ -19,10 +18,9 @@ namespace GameTileQueue
 
         private Queue<ValueTileData> _generatedTileQueue;
 
-        public TileQueueGenerator(TileQueueGeneratorSettings settings, TileFactory factory, GameRules rules)
+        public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules)
         {
             _settings = settings;
-            _factory = factory;
 
             _generatedTileQueue = new Queue<ValueTileData>();
 
