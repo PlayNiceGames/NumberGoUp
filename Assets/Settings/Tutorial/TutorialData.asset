@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cb3df1e2964285af1b0e9362df3025, type: 3}
   m_Name: TutorialData
   m_EditorClassIdentifier: 
+  <DefaultTileInQueue>k__BackingField:
+    rid: 8647209831203602432
   _steps:
   - rid: 8647209695244451989
   - rid: 8647209695244451958
@@ -129,3 +131,9 @@ MonoBehaviour:
       type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
     - rid: 8647209695244451999
       type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209831203602432
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 0
+        Value: 1
+        Color: 9

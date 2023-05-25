@@ -9,17 +9,17 @@ namespace GameTileQueue
 {
     public class TileQueue : MonoBehaviour
     {
+        private const int QueueSize = 4; //TODO temp, move
+        
         [SerializeField] private Transform _grid;
-        [SerializeField] private TileQueueGeneratorSettings _settings;
         [SerializeField] private TileFactory _factory;
-        [SerializeField] private GameRules _rules;
 
-        private EndlessModeTileQueueGenerator _generator;
+        private TileQueueGenerator _generator;
         private Queue<Tile> _tiles;
 
-        public void Setup()
+        public void Setup(TileQueueGenerator generator)
         {
-            _generator = new EndlessModeTileQueueGenerator(_settings, _rules);
+            _generator = generator;
             _tiles = new Queue<Tile>();
         }
 
@@ -37,7 +37,7 @@ namespace GameTileQueue
         {
             ClearTiles();
 
-            for (int i = 0; i < _settings.TileQueueSize; i++)
+            for (int i = 0; i < QueueSize; i++)
             {
                 AddNextTile();
             }

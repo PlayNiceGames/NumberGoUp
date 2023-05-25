@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using GameLoop.Rules;
-using Tiles;
 using Tiles.Data;
 
 namespace GameTileQueue
 {
-    public class EndlessModeTileQueueGenerator
+    public class EndlessModeTileQueueGenerator : TileQueueGenerator
     {
         private TileQueueGeneratorSettings _settings;
         private GameRules _rules;
@@ -32,7 +31,7 @@ namespace GameTileQueue
             _rules = rules;
         }
 
-        public TileData GetNextTileData()
+        public override TileData GetNextTileData()
         {
             if (_generatedTileQueue.Count == 0)
                 GenerateNextSet();

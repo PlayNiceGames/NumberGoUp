@@ -446,7 +446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: 15e8cc9a824a90b4985c16be54bdcd57, type: 2}
-  _gameRules: {fileID: 0}
+  _tileQueueGeneratorSettings: {fileID: 11400000, guid: 8ad947300f632f344b930efca2216e92, type: 2}
+  _gameRules: {fileID: 351035007}
   _boardLoop: {fileID: 1406405856}
   _board: {fileID: 936146793}
   _tileQueue: {fileID: 466784179}

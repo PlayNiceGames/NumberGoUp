@@ -12,6 +12,7 @@ namespace GameLoop.EndlessMode
     public class EndlessModeGameLoop : AbstractGameLoop
     {
         [SerializeField] private GameLoopSettings _settings;
+        [SerializeField] private TileQueueGeneratorSettings _tileQueueGeneratorSettings;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private Board _board;
@@ -20,13 +21,15 @@ namespace GameLoop.EndlessMode
         [SerializeField] private GameOverUI _gameOverUI;
 
         private BoardRules _boardRules;
+        private EndlessModeTileQueueGenerator _tileQueueGenerator;
         private GameOverController _gameOver;
 
         public override void Setup()
         {
             _gameRules.Setup();
 
-            _tileQueue.Setup();
+            _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules);
+            _tileQueue.Setup(_tileQueueGenerator);
 
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;
             _board.Setup(initialBoardSize);
@@ -45,6 +48,8 @@ namespace GameLoop.EndlessMode
             while (true)
             {
                 await _boardLoop.Run();
+                _gameRules.UpdateCurrentRules();
+                UpdateBoardSize();
 
                 bool shouldEndGame = await _gameOver.TryProcessGameOver();
 
@@ -54,6 +59,12 @@ namespace GameLoop.EndlessMode
                     return;
                 }
             }
+        }
+
+        private void UpdateBoardSize()
+        {
+            int newSize = _gameRules.CurrentRules.BoardSize;
+            _board.UpdateBoardSize(newSize);
         }
     }
 }

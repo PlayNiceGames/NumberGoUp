@@ -14,10 +14,12 @@ namespace GameLoop.Tutorial
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private TutorialDialogUI _dialogUI;
 
+        private TutorialTileQueueGenerator _tileQueueGenerator;
+
         public override void Setup()
         {
-            _tileQueue.Setup();
-            _tileQueue.AddInitialTiles();
+            _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue);
+            _tileQueue.Setup(_tileQueueGenerator);
 
             _boardLoop.Setup();
 
@@ -27,6 +29,8 @@ namespace GameLoop.Tutorial
 
         public override async UniTask Run()
         {
+            _tileQueue.AddInitialTiles();
+
             foreach (ITutorialStepData stepData in _data.Steps)
             {
                 TutorialStep step = _stepFactory.CreateStep(stepData);
