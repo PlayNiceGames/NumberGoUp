@@ -4,6 +4,6 @@ namespace Tutorial.Steps
 {
     public abstract class TutorialStep
     {
-        public abstract UniTask Run();
+        public abstract UniTask<bool> Run();
     }
 }

@@ -18,11 +18,16 @@ namespace Tutorial.Steps
             _dialogController = dialogController;
         }
 
-        public override UniTask Run()
+        public override async UniTask<bool> Run()
         {
-            _dialogController.ShowDialog(_data.TitleKey, _data.DialogKey);
+            TutorialQuestionAction action = await _dialogController.ShowDialogQuestion(_data.TitleKey, _data.DialogKey);
 
-            return UniTask.CompletedTask;
+            return action switch
+            {
+                TutorialQuestionAction.Play => true,
+                TutorialQuestionAction.ContinueTutorial => false,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

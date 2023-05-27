@@ -16,12 +16,14 @@ namespace Tutorial.Steps
             _loop = loop;
         }
 
-        public override async UniTask Run()
+        public override async UniTask<bool> Run()
         {
             for (int i = 0; i < _data.TurnCount; i++)
             {
                 await _loop.Run();
             }
+
+            return false;
         }
     }
 }

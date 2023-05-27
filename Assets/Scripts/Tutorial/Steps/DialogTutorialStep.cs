@@ -18,11 +18,11 @@ namespace Tutorial.Steps
             _dialogController = dialogController;
         }
 
-        public override UniTask Run()
+        public override UniTask<bool> Run()
         {
             _dialogController.ShowDialog(_data.TitleKey, _data.DialogKey);
 
-            return UniTask.CompletedTask;
+            return new UniTask<bool>(false);
         }
     }
 }

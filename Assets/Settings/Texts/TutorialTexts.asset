@@ -22,6 +22,9 @@ MonoBehaviour:
     - dialog_number_3_variants
     - dialog_number_4
     - dialog_make_numbers_go_up
+    - dialog_question_continue
+    - dialog_question_button_play
+    - dialog_question_button_next
     _valueData:
     - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
       the blocks that are up next at the bottom."
@@ -36,3 +39,6 @@ MonoBehaviour:
     - Well Done! Your tile is number 4 now. For the number to go up, it has to touch
       4 blocks of the same color.
     - You will gain more points for larger numbers! Make the number go up!
+    - Those are the basic rules! Start playing or select NEXT for extra rules.
+    - Play
+    - Next

@@ -18,12 +18,12 @@ namespace Tutorial.Steps
             _board = board;
         }
 
-        public override UniTask Run()
+        public override UniTask<bool> Run()
         {
             BoardData boardData = _data.BoardConfiguration;
             _board.SetData(boardData);
 
-            return UniTask.CompletedTask;
+            return new UniTask<bool>(false);
         }
     }
 }

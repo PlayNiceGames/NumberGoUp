@@ -22,6 +22,8 @@ namespace Tiles
         {
             SetValue(data.Value);
             SetColor(data.Color);
+
+            Age = data.Age;
         }
 
         public void IncrementValue(int increment = 1)
