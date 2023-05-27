@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Tiles.Data;
-using Tutorial.Data;
+using Tutorial.Steps.Data;
 using UnityEngine;
 
 namespace Tutorial

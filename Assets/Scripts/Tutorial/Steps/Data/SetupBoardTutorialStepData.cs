@@ -1,7 +1,7 @@
 ﻿using GameBoard;
 using UnityEngine;
 
-namespace Tutorial.Data
+namespace Tutorial.Steps.Data
 {
     public struct SetupBoardTutorialStepData : ITutorialStepData
     {

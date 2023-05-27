@@ -6,13 +6,13 @@ using Tutorial.Steps.Data;
 namespace Tutorial.Steps
 {
     [Serializable]
-    public class DialogTutorialStep : TutorialStep
+    public class DialogQuestionTutorialStep : TutorialStep
     {
         private DialogTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
 
-        public DialogTutorialStep(DialogTutorialStepData data, TutorialDialogController dialogController)
+        public DialogQuestionTutorialStep(DialogTutorialStepData data, TutorialDialogController dialogController)
         {
             _data = data;
             _dialogController = dialogController;

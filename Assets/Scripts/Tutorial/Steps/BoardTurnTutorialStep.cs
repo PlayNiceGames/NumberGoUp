@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameLoop;
-using Tutorial.Data;
+using Tutorial.Steps.Data;
 
-namespace Tutorial
+namespace Tutorial.Steps
 {
     public class BoardTurnTutorialStep : TutorialStep
     {

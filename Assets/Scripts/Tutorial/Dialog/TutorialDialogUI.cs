@@ -1,7 +1,7 @@
 ﻿using SimpleTextProvider;
 using UnityEngine;
 
-namespace Tutorial
+namespace Tutorial.Dialog
 {
     public class TutorialDialogUI : MonoBehaviour
     {
@@ -21,10 +21,10 @@ namespace Tutorial
             gameObject.SetActive(true);
         }
 
-        public void SetTextKeys(string dialogKey)
+        public void SetTextKeys(string titleKey, string dialogKey)
         {
-            //_titleLabel.Key = titleKey;
-            //_titleLabel.FillText();
+            _titleLabel.Key = titleKey;
+            _titleLabel.FillText();
 
             _dialogLabel.Key = dialogKey;
             _dialogLabel.FillText();

@@ -1,4 +1,4 @@
-﻿namespace Tutorial.Data
+﻿namespace Tutorial.Steps.Data
 {
     public interface ITutorialStepData
     {

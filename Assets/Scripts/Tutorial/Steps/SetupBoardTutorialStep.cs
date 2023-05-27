@@ -1,9 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using GameBoard;
-using Tutorial.Data;
+using Tutorial.Steps.Data;
 
-namespace Tutorial
+namespace Tutorial.Steps
 {
     [Serializable]
     public class SetupBoardTutorialStep : TutorialStep

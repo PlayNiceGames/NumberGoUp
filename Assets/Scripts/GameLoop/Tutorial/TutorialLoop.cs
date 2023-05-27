@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameTileQueue;
 using Tutorial;
-using Tutorial.Data;
+using Tutorial.Dialog;
+using Tutorial.Steps;
+using Tutorial.Steps.Data;
 using UnityEngine;
 
 namespace GameLoop.Tutorial

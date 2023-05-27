@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Tutorial
+namespace Tutorial.Steps
 {
     public abstract class TutorialStep
     {

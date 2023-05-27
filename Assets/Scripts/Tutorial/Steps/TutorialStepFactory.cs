@@ -1,16 +1,17 @@
 ﻿using System;
 using GameBoard;
 using GameLoop;
-using Tutorial.Data;
+using Tutorial.Dialog;
+using Tutorial.Steps.Data;
 using UnityEngine;
 
-namespace Tutorial
+namespace Tutorial.Steps
 {
     public class TutorialStepFactory : MonoBehaviour //TODO remove after Zenject
     {
         [SerializeField] private Board _board;
         [SerializeField] private BoardGameLoop _boardLoop;
-        [SerializeField] private TutorialDialogUI _dialogUI;
+        [SerializeField] private TutorialDialogController _dialogController;
 
         public TutorialStep CreateStep(ITutorialStepData data)
         {
@@ -21,7 +22,7 @@ namespace Tutorial
                 case BoardTurnTutorialStepData boardTurnStepData:
                     return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop);
                 case DialogTutorialStepData dialogStepData:
-                    return new DialogTutorialStep(dialogStepData, _dialogUI);
+                    return new DialogTutorialStep(dialogStepData, _dialogController);
             }
 
             throw new ArgumentException();
