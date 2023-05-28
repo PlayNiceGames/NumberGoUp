@@ -14,19 +14,18 @@ namespace GameLoop.Tutorial
         [SerializeField] private TutorialStepFactory _stepFactory;
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileQueue _tileQueue;
-        [SerializeField] private TutorialDialogUI _dialogUI;
+        [SerializeField] private TutorialDialogController _dialogController;
 
         private TutorialTileQueueGenerator _tileQueueGenerator;
 
         public override void Setup()
         {
-            _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue);
+            _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue, _data.TileQueueOverrides);
             _tileQueue.Setup(_tileQueueGenerator);
 
             _boardLoop.Setup();
 
-            _dialogUI.Setup();
-            _dialogUI.Show();
+            _dialogController.Setup();
         }
 
         public override async UniTask Run()
@@ -36,7 +35,10 @@ namespace GameLoop.Tutorial
             foreach (ITutorialStepData stepData in _data.Steps)
             {
                 TutorialStep step = _stepFactory.CreateStep(stepData);
-                await step.Run();
+                bool shouldEndTutorial = await step.Run();
+
+                if (shouldEndTutorial)
+                    return;
             }
         }
     }

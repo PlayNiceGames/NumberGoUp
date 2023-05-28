@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DefaultTileInQueue>k__BackingField:
     rid: 8647209831203602432
+  <TileQueueOverrides>k__BackingField:
+    _keyData: 020000000100000006000000
+    _valueData:
+    - rid: 8647209896712863747
+    - rid: 8647209896712863746
+    - rid: 8647209896712863748
   _steps:
   - rid: 8647209695244451989
   - rid: 8647209695244451958
@@ -29,9 +35,16 @@ MonoBehaviour:
   - rid: 8647209695244451973
   - rid: 8647209695244451975
   - rid: 8647209695244451977
-  - rid: 8647209695244451979
+  - rid: 8647209896712863749
   - rid: 8647209875745275930
   - rid: 8647209875745275934
+  - rid: 8647209875745275945
+  - rid: 8647209875745276127
+  - rid: 8647209875745275966
+  - rid: 8647209875745276128
+  - rid: 8647209875745275987
+  - rid: 8647209875745276129
+  - rid: 8647209875745276116
   references:
     version: 2
     RefIds:
@@ -94,10 +107,6 @@ MonoBehaviour:
       data:
         TitleKey: 
         DialogKey: dialog_make_numbers_go_up
-    - rid: 8647209695244451979
-      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TurnCount: 3
     - rid: 8647209695244451989
       type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
@@ -155,3 +164,243 @@ MonoBehaviour:
       data:
         TitleKey: dialog_lets_merge
         DialogKey: dialog_lets_merge
+    - rid: 8647209875745275945
+      type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209875745275946
+    - rid: 8647209875745275946
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209875745275947
+        - rid: 8647209875745275948
+        - rid: 8647209875745275949
+        - rid: 8647209875745275950
+        - rid: 8647209875745275951
+        - rid: 8647209875745275952
+        - rid: 8647209875745275953
+        - rid: 8647209875745275954
+        - rid: 8647209875745275955
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209875745275947
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275948
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 6
+        Value: 3
+        Color: 3
+    - rid: 8647209875745275949
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 5
+        Value: 2
+        Color: 3
+    - rid: 8647209875745275950
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275951
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275952
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275953
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 7
+        Value: 1
+        Color: 3
+    - rid: 8647209875745275954
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 8
+        Value: 2
+        Color: 3
+    - rid: 8647209875745275955
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275966
+      type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209875745275967
+    - rid: 8647209875745275967
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209875745275968
+        - rid: 8647209875745275969
+        - rid: 8647209875745275970
+        - rid: 8647209875745275971
+        - rid: 8647209875745275972
+        - rid: 8647209875745275973
+        - rid: 8647209875745275974
+        - rid: 8647209875745275975
+        - rid: 8647209875745275976
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209875745275968
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275969
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 1
+        Value: 2
+        Color: 3
+    - rid: 8647209875745275970
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275971
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275972
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 3
+        Value: 1
+        Color: 3
+    - rid: 8647209875745275973
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275974
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275975
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 2
+        Value: 2
+        Color: 3
+    - rid: 8647209875745275976
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275987
+      type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209875745275988
+    - rid: 8647209875745275988
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209875745275989
+        - rid: 8647209875745275990
+        - rid: 8647209875745275991
+        - rid: 8647209875745275992
+        - rid: 8647209875745275993
+        - rid: 8647209875745275994
+        - rid: 8647209875745275995
+        - rid: 8647209875745275996
+        - rid: 8647209875745275997
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209875745275989
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275990
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 1
+        Value: 3
+        Color: 3
+    - rid: 8647209875745275991
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 3
+        Value: 1
+        Color: 3
+    - rid: 8647209875745275992
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275993
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 4
+        Value: 1
+        Color: 3
+    - rid: 8647209875745275994
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 2
+        Value: 3
+        Color: 3
+    - rid: 8647209875745275995
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275996
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745275997
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276116
+      type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        BoardConfiguration:
+          rid: 8647209875745276117
+    - rid: 8647209875745276117
+      type: {class: BoardData, ns: GameBoard, asm: Assembly-CSharp}
+      data:
+        _tilesFlatten:
+        - rid: 8647209875745276118
+        - rid: 8647209875745276119
+        - rid: 8647209875745276120
+        - rid: 8647209875745276121
+        - rid: 8647209875745276122
+        - rid: 8647209875745276123
+        - rid: 8647209875745276124
+        - rid: 8647209875745276125
+        - rid: 8647209875745276126
+        _sizeX: 3
+        _sizeY: 3
+    - rid: 8647209875745276118
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276119
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 1
+        Value: 1
+        Color: 3
+    - rid: 8647209875745276120
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276121
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276122
+      type: {class: EmptyTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276123
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276124
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276125
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 2
+        Value: 1
+        Color: 5
+    - rid: 8647209875745276126
+      type: {class: VoidTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209875745276127
+      type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        DelaySeconds: 2
+    - rid: 8647209875745276128
+      type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        DelaySeconds: 3
+    - rid: 8647209875745276129
+      type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        DelaySeconds: 4
+    - rid: 8647209896712863746
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 0
+        Value: 2
+        Color: 3
+    - rid: 8647209896712863747
+      type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 0
+        Value: 1
+        Color: 5
+    - rid: 8647209896712863748
+      type: {class: MixedTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+      data:
+        Age: 0
+        TopValue: 1
+        TopColor: 5
+        BottomValue: 1
+        BottomColor: 3
+    - rid: 8647209896712863749
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 2

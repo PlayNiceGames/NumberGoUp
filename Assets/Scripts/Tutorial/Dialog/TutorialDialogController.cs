@@ -13,6 +13,12 @@ namespace Tutorial.Dialog
             HideAll();
         }
 
+        public void Setup()
+        {
+            _dialogUI.Setup();
+            _dialogQuestionUI.Setup();
+        }
+
         public void ShowDialog(string titleKey, string dialogKey)
         {
             HideAll();
@@ -21,11 +27,11 @@ namespace Tutorial.Dialog
             _dialogUI.Show();
         }
 
-        public UniTask<TutorialQuestionAction> ShowDialogQuestion(string titleKey, string dialogKey)
+        public UniTask<TutorialQuestionAction> ShowDialogQuestion(string dialogKey)
         {
             HideAll();
 
-            _dialogQuestionUI.SetTextKeys(titleKey, dialogKey);
+            _dialogQuestionUI.SetTextKeys(dialogKey);
             return _dialogQuestionUI.ShowWithResult();
         }
 

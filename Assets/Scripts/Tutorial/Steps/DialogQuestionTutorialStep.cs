@@ -8,11 +8,11 @@ namespace Tutorial.Steps
     [Serializable]
     public class DialogQuestionTutorialStep : TutorialStep
     {
-        private DialogTutorialStepData _data;
+        private DialogQuestionTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
 
-        public DialogQuestionTutorialStep(DialogTutorialStepData data, TutorialDialogController dialogController)
+        public DialogQuestionTutorialStep(DialogQuestionTutorialStepData data, TutorialDialogController dialogController)
         {
             _data = data;
             _dialogController = dialogController;
@@ -20,7 +20,7 @@ namespace Tutorial.Steps
 
         public override async UniTask<bool> Run()
         {
-            TutorialQuestionAction action = await _dialogController.ShowDialogQuestion(_data.TitleKey, _data.DialogKey);
+            TutorialQuestionAction action = await _dialogController.ShowDialogQuestion(_data.DialogKey);
 
             return action switch
             {

@@ -351,8 +351,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 80
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -502,8 +502,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 80
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434968234204471594, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434968234204471594, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -693,17 +693,6 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 546444793507783248}
   m_SourcePrefab: {fileID: 100100000, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
---- !u!114 &3199882165886893266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8629343323726814108, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
-  m_PrefabInstance: {fileID: 6605045521250494286}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1aaf31200654b9a9f97518732fb7276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &3276394697457050473 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8561838180122035239, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
@@ -726,7 +715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1fd2add79ba4cbc961b511d0b984bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _titleLabel: {fileID: 3199882165886893266}
   _dialogLabel: {fileID: 6168565890592914548}
 --- !u!114 &6168565890592914548 stripped
 MonoBehaviour:

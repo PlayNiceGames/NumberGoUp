@@ -768,7 +768,7 @@ MonoBehaviour:
   _stepFactory: {fileID: 2065142833}
   _boardLoop: {fileID: 1406405856}
   _tileQueue: {fileID: 466784179}
-  _dialogUI: {fileID: 6991904325164041236}
+  _dialogController: {fileID: 2086228730}
 --- !u!114 &2065142833
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,12 +17,16 @@ namespace Tutorial.Steps
         {
             switch (data)
             {
+                case DelayTutorialStepData delayStepData:
+                    return new DelayTutorialStep(delayStepData);
                 case SetupBoardTutorialStepData setupBoardStepData:
                     return new SetupBoardTutorialStep(setupBoardStepData, _board);
                 case BoardTurnTutorialStepData boardTurnStepData:
                     return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop);
                 case DialogTutorialStepData dialogStepData:
                     return new DialogTutorialStep(dialogStepData, _dialogController);
+                case DialogQuestionTutorialStepData dialogQuestionStepData:
+                    return new DialogQuestionTutorialStep(dialogQuestionStepData, _dialogController);
             }
 
             throw new ArgumentException();

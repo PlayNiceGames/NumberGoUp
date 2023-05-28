@@ -24,6 +24,8 @@ namespace GameLoop
         public void Setup()
         {
             _boardRules = new BoardRules(_board, _scoreSystem);
+
+            _debugTilePlacer.Setup();
         }
 
         public async UniTask Run()
