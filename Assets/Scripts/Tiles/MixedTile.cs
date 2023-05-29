@@ -1,5 +1,4 @@
-﻿using System;
-using Tiles.Data;
+﻿using Tiles.Data;
 using UnityEngine;
 
 namespace Tiles
@@ -15,6 +14,8 @@ namespace Tiles
         {
             Top.Setup(mixedTileData.TopValue, mixedTileData.TopColor);
             Bottom.Setup(mixedTileData.BottomValue, mixedTileData.BottomColor);
+
+            Age = mixedTileData.Age;
         }
 
         public override bool HasColor(int color)

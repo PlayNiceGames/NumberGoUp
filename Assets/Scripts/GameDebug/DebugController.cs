@@ -1,17 +1,13 @@
 using GameBoard;
 using JetBrains.Annotations;
-using Tiles;
 using UnityEngine;
 
 namespace GameDebug
 {
     public class DebugController : MonoBehaviour
     {
-        [field: SerializeField] public bool DebugPlaceTiles { get; private set; }
-
         [SerializeField] private Board _board;
-        [SerializeField] private DebugTilePlacer _tilePlacer;
-        
+
         public static bool IsDebug { get; private set; }
 
         private void Awake()
@@ -23,16 +19,6 @@ namespace GameDebug
             }
 
             IsDebug = true;
-        }
-
-        public void Setup()
-        {
-            _tilePlacer.Setup();
-        }
-
-        public Tile GetTestTile()
-        {
-            return _tilePlacer.GetNextTile();
         }
 
         [UsedImplicitly]

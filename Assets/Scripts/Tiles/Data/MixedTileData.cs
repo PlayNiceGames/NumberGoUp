@@ -13,7 +13,7 @@ namespace Tiles.Data
         public int BottomValue;
         public int BottomColor;
 
-        public MixedTileData(int topValue, int topColor, int bottomValue, int bottomColor)
+        public MixedTileData(int topValue, int topColor, int bottomValue, int bottomColor, int age = 0) : base(age)
         {
             TopValue = topValue;
             TopColor = topColor;

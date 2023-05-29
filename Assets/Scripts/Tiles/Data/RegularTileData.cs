@@ -10,7 +10,7 @@ namespace Tiles.Data
         public int Value;
         public int Color;
 
-        public RegularTileData(int value, int color)
+        public RegularTileData(int value, int color, int age = 0) : base(age)
         {
             Value = value;
             Color = color;

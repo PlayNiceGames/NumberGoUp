@@ -22,6 +22,8 @@ namespace Tiles
         {
             SetValue(data.Value);
             SetColor(data.Color);
+
+            Age = data.Age;
         }
 
         public void IncrementValue(int increment = 1)
@@ -54,7 +56,7 @@ namespace Tiles
 
         public override TileData GetData()
         {
-            return new RegularTileData(Value, Color);
+            return new RegularTileData(Value, Color, Age);
         }
 
         public override bool Equals(Tile other)
