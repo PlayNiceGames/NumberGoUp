@@ -6,5 +6,6 @@
         Empty,
         Regular,
         Mixed,
+        Eraser
     }
 }

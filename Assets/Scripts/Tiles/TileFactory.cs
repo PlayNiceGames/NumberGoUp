@@ -10,6 +10,7 @@ namespace Tiles
         [SerializeField] private EmptyTile _emptyTilePrefab;
         [SerializeField] private RegularTile _regularTilePrefab;
         [SerializeField] private MixedTile _mixedTilePrefab;
+        [SerializeField] private EraserTile _eraserTilePrefab;
 
         public Tile InstantiateTile(TileData data)
         {
@@ -35,6 +36,9 @@ namespace Tiles
                 return tile;
             }
 
+            if (data is EraserTileData eraserTileData)
+                return InstantiateTile<EraserTile>();
+
             throw new ArgumentOutOfRangeException(nameof(data), "Wrong tile data");
         }
 
@@ -54,6 +58,8 @@ namespace Tiles
                 return Instantiate(regularTile);
             if (_mixedTilePrefab is T mixedTile)
                 return Instantiate(mixedTile);
+            if (_eraserTilePrefab is T eraserTile)
+                return Instantiate(eraserTile);
 
             throw new ArgumentOutOfRangeException(nameof(T), "Wrong tile type");
         }
@@ -70,6 +76,8 @@ namespace Tiles
                     return _regularTilePrefab;
                 case TileType.Mixed:
                     return _mixedTilePrefab;
+                case TileType.Eraser:
+                    return _eraserTilePrefab;
             }
 
             throw new ArgumentOutOfRangeException(nameof(type), type, "Wrong tile type");
