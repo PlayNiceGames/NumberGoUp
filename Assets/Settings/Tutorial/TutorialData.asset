@@ -37,14 +37,21 @@ MonoBehaviour:
   - rid: 8647209695244451977
   - rid: 8647209896712863749
   - rid: 8647209875745275930
-  - rid: 8647209875745275934
+  - rid: 8647209922983624748
   - rid: 8647209875745275945
+  - rid: 8647209922983624750
   - rid: 8647209875745276127
+  - rid: 8647209922983624800
   - rid: 8647209875745275966
+  - rid: 8647209922983624802
   - rid: 8647209875745276128
+  - rid: 8647209922983624861
   - rid: 8647209875745275987
+  - rid: 8647209922983624862
   - rid: 8647209875745276129
+  - rid: 8647209922983624915
   - rid: 8647209875745276116
+  - rid: 8647209922983624916
   references:
     version: 2
     RefIds:
@@ -159,11 +166,6 @@ MonoBehaviour:
       type: {class: DialogQuestionTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         DialogKey: dialog_question_continue
-    - rid: 8647209875745275934
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: dialog_lets_merge
-        DialogKey: dialog_lets_merge
     - rid: 8647209875745275945
       type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
@@ -375,11 +377,11 @@ MonoBehaviour:
     - rid: 8647209875745276128
       type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
-        DelaySeconds: 3
+        DelaySeconds: 2
     - rid: 8647209875745276129
       type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
-        DelaySeconds: 4
+        DelaySeconds: 2
     - rid: 8647209896712863746
       type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
       data:
@@ -404,3 +406,39 @@ MonoBehaviour:
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 2
+    - rid: 8647209922983624748
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_largest_tile
+        DialogKey: dialog_text_largest_tile
+    - rid: 8647209922983624750
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209922983624800
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_center_merge
+        DialogKey: dialog_text_center_merge
+    - rid: 8647209922983624802
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209922983624861
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_double_merge
+        DialogKey: dialog_text_double_merge
+    - rid: 8647209922983624862
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209922983624915
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_mixed_tiles
+        DialogKey: dialog_text_mixed_tiles
+    - rid: 8647209922983624916
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1

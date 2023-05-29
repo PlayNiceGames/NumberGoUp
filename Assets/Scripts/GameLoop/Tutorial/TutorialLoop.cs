@@ -40,6 +40,8 @@ namespace GameLoop.Tutorial
                 if (shouldEndTutorial)
                     return;
             }
+            
+            Debug.LogError("END TUTORIAL");
         }
     }
 }

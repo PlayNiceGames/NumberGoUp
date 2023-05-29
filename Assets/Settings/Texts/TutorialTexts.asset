@@ -25,6 +25,12 @@ MonoBehaviour:
     - dialog_question_continue
     - dialog_question_button_play
     - dialog_question_button_next
+    - dialog_title_largest_tile
+    - dialog_text_largest_tile
+    - dialog_title_center_merge
+    - dialog_text_center_merge
+    - dialog_title_mixed_tiles
+    - dialog_text_mixed_tiles
     _valueData:
     - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
       the blocks that are up next at the bottom."
@@ -42,3 +48,11 @@ MonoBehaviour:
     - Those are the basic rules! Start playing or select NEXT for extra rules.
     - Play
     - Next
+    - Largest Tile
+    - If a tile can merge with multiple tiles, it will choose the largest tile.
+    - Center Merge
+    - Tiles that have the same value will always merge towards the center with a
+      Bonus number added to the tile.
+    - Mixed Tiles
+    - Mixed Tiles follow all the regular rules, except with two colors. Use them
+      wisely!
