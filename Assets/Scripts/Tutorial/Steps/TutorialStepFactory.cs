@@ -27,6 +27,8 @@ namespace Tutorial.Steps
                     return new DialogTutorialStep(dialogStepData, _dialogController);
                 case DialogQuestionTutorialStepData dialogQuestionStepData:
                     return new DialogQuestionTutorialStep(dialogQuestionStepData, _dialogController);
+                case DialogExitTutorialStepData dialogExitStepData:
+                    return new DialogExitTutorialStep(dialogExitStepData, _dialogController);
             }
 
             throw new ArgumentException();

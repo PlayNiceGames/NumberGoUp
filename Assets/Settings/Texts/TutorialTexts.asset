@@ -31,6 +31,10 @@ MonoBehaviour:
     - dialog_text_center_merge
     - dialog_title_mixed_tiles
     - dialog_text_mixed_tiles
+    - dialog_button_exit
+    - dialog_text_exit
+    - dialog_title_double_merge
+    - dialog_text_double_merge
     _valueData:
     - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
       the blocks that are up next at the bottom."
@@ -56,3 +60,8 @@ MonoBehaviour:
     - Mixed Tiles
     - Mixed Tiles follow all the regular rules, except with two colors. Use them
       wisely!
+    - Numbers go Up!
+    - Now you know the rules. Time to make the
+    - Double Merge
+    - When a tile can merge with two tiles of the same number, it will and the number
+      goes up in both tiles.

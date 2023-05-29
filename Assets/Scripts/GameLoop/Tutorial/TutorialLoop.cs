@@ -38,7 +38,7 @@ namespace GameLoop.Tutorial
                 bool shouldEndTutorial = await step.Run();
 
                 if (shouldEndTutorial)
-                    return;
+                    break;
             }
             
             Debug.LogError("END TUTORIAL");
