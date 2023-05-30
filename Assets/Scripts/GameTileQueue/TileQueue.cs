@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using GameLoop.Rules;
 using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
@@ -10,7 +9,7 @@ namespace GameTileQueue
     public class TileQueue : MonoBehaviour
     {
         private const int QueueSize = 4; //TODO temp, move
-        
+
         [SerializeField] private Transform _grid;
         [SerializeField] private TileFactory _factory;
 
@@ -23,13 +22,18 @@ namespace GameTileQueue
             _tiles = new Queue<Tile>();
         }
 
-        public Tile GetNextTile()
+        public Tile PopNextTile()
         {
             Tile firstTile = RemoveFirstTile();
 
             AddNextTile();
 
             return firstTile;
+        }
+
+        public Tile PeekNextTile()
+        {
+            return _tiles.TryPeek(out Tile result) ? result : null;
         }
 
         [Button]

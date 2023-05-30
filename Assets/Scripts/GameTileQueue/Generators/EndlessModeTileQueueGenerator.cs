@@ -15,13 +15,13 @@ namespace GameTileQueue
         private int _bigTileNotGeneratedCount;
         private int _mixedTileNotGeneratedCount;
 
-        private Queue<ValueTileData> _generatedTileQueue;
+        private Queue<TileData> _generatedTileQueue;
 
         public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules)
         {
             _settings = settings;
 
-            _generatedTileQueue = new Queue<ValueTileData>();
+            _generatedTileQueue = new Queue<TileData>();
 
             SetRules(rules);
         }
@@ -45,8 +45,8 @@ namespace GameTileQueue
             _currentSet = _nextSet;
             _nextSet = new TileQueueSet(_currentSet, _settings, _rules);
 
-            ValueTileData[] nextTileSet = _nextSet.Generate();
-            foreach (ValueTileData tileData in nextTileSet)
+            TileData[] nextTileSet = _nextSet.Generate();
+            foreach (TileData tileData in nextTileSet)
             {
                 _generatedTileQueue.Enqueue(tileData);
             }

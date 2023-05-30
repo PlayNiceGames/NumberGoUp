@@ -39,20 +39,55 @@ namespace GameLoop
 
         private async UniTask ProcessUserInput()
         {
-            Tile clickedTile = await _boardInput.WaitUntilTileClicked(TileType.Empty);
+            TileType nextTileType = GetNextTileType();
 
-            Tile newTile = GetNextTile();
-            newTile.transform.position = new Vector3(clickedTile.transform.position.x, clickedTile.transform.position.y, 0); //TODO temp
+            Tile clickedTile = await WaitTileClicked(nextTileType);
 
-            _board.PlaceTile(newTile, clickedTile.BoardPosition);
+            Tile nextTileQueueTile = PopNextTile();
+            nextTileQueueTile.transform.position = new Vector3(clickedTile.transform.position.x, clickedTile.transform.position.y, 0); //TODO temp
+
+            _board.PlaceTile(nextTileQueueTile, clickedTile.BoardPosition);
         }
 
-        private Tile GetNextTile()
+        private async UniTask<Tile> WaitTileClicked(TileType nextTileType)
+        {
+            while (true)
+            {
+                Tile clickedTile = await _boardInput.WaitUntilTileClicked();
+
+                bool canReplaceTile = CanReplaceTile(clickedTile.Type, nextTileType);
+
+                if (canReplaceTile)
+                    return clickedTile;
+            }
+        }
+
+        private bool CanReplaceTile(TileType originalTileType, TileType newTileType)
+        {
+            switch (newTileType)
+            {
+                case TileType.Eraser:
+                    return originalTileType is TileType.Empty or TileType.Regular or TileType.Mixed;
+                default:
+                    return originalTileType is TileType.Empty;
+            }
+        }
+
+        private TileType GetNextTileType()
         {
             if (IsDebugPlaceTiles())
-                return _debugTilePlacer.GetNextTile();
+                return _debugTilePlacer.PeekNextTileType();
 
-            return _tileQueue.GetNextTile();
+            Tile nextTileQueueTile = _tileQueue.PeekNextTile();
+            return nextTileQueueTile.Type;
+        }
+
+        private Tile PopNextTile()
+        {
+            if (IsDebugPlaceTiles())
+                return _debugTilePlacer.PopNextTile();
+
+            return _tileQueue.PopNextTile();
         }
 
         private void AgeTiles()

@@ -37,9 +37,10 @@ namespace GameOver
         {
             if (IsGameOver())
             {
+                ValueTileData biggestTile = GetBiggestTile(out int biggestTileValue);
+
                 int currentScore = _scoreSystem.Score;
                 int highScore = _scoreSystem.HighScore;
-                ValueTileData biggestTile = GetBiggestTile(out int biggestTileValue);
                 bool canContinueGame = _continueCount < _settings.MaxContinueCount;
 
                 GameOverAction gameOverAction = await _ui.ShowWithResult(currentScore, highScore, biggestTile, canContinueGame);
@@ -62,6 +63,10 @@ namespace GameOver
         private ValueTileData GetBiggestTile(out int biggestTileValue)
         {
             List<ValueTile> tiles = _board.GetAllTiles<ValueTile>().ToList();
+
+            if (tiles.Count == 0)
+                throw new Exception("No value tiles on board. Can't end the game");
+
             ValueTile biggestTile = tiles.MaxBy(GetMaxValue);
 
             biggestTileValue = GetMaxValue(biggestTile);

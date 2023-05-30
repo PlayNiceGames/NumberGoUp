@@ -1,4 +1,5 @@
 ﻿using GameLoop.Rules;
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
@@ -24,8 +25,8 @@ namespace GameDebug
         [SerializeField] private int _secondColor;
 
         [Space]
-        [SerializeField] [ReadOnly] private Color _firstDisplayedColor;
-        [SerializeField] [ReadOnly] private Color _secondDisplayedColor;
+        [SerializeField] [ReadOnly] [UsedImplicitly] private Color _firstDisplayedColor;
+        [SerializeField] [ReadOnly] [UsedImplicitly] private Color _secondDisplayedColor;
 
         [Space]
         [SerializeField] private TileFactory _factory;
@@ -66,7 +67,7 @@ namespace GameDebug
             return _useGameColors ? _rules.GetColor(colorIndex) : colorIndex;
         }
 
-        public Tile GetNextTile()
+        public Tile PopNextTile()
         {
             TileData data;
 
@@ -91,6 +92,11 @@ namespace GameDebug
 
             Tile tile = _factory.InstantiateTile(data);
             return tile;
+        }
+
+        public TileType PeekNextTileType()
+        {
+            return _type;
         }
     }
 }
