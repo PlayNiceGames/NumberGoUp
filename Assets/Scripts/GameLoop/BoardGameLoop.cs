@@ -34,7 +34,7 @@ namespace GameLoop
 
             await _boardRules.ProcessRules();
 
-            AgeTiles();
+            await AgeTiles();
         }
 
         private async UniTask ProcessUserInput()
@@ -90,10 +90,10 @@ namespace GameLoop
             return _tileQueue.PopNextTile();
         }
 
-        private void AgeTiles()
+        private UniTask AgeTiles()
         {
             AgeTilesBoardTurn turn = new AgeTilesBoardTurn(_board);
-            turn.Run().Forget();
+            return turn.Run();
         }
 
         private bool IsDebugPlaceTiles()

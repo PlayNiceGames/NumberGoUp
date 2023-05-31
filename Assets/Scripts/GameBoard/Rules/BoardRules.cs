@@ -26,6 +26,7 @@ namespace GameBoard.Rules
         {
             _boardRules = new List<BoardRule>
             {
+                new EraserBoardRule(_board),
                 new CenterMergeBoardRule(_board, _scoreSystem),
                 new DoubleMergeBoardRule(_board, _scoreSystem),
                 new SimpleMergeBoardRule(_board, _scoreSystem)
