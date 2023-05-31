@@ -15,12 +15,13 @@ MonoBehaviour:
   <DefaultTileInQueue>k__BackingField:
     rid: 8647209831203602432
   <TileQueueOverrides>k__BackingField:
-    _keyData: 0200000001000000060000000c000000
+    _keyData: 020000000100000006000000090000000d000000
     _valueData:
     - rid: 8647209896712863747
     - rid: 8647209896712863746
     - rid: 8647209896712863748
-    - rid: 8647209922983624934
+    - rid: 8647209967368273920
+    - rid: 8647209967368273964
   _steps:
   - rid: 8647209695244451989
   - rid: 8647209695244451958
@@ -36,7 +37,9 @@ MonoBehaviour:
   - rid: 8647209695244451973
   - rid: 8647209695244451975
   - rid: 8647209695244451977
-  - rid: 8647209896712863749
+  - rid: 8647209967368273923
+  - rid: 8647209967368273961
+  - rid: 8647209967368273963
   - rid: 8647209875745275930
   - rid: 8647209922983624748
   - rid: 8647209875745275945
@@ -404,10 +407,6 @@ MonoBehaviour:
         TopColor: 5
         BottomValue: 1
         BottomColor: 3
-    - rid: 8647209896712863749
-      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TurnCount: 2
     - rid: 8647209922983624748
       type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
@@ -448,7 +447,22 @@ MonoBehaviour:
       type: {class: DialogExitTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         DialogKey: dialog_text_exit
-    - rid: 8647209922983624934
+    - rid: 8647209967368273920
+      type: {class: EraserTileData, ns: Tiles.Data, asm: Assembly-CSharp}
+    - rid: 8647209967368273923
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 2
+    - rid: 8647209967368273961
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_eraser
+        DialogKey: dialog_text_eraser
+    - rid: 8647209967368273963
+      type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TurnCount: 1
+    - rid: 8647209967368273964
       type: {class: MixedTileData, ns: Tiles.Data, asm: Assembly-CSharp}
       data:
         Age: 0
