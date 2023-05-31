@@ -40,8 +40,13 @@ namespace GameLoop.Tutorial
                 if (shouldEndTutorial)
                     break;
             }
-            
-            Debug.LogError("END TUTORIAL");
+
+            EndTutorial();
+        }
+
+        private void EndTutorial()
+        {
+            GameSceneManager.LoadEndlessMode();
         }
     }
 }

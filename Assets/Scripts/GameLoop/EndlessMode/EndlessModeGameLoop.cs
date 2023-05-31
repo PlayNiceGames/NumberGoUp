@@ -54,17 +54,21 @@ namespace GameLoop.EndlessMode
                 bool shouldEndGame = await _gameOver.TryProcessGameOver();
 
                 if (shouldEndGame)
-                {
-                    Debug.LogError("GAME OVER");
-                    return;
-                }
+                    break;
             }
+
+            EndGame();
         }
 
         private void UpdateBoardSize()
         {
             int newSize = _gameRules.CurrentRules.BoardSize;
             _board.UpdateBoardSize(newSize);
+        }
+
+        private void EndGame()
+        {
+            GameSceneManager.LoadMainMenu();
         }
     }
 }

@@ -122,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Tutorial.Dialog.TutorialDialogQuestionUI, Assembly-CSharp
-        m_MethodName: ClickPlayButton
+      - m_Target: {fileID: 8565333819935524885}
+        m_TargetAssemblyTypeName: Tutorial.Dialog.TutorialDialogExitUI, Assembly-CSharp
+        m_MethodName: ClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -315,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434968234204471594, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7434968234204471594, guid: e8e892503a40da14b925d25fb2227ef8, type: 3}
       propertyPath: m_AnchorMax.x

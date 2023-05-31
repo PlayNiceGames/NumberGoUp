@@ -17,7 +17,11 @@ MonoBehaviour:
     - game_over
     - high_score
     - current_score
+    - main_menu_button_play
+    - main_menu_button_tutorial
     _valueData:
     - Game Over
     - 'high score: {0}'
     - 'score: {0}'
+    - Play
+    - How To

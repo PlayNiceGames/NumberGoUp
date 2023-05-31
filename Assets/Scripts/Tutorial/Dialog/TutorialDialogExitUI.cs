@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using SimpleTextProvider;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Tutorial.Dialog
             gameObject.SetActive(false);
         }
 
+        [UsedImplicitly]
         public void ClickExitButton()
         {
             _buttonClicked?.TrySetResult();
