@@ -57,18 +57,24 @@ namespace GameLoop
 
         private AbstractGameLoop GetDefaultEditorGameLoop()
         {
+#if UNITY_EDITOR
             string gameLoopTypeString = EditorPrefs.GetString(DefaultEditorGameLoopKey);
 
             if (Enum.TryParse(gameLoopTypeString, out GameLoopType gameLoopType))
                 return GetGameLoop(gameLoopType);
 
             throw new ArgumentException("GameLoop was not set");
+#else
+            return null;
+#endif
         }
 
         [Button]
         private void SetDefaultEditorGameLoop(GameLoopType gameType)
         {
+#if UNITY_EDITOR
             EditorPrefs.SetString(DefaultEditorGameLoopKey, gameType.ToString());
+#endif
         }
     }
 }
