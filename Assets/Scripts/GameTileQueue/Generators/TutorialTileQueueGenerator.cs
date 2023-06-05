@@ -2,7 +2,7 @@
 using Tiles.Data;
 using UnityEngine;
 
-namespace GameTileQueue
+namespace GameTileQueue.Generators
 {
     public class TutorialTileQueueGenerator : TileQueueGenerator
     {

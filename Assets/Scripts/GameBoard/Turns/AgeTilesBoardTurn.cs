@@ -12,8 +12,6 @@ namespace GameBoard.Turns
 
         public override UniTask Run()
         {
-            Debug.Log($"{GetType()} turn START");
-
             foreach (ValueTile tile in _board.GetAllTiles<ValueTile>())
             {
                 tile.Age++;

@@ -37,8 +37,6 @@ namespace GameTileQueue
             TryGenerateRemainingTiles();
             TryFixRepeatingTiles();
 
-            _tiles[0] = new EraserTileData(); //TODO TEMP
-
             RecordTileColorIndexes();
 
             return _tiles;
@@ -229,13 +227,9 @@ namespace GameTileQueue
                 else
                 {
                     if (_prevSet != null && _prevSet._colorNotAppearingCount.TryGetValue(color, out int prevColorNotAppearingCount))
-                    {
                         _colorNotAppearingCount[color] = prevColorNotAppearingCount + _settings.TileQueueSize;
-                    }
                     else
-                    {
-                        _colorNotAppearingCount[color] = 0;
-                    }
+                        _colorNotAppearingCount[color] = _settings.GuaranteedColorNotAppearingMaxCount;
                 }
             }
         }

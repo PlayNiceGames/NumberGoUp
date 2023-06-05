@@ -18,5 +18,8 @@ namespace GameTileQueue
 
         public int MaxRepeatingTileCount;
         public int RepeatingFixTileValue;
+
+        public int EraserTileStartingScore;
+        public int EraserTileScoreIncrement;
     }
 }

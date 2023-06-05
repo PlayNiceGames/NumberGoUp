@@ -5,6 +5,7 @@ using GameLoop.Rules;
 using GameOver;
 using GameScore;
 using GameTileQueue;
+using GameTileQueue.Generators;
 using UnityEngine;
 
 namespace GameLoop.EndlessMode
@@ -28,7 +29,7 @@ namespace GameLoop.EndlessMode
         {
             _gameRules.Setup();
 
-            _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules);
+            _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
             _tileQueue.Setup(_tileQueueGenerator);
 
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;

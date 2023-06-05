@@ -1,6 +1,6 @@
 ﻿using Tiles.Data;
 
-namespace GameTileQueue
+namespace GameTileQueue.Generators
 {
     public abstract class TileQueueGenerator
     {

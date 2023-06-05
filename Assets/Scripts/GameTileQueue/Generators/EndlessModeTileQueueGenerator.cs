@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using GameLoop.Rules;
+using GameScore;
 using Tiles.Data;
 
-namespace GameTileQueue
+namespace GameTileQueue.Generators
 {
     public class EndlessModeTileQueueGenerator : TileQueueGenerator
     {
         private TileQueueGeneratorSettings _settings;
         private GameRules _rules;
+        private ScoreSystem _scoreSystem;
 
         private TileQueueSet _currentSet;
         private TileQueueSet _nextSet;
@@ -17,18 +19,13 @@ namespace GameTileQueue
 
         private Queue<TileData> _generatedTileQueue;
 
-        public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules)
+        public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules, ScoreSystem scoreSystem)
         {
             _settings = settings;
+            _scoreSystem = scoreSystem;
+            _rules = rules;
 
             _generatedTileQueue = new Queue<TileData>();
-
-            SetRules(rules);
-        }
-
-        public void SetRules(GameRules rules)
-        {
-            _rules = rules;
         }
 
         public override TileData GetNextTileData()
