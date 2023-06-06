@@ -12,25 +12,29 @@ namespace GameTileQueue
 
         private TileQueueGeneratorSettings _settings;
         private GameRules _rules;
+        private int _currentScore;
 
         private bool _bigTileGenerated;
         private bool _mixedTileGenerated;
+        private int? _prevGeneratedEraserTileScore;
         private Dictionary<int, int> _colorNotAppearingCount;
 
         private TileData[] _tiles;
 
-        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules)
+        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules, int currentScore)
         {
             _prevSet = prevSet;
             _settings = settings;
             _rules = rules;
-            _colorNotAppearingCount = new Dictionary<int, int>();
+            _currentScore = currentScore;
 
+            _colorNotAppearingCount = new Dictionary<int, int>();
             _tiles = new TileData[_settings.TileQueueSize];
         }
 
         public TileData[] Generate()
         {
+            TryGenerateEraserTile();
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
             TrySetGuaranteedMixedTile();
@@ -40,6 +44,52 @@ namespace GameTileQueue
             RecordTileColorIndexes();
 
             return _tiles;
+        }
+
+        private void TryGenerateEraserTile()
+        {
+            if (!ShouldGenerateEraserTile(_currentScore))
+                return;
+
+            if (_prevSet == null || !_prevSet._prevGeneratedEraserTileScore.HasValue)
+            {
+                GenerateEraserTile();
+                return;
+            }
+
+            int scoreRange = GetEraserTileScoreRange(_currentScore);
+            int prevScoreRange = GetEraserTileScoreRange(_prevSet._prevGeneratedEraserTileScore.Value);
+
+            if (scoreRange == prevScoreRange)
+                _prevGeneratedEraserTileScore = _prevSet._prevGeneratedEraserTileScore;
+            else
+                GenerateEraserTile();
+        }
+
+        private void GenerateEraserTile()
+        {
+            EraserTileData eraserTileData = new EraserTileData();
+
+            if (TrySetTileInRandomPlace(eraserTileData))
+            {
+                _prevGeneratedEraserTileScore = _currentScore;
+
+                Debug.Log("Placed eraser tile");
+            }
+            else
+            {
+                Debug.LogWarning("Unable to place eraser tile");
+            }
+        }
+
+        private bool ShouldGenerateEraserTile(int score)
+        {
+            return score >= _settings.EraserTileStartingScore;
+        }
+
+        private int GetEraserTileScoreRange(int score)
+        {
+            return score / _settings.EraserTileScoreIncrement;
         }
 
         private void TrySetGuaranteedColors()
@@ -179,7 +229,7 @@ namespace GameTileQueue
             }
         }
 
-        private bool TrySetTileInRandomPlace(ValueTileData tile)
+        private bool TrySetTileInRandomPlace(TileData tile)
         {
             List<int> freeTileIndexes = new List<int>();
 
@@ -198,7 +248,7 @@ namespace GameTileQueue
             return true;
         }
 
-        private bool TrySetTile(int index, ValueTileData tile)
+        private bool TrySetTile(int index, TileData tile)
         {
             if (IsLocked(index))
                 return false;

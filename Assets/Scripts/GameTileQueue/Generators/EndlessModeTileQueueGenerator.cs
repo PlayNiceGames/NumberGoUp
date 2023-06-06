@@ -40,7 +40,7 @@ namespace GameTileQueue.Generators
         private void GenerateNextSet()
         {
             _currentSet = _nextSet;
-            _nextSet = new TileQueueSet(_currentSet, _settings, _rules);
+            _nextSet = new TileQueueSet(_currentSet, _settings, _rules, _scoreSystem.Score);
 
             TileData[] nextTileSet = _nextSet.Generate();
             foreach (TileData tileData in nextTileSet)

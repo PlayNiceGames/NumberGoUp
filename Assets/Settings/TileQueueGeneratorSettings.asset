@@ -21,3 +21,5 @@ MonoBehaviour:
   RemainingTileValue: 1
   MaxRepeatingTileCount: 2
   RepeatingFixTileValue: 1
+  EraserTileStartingScore: 500
+  EraserTileScoreIncrement: 500
