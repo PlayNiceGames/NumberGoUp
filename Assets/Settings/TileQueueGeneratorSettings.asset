@@ -15,11 +15,11 @@ MonoBehaviour:
   TileQueueSize: 4
   GuaranteedColorTileValue: 1
   GuaranteedColorNotAppearingMaxCount: 6
-  BigTileQueueGenerationChance: 0.5
+  BigTileQueueGenerationChance: 0.2
   BigTileValue: 2
   MixedTileValue: 1
   RemainingTileValue: 1
-  MaxRepeatingTileCount: 2
+  MaxRepeatingTileCount: 1
   RepeatingFixTileValue: 1
   EraserTileStartingScore: 500
   EraserTileScoreIncrement: 500

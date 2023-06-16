@@ -24,7 +24,7 @@ MonoBehaviour:
     - rid: 8647209967368273964
   _steps:
   - rid: 8647209695244451989
-  - rid: 8647209695244451958
+  - rid: 3805399464197488662
   - rid: 8647209695244451948
   - rid: 8647209695244451959
   - rid: 8647209695244451950
@@ -60,6 +60,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3805399464197488662
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_basicrules
+        DialogKey: dialog_lets_merge
     - rid: 8647209695244451948
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
@@ -68,11 +73,6 @@ MonoBehaviour:
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 1
-    - rid: 8647209695244451958
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_lets_merge
     - rid: 8647209695244451959
       type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
