@@ -8,6 +8,12 @@ namespace GameBoard
     {
         [SerializeField] private GridLayoutGroup _grid;
 
+        public void AddTileOffGrid(Tile tile)
+        {
+            tile.SetIgnoreGrid(true);
+            tile.SetParent(transform);
+        }
+
         public void UpdateGrid(Tile[,] tiles)
         {
             int size = tiles.GetLength(0);
@@ -18,6 +24,8 @@ namespace GameBoard
                 for (int j = 0; j < size; j++)
                 {
                     Tile tile = tiles[i, j];
+
+                    tile.SetIgnoreGrid(false);
                     tile.SetParent(transform);
                 }
             }

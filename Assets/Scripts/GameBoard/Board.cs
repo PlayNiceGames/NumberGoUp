@@ -12,7 +12,8 @@ namespace GameBoard
         public event Action<Tile> OnTileClick;
         public int Size { get; private set; }
 
-        [SerializeField] private BoardGrid _grid;
+        [field: SerializeField] public BoardGrid Grid;
+
         [SerializeField] private TileFactory _factory;
 
         private Tile[,] _tiles;
@@ -117,14 +118,14 @@ namespace GameBoard
             return position.x >= 0 && position.y >= 0 && position.x < Size && position.y < Size;
         }
 
-        private Vector2 GetWorldPosition(Vector2Int boardPosition)
+        public Vector2 GetWorldPosition(Vector2Int boardPosition)
         {
             return _tiles[boardPosition.x, boardPosition.y].transform.position;
         }
 
         private void UpdateGrid()
         {
-            _grid.UpdateGrid(_tiles);
+            Grid.UpdateGrid(_tiles);
         }
 
         public IEnumerable<Tile> GetNearbyTiles(Vector2Int position)

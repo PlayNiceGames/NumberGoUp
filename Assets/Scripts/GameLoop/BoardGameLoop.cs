@@ -19,10 +19,12 @@ namespace GameLoop
 
         [SerializeField] private DebugTilePlacer _debugTilePlacer;
 
+        private PlaceTileSequence _placeTileSequence;
         private BoardRules _boardRules;
 
         public void Setup()
         {
+            _placeTileSequence = new PlaceTileSequence(_board);
             _boardRules = new BoardRules(_board, _scoreSystem);
 
             _debugTilePlacer.Setup();
@@ -44,9 +46,8 @@ namespace GameLoop
             Tile clickedTile = await WaitTileClicked(nextTileType);
 
             Tile nextTileQueueTile = PopNextTile();
-            nextTileQueueTile.transform.position = new Vector3(clickedTile.transform.position.x, clickedTile.transform.position.y, 0); //TODO temp
 
-            _board.PlaceTile(nextTileQueueTile, clickedTile.BoardPosition);
+            await _placeTileSequence.PlaceTile(nextTileQueueTile, clickedTile.BoardPosition);
         }
 
         private async UniTask<Tile> WaitTileClicked(TileType nextTileType)

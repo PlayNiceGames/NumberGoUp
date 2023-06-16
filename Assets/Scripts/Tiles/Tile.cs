@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using Tiles.Animations;
 using Tiles.Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,9 +13,18 @@ namespace Tiles
 
         public event Action<Tile> OnClick;
 
+        [SerializeField] protected TileAppearAnimation _appearAnimation;
+
         [SerializeField] protected LayoutElement _layout;
 
         public abstract TileType Type { get; }
+
+        public UniTask Appear(Vector2 position)
+        {
+            transform.position = position;
+
+            return _appearAnimation.Play();
+        }
 
         public void SetParent(Transform parent)
         {
@@ -24,6 +35,14 @@ namespace Tiles
         public void ClearParent()
         {
             transform.SetParent(null, false);
+        }
+
+        public void SetIgnoreGrid(bool ignoreGrid)
+        {
+            if (_layout.ignoreLayout == ignoreGrid)
+                return;
+
+            _layout.ignoreLayout = ignoreGrid;
         }
 
         public void OnClicked()
