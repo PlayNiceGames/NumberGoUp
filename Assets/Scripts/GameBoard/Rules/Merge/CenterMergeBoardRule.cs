@@ -37,9 +37,9 @@ namespace GameBoard.Rules.Merge
         private MergeContainer GetContainer(ValueTile tile)
         {
             if (tile is RegularTile regularTile)
-                return new RegularTileContainer(regularTile, tile);
+                return new RegularTileContainer(regularTile, null);
             if (tile is MixedTile mixedTileContainer)
-                return new MixedTileContainer(mixedTileContainer, tile, MixedTilePartType.Both);
+                return new MixedTileContainer(mixedTileContainer, null, MixedTilePartType.Both);
 
             return null;
         }

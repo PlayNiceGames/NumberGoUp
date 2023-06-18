@@ -7,26 +7,24 @@ namespace GameBoard.Actions
 {
     public class PlaceTileAction : BoardAction
     {
-        private Board _board;
         private Tile _tile;
         private Vector2Int _boardPosition;
 
-        public PlaceTileAction(Board board, Tile tile, Vector2Int boardPosition)
+        public PlaceTileAction(Tile tile, Vector2Int boardPosition, Board board) : base(board)
         {
-            _board = board;
             _tile = tile;
             _boardPosition = boardPosition;
         }
 
         public override async UniTask Run()
         {
-            _board.Grid.AddTileOffGrid(_tile);
-            _board.Grid.MoveTileOnTop(_tile);
+            Board.Grid.AddTileOffGrid(_tile);
+            Board.Grid.MoveTileOnTop(_tile);
 
-            Vector2 worldPosition = _board.GetWorldPosition(_boardPosition);
+            Vector2 worldPosition = Board.GetWorldPosition(_boardPosition);
             await _tile.Appear(worldPosition);
 
-            _board.PlaceTile(_tile, _boardPosition);
+            Board.PlaceTile(_tile, _boardPosition);
         }
 
         public override UniTask Undo()

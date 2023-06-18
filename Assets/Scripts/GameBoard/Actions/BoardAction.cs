@@ -6,5 +6,12 @@ namespace GameBoard.Actions
     {
         public abstract UniTask Run();
         public abstract UniTask Undo();
+
+        protected Board Board;
+
+        protected BoardAction(Board board)
+        {
+            Board = board;
+        }
     }
 }

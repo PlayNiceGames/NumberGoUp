@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using GameBoard.Actions;
 using GameScore;
+using Tiles;
 using Tiles.Containers;
+using Tiles.Data;
 
 namespace GameBoard.Turns.Merge
 {
@@ -11,24 +14,43 @@ namespace GameBoard.Turns.Merge
     {
         private MergeContainer _firstContainer;
         private MergeContainer _secondContainer;
-        private IEnumerable<MergeContainer> _mergeTileContainers;
+        private List<MergeContainer> _mergeTileContainers;
+        private TileFactory _factory;
 
-        public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
+        public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, TileFactory factory, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
             _firstContainer = firstContainer;
             _secondContainer = secondContainer;
-            _mergeTileContainers = mergeTileContainers;
+            _mergeTileContainers = mergeTileContainers.ToList();
             _board = board;
-            ScoreSystem = scoreSystem;
+            _factory = factory;
         }
 
         public override async UniTask Run()
         {
-            IEnumerable<BoardAction> mergeActions = GetMergeActions(_mergeTileContainers, _board);
+            IEnumerable<MergeContainer> fakeContainers = SpawnFakeContainers();
+            List<MergeContainer> allContainers = _mergeTileContainers.Concat(fakeContainers).ToList();
+
+            IEnumerable<BoardAction> mergeActions = GetMergeActions(allContainers, _board);
             await RunMergeActions(mergeActions);
 
             IncrementContainerValue(_firstContainer);
             IncrementContainerValue(_secondContainer);
+        }
+
+        private IEnumerable<MergeContainer> SpawnFakeContainers()
+        {
+            foreach (MergeContainer mergeContainer in _mergeTileContainers)
+            {
+                TileData fakeTileData = mergeContainer.Tile.GetData();
+
+                ValueTile fakeTile = (ValueTile) _factory.InstantiateTile(fakeTileData);
+                fakeTile.transform.position = mergeContainer.Tile.transform.position;
+
+                MergeContainer fakeTileContainer = MergeContainer.GetMergeContainer(fakeTile, _secondContainer);
+
+                yield return fakeTileContainer;
+            }
         }
 
         public override UniTask Undo()

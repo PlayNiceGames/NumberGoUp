@@ -18,6 +18,21 @@ namespace GameBoard
             Tiles = tiles;
         }
 
+        public static BoardData Square(int size)
+        {
+            TileData[,] data = new TileData[size, size];
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    data[i, j] = new EmptyTileData();
+                }
+            }
+
+            return new BoardData(data);
+        }
+
         public void OnBeforeSerialize()
         {
             if (Tiles == null)

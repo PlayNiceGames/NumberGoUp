@@ -47,7 +47,7 @@ namespace GameBoard.Rules.Merge
                 return null;
 
             MixedTile tile = mixedContainer.MixedTile;
-            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, tile, MixedTilePartType.Both);
+            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
 
             IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
                 MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));

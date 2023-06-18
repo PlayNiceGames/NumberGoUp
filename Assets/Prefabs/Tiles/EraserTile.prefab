@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoardPosition: {x: 0, y: 0}
-  _appearAnimation: {fileID: 2786150879804347154}
   _layout: {fileID: -4316165762891282507}
+  _appearAnimation: {fileID: 2786150879804347154}
 --- !u!222 &2060970891727607124
 CanvasRenderer:
   m_ObjectHideFlags: 0

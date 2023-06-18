@@ -1,6 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using GameBoard;
+using GameBoard.Actions;
+using Tiles;
 using Tutorial.Steps.Data;
 
 namespace Tutorial.Steps
@@ -10,20 +12,25 @@ namespace Tutorial.Steps
     {
         private SetupBoardTutorialStepData _data;
 
+        private TileFactory _factory;
         private Board _board;
 
-        public SetupBoardTutorialStep(SetupBoardTutorialStepData data, Board board)
+        public SetupBoardTutorialStep(SetupBoardTutorialStepData data, TileFactory factory, Board board)
         {
             _data = data;
+            _factory = factory;
             _board = board;
         }
 
-        public override UniTask<bool> Run()
+        public override async UniTask<bool> Run()
         {
             BoardData boardData = _data.BoardConfiguration;
-            _board.SetData(boardData);
 
-            return new UniTask<bool>(false);
+            SetupBoardAction setupBoardAction = new SetupBoardAction(boardData, _factory, _board);
+
+            await setupBoardAction.Run();
+
+            return false;
         }
     }
 }

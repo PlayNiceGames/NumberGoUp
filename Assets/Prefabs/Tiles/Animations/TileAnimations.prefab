@@ -70,5 +70,3 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _target: {fileID: 0}
-  _director: {fileID: 0}
-  _animation: {fileID: 11400000, guid: 61b276675c90d18478bb0efb39577159, type: 2}

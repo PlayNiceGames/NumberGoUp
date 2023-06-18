@@ -9,24 +9,23 @@ namespace GameBoard.Actions.Merge
     public class MergeTileBoardAction : BoardAction
     {
         private MergeContainer _tileContainer;
-        private Board _board;
 
-        public MergeTileBoardAction(MergeContainer tileContainer, Board board)
+        public MergeTileBoardAction(MergeContainer tileContainer, Board board) : base(board)
         {
             _tileContainer = tileContainer;
-            _board = board;
         }
 
         public override async UniTask Run()
         {
             ValueTile tile = _tileContainer.Tile;
-            ValueTile target = _tileContainer.Target;
+            MergeContainer target = _tileContainer.Target;
 
-            _board.FreeTile(tile.BoardPosition);
-            _board.Grid.AddTileOffGrid(tile);
-            _board.Grid.MoveTileOnTop(tile);
+            Board.FreeTile(tile);
 
-            Vector2 worldPosition = _board.GetWorldPosition(target.BoardPosition);
+            Board.Grid.AddTileOffGrid(tile);
+            Board.Grid.MoveTileOnTop(tile);
+
+            Vector2 worldPosition = Board.GetWorldPosition(target.Tile.BoardPosition);
             await tile.Merge(worldPosition);
 
             tile.Dispose();

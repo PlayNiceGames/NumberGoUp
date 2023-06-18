@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using GameBoard.Rules.Merge;
 using GameBoard.Turns;
 using GameScore;
+using Tiles;
 using UnityEngine;
 
 namespace GameBoard.Rules
@@ -13,11 +14,13 @@ namespace GameBoard.Rules
 
         private Board _board;
         private ScoreSystem _scoreSystem;
+        private TileFactory _factory;
 
-        public BoardRules(Board board, ScoreSystem scoreSystem)
+        public BoardRules(Board board, ScoreSystem scoreSystem, TileFactory factory)
         {
             _board = board;
             _scoreSystem = scoreSystem;
+            _factory = factory;
 
             InitializeRules();
         }
@@ -28,7 +31,7 @@ namespace GameBoard.Rules
             {
                 new EraserBoardRule(_board),
                 new CenterMergeBoardRule(_board, _scoreSystem),
-                new DoubleMergeBoardRule(_board, _scoreSystem),
+                new DoubleMergeBoardRule(_board, _factory, _scoreSystem),
                 new SimpleMergeBoardRule(_board, _scoreSystem)
             };
         }

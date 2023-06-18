@@ -1,18 +1,15 @@
 ﻿using System;
 using Tiles;
-using UnityEngine;
 
 namespace GameBoard
 {
-    public class BoardResizer : MonoBehaviour
+    public class BoardResizer
     {
         private Board _board;
-        private TileFactory _factory;
 
-        public BoardResizer(Board board, TileFactory factory)
+        public BoardResizer(Board board)
         {
             _board = board;
-            _factory = factory;
         }
 
         public Tile[,] ResizeBoard(int newSize, Tile[,] prevTiles)

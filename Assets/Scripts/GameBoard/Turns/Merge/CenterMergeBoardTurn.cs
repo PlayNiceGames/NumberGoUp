@@ -18,7 +18,6 @@ namespace GameBoard.Turns.Merge
             _tileContainer = tileContainer;
             _mergeTileContainers = mergeTileContainers;
             _board = board;
-            ScoreSystem = scoreSystem;
         }
 
         public override async UniTask Run()

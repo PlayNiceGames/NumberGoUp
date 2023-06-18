@@ -688,6 +688,10 @@ PrefabInstance:
       propertyPath: _scoreSystem
       value: 
       objectReference: {fileID: 491655412}
+    - target: {fileID: 13290955014241824, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _tileFactory
+      value: 
+      objectReference: {fileID: 687023122}
     - target: {fileID: 2314361639130199756, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _tileQueue
       value: 
@@ -745,6 +749,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 936146793}
     - target: {fileID: 7030314434704525632, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _tileFactory
+      value: 
+      objectReference: {fileID: 687023122}
+    - target: {fileID: 7030314434704525632, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _dialogController
       value: 
       objectReference: {fileID: 2086228730}
@@ -756,6 +764,10 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 936146793}
+    - target: {fileID: 7946196089442939541, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _factory
+      value: 
+      objectReference: {fileID: 687023122}
     - target: {fileID: 7946196089442939541, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _tileQueue
       value: 

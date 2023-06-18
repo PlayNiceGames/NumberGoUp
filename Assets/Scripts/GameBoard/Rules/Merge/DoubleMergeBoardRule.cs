@@ -11,8 +11,11 @@ namespace GameBoard.Rules.Merge
 {
     public class DoubleMergeBoardRule : MergeBoardRule
     {
-        public DoubleMergeBoardRule(Board board, ScoreSystem scoreSystem) : base(board, scoreSystem)
+        private TileFactory _factory;
+
+        public DoubleMergeBoardRule(Board board, TileFactory factory, ScoreSystem scoreSystem) : base(board, scoreSystem)
         {
+            _factory = factory;
         }
 
         public override BoardTurn GetTurn()
@@ -31,7 +34,7 @@ namespace GameBoard.Rules.Merge
                         continue;
 
                     DoubleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, diagonalContainer, mergeableContainers);
-                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _scoreSystem);
+                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _factory, _scoreSystem);
                 }
             }
 
@@ -52,13 +55,13 @@ namespace GameBoard.Rules.Merge
                 return null;
 
             MixedTile tile = mixedContainer.MixedTile;
-            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, tile, MixedTilePartType.Both);
-            MixedTileContainer bothPartsDiagonalContainer = new MixedTileContainer(tile, tile, MixedTilePartType.Both);
+            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
+            MixedTileContainer bothPartsDiagonalContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
 
             IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
                 MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
-            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _scoreSystem);
+            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _factory, _scoreSystem);
         }
 
         private List<MergeContainer> GetMergeableContainers(MergeContainer container, MergeContainer diagonalContainer)

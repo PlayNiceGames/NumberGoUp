@@ -21,12 +21,12 @@ namespace GameBoard.Rules.Merge
             {
                 if (tile is MixedTile mixedTile)
                 {
-                    yield return new MixedTileContainer(mixedTile, mixedTile, MixedTilePartType.Top);
-                    yield return new MixedTileContainer(mixedTile, mixedTile, MixedTilePartType.Bottom);
+                    yield return new MixedTileContainer(mixedTile, null, MixedTilePartType.Top);
+                    yield return new MixedTileContainer(mixedTile, null, MixedTilePartType.Bottom);
                 }
                 else if (tile is RegularTile regularTile)
                 {
-                    yield return new RegularTileContainer(regularTile, regularTile);
+                    yield return new RegularTileContainer(regularTile, null);
                 }
             }
         }

@@ -10,12 +10,10 @@ namespace GameBoard.Actions.Merge
     public class MergeTilePartBoardAction : BoardAction
     {
         private MixedTileContainer _tileContainer;
-        private Board _board;
 
-        public MergeTilePartBoardAction(MixedTileContainer tileContainer, Board board)
+        public MergeTilePartBoardAction(MixedTileContainer tileContainer, Board board) : base(board)
         {
             _tileContainer = tileContainer;
-            _board = board;
         }
 
         public override UniTask Run()
@@ -23,7 +21,7 @@ namespace GameBoard.Actions.Merge
             RegularTileData leftoverTile = GetLeftoverTile();
             Vector2Int tilePosition = _tileContainer.Tile.BoardPosition;
 
-            _board.CreateTile(leftoverTile, tilePosition); //TODO free tile from board and animate it
+            Board.CreateTile(leftoverTile, tilePosition); //TODO free tile from board and animate it
 
             return UniTask.CompletedTask;
         }

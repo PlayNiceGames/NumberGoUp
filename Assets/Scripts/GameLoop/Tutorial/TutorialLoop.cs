@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameBoard;
 using GameTileQueue;
 using GameTileQueue.Generators;
 using Tutorial;
@@ -13,6 +14,7 @@ namespace GameLoop.Tutorial
     {
         [SerializeField] private TutorialData _data;
         [SerializeField] private TutorialStepFactory _stepFactory;
+        [SerializeField] private Board _board;
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private TutorialDialogController _dialogController;

@@ -8,7 +8,7 @@ namespace Tiles.Containers
         public MixedTilePartType PartType { get; }
         public MixedTile MixedTile { get; }
 
-        public MixedTileContainer(MixedTile mixedTile, ValueTile target, MixedTilePartType partType) : base(target)
+        public MixedTileContainer(MixedTile mixedTile, MergeContainer target, MixedTilePartType partType) : base(target)
         {
             MixedTile = mixedTile;
             PartType = partType;

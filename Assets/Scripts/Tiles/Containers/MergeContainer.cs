@@ -3,27 +3,25 @@
     public abstract class MergeContainer
     {
         public abstract ValueTile Tile { get; }
-        public ValueTile Target { get; }
+        public MergeContainer Target;
         public abstract int GetValue();
         public abstract int? GetColor();
         public abstract void IncrementValue(int value = 1);
         public abstract bool IsMergeable(MergeContainer other);
 
-        protected MergeContainer(ValueTile target)
+        protected MergeContainer(MergeContainer target)
         {
             Target = target;
         }
 
-        public static MergeContainer GetMergeContainer(ValueTile tile, MergeContainer otherMergeContainer)
+        public static MergeContainer GetMergeContainer(ValueTile tile, MergeContainer target)
         {
-            ValueTile target = otherMergeContainer.Target;
-
             if (tile is RegularTile regularTile)
                 return new RegularTileContainer(regularTile, target);
 
             if (tile is MixedTile mixedTile)
             {
-                if (otherMergeContainer is RegularTileContainer regularMergeContainer)
+                if (target is RegularTileContainer regularMergeContainer)
                 {
                     if (mixedTile.Top.Color == regularMergeContainer.GetColor())
                         return new MixedTileContainer(mixedTile, target, MixedTilePartType.Top);
@@ -33,7 +31,7 @@
                     return new MixedTileContainer(mixedTile, target, MixedTilePartType.None);
                 }
 
-                if (otherMergeContainer is MixedTileContainer mixedMergeContainer)
+                if (target is MixedTileContainer mixedMergeContainer)
                     return new MixedTileContainer(mixedTile, target, mixedMergeContainer.PartType);
             }
 

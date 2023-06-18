@@ -19,12 +19,29 @@ namespace GameBoard
         private Tile[,] _tiles;
         private BoardResizer _resizer;
 
-        public void Setup(int size)
+        public void Awake()
+        {
+            _resizer = new BoardResizer(this);
+        }
+
+        public void SetupBoard(int size)
         {
             ClearBoard();
 
+            Size = size;
+
             _tiles = new Tile[size, size];
-            _resizer = new BoardResizer(this, _factory);
+
+            ValidateBoard();
+        }
+
+        public void UpdateBoardSize(int size)
+        {
+            if (size == Size)
+                return;
+
+            _tiles = _resizer.ResizeBoard(size, _tiles);
+
             Size = size;
 
             ValidateBoard();
@@ -49,9 +66,14 @@ namespace GameBoard
             return tile;
         }
 
-        public Tile FreeTile(Vector2Int position)
+        public Tile FreeTile(Tile tile)
         {
-            Tile tile = _tiles[position.x, position.y];
+            Vector2Int position = tile.BoardPosition;
+            Tile boardTile = _tiles[position.x, position.y];
+
+            if (tile != boardTile)
+                return tile;
+
             tile.ClearParent();
             tile.OnClick -= OnTileClicked;
 
@@ -158,20 +180,11 @@ namespace GameBoard
             yield return GetTile(new Vector2Int(position.x + 1, position.y + 1));
         }
 
-        public void UpdateBoardSize(int size)
-        {
-            if (size == Size)
-                return;
-
-            _tiles = _resizer.ResizeBoard(size, _tiles);
-
-            Size = size;
-
-            ValidateBoard();
-        }
-
         private void ValidateBoard()
         {
+            int sizeX = _tiles.GetLength(0);
+            Size = sizeX;
+
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size; j++)
@@ -180,8 +193,8 @@ namespace GameBoard
 
                     if (tile == null)
                     {
-                        EmptyTile emptyTile = _factory.InstantiateTile<EmptyTile>();
-                        AddTile(emptyTile, new Vector2Int(i, j));
+                        VoidTile voidTile = _factory.InstantiateTile<VoidTile>();
+                        AddTile(voidTile, new Vector2Int(i, j));
                     }
                     else
                     {

@@ -17,6 +17,7 @@ namespace GameLoop
         [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] private TileFactory _factory;
 
         [SerializeField] private DebugTilePlacer _debugTilePlacer;
 
@@ -24,7 +25,7 @@ namespace GameLoop
 
         public void Setup()
         {
-            _boardRules = new BoardRules(_board, _scoreSystem);
+            _boardRules = new BoardRules(_board, _scoreSystem, _factory);
 
             _debugTilePlacer.Setup();
         }
@@ -43,13 +44,13 @@ namespace GameLoop
             await _tileQueue.WaitUntilFree();
 
             TileType nextTileType = GetNextTileType();
-            
+
             Tile clickedTile = await WaitTileClicked(nextTileType);
             Vector2Int clickTilePosition = clickedTile.BoardPosition;
 
             Tile nextTileQueueTile = PopNextTile();
 
-            PlaceTileAction placeTileAction = new PlaceTileAction(_board, nextTileQueueTile, clickTilePosition);
+            PlaceTileAction placeTileAction = new PlaceTileAction(nextTileQueueTile, clickTilePosition, _board);
             await placeTileAction.Run();
         }
 

@@ -1,4 +1,5 @@
-﻿using Tiles;
+﻿using Cysharp.Threading.Tasks;
+using Tiles;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ namespace GameBoard
     public class BoardGrid : MonoBehaviour
     {
         [SerializeField] private GridLayoutGroup _grid;
+        [SerializeField] private RectTransform _root;
 
         public void AddTileOffGrid(Tile tile)
         {
@@ -38,6 +40,11 @@ namespace GameBoard
                     tile.transform.SetSiblingIndex(index);
                 }
             }
+        }
+
+        public async UniTask WaitForGridUpdate()
+        {
+            await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
         }
     }
 }

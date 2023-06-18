@@ -1,6 +1,7 @@
 ﻿using System;
 using GameBoard;
 using GameLoop;
+using Tiles;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Tutorial.Steps
     {
         [SerializeField] private Board _board;
         [SerializeField] private BoardGameLoop _boardLoop;
+        [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TutorialDialogController _dialogController;
 
         public TutorialStep CreateStep(ITutorialStepData data)
@@ -20,7 +22,7 @@ namespace Tutorial.Steps
                 case DelayTutorialStepData delayStepData:
                     return new DelayTutorialStep(delayStepData);
                 case SetupBoardTutorialStepData setupBoardStepData:
-                    return new SetupBoardTutorialStep(setupBoardStepData, _board);
+                    return new SetupBoardTutorialStep(setupBoardStepData, _tileFactory, _board);
                 case BoardTurnTutorialStepData boardTurnStepData:
                     return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop);
                 case DialogTutorialStepData dialogStepData:

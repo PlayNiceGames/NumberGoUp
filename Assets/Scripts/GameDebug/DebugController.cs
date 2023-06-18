@@ -24,7 +24,8 @@ namespace GameDebug
         [UsedImplicitly]
         public void ResetBoard()
         {
-            _board.Setup(_board.Size);
+            BoardData testData = BoardData.Square(_board.Size);
+            _board.SetData(testData);
         }
     }
 }
