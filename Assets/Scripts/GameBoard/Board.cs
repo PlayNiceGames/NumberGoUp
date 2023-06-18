@@ -49,6 +49,20 @@ namespace GameBoard
             return tile;
         }
 
+        public Tile FreeTile(Vector2Int position)
+        {
+            Tile tile = _tiles[position.x, position.y];
+            tile.ClearParent();
+            tile.OnClick -= OnTileClicked;
+
+            Tile emptyTile = _factory.InstantiateTile<EmptyTile>();
+            AddTile(emptyTile, position);
+
+            UpdateGrid();
+
+            return tile;
+        }
+
         public void ClearTile(Vector2Int position)
         {
             Tile tile = _tiles[position.x, position.y];

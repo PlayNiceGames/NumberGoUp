@@ -5,7 +5,7 @@
         public override ValueTile Tile => RegularTile;
         public RegularTile RegularTile { get; private set; }
 
-        public RegularTileContainer(RegularTile regularTile)
+        public RegularTileContainer(RegularTile regularTile, ValueTile target) : base(target)
         {
             RegularTile = regularTile;
         }

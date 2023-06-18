@@ -29,7 +29,6 @@ namespace Tiles
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent.transform, false);
-            transform.SetAsLastSibling();
         }
 
         public void ClearParent()

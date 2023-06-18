@@ -14,6 +14,11 @@ namespace GameBoard
             tile.SetParent(transform);
         }
 
+        public void MoveTileOnTop(Tile tile)
+        {
+            tile.transform.SetAsLastSibling();
+        }
+
         public void UpdateGrid(Tile[,] tiles)
         {
             int size = tiles.GetLength(0);
@@ -25,8 +30,12 @@ namespace GameBoard
                 {
                     Tile tile = tiles[i, j];
 
+                    int index = i * size + j;
+
                     tile.SetIgnoreGrid(false);
                     tile.SetParent(transform);
+
+                    tile.transform.SetSiblingIndex(index);
                 }
             }
         }

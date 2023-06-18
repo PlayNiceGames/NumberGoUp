@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using GameBoard.Actions;
 using GameScore;
 using Tiles.Containers;
-using UnityEngine;
 
 namespace GameBoard.Turns.Merge
 {
@@ -18,17 +18,13 @@ namespace GameBoard.Turns.Merge
             _tileContainer = tileContainer;
             _mergeTileContainers = mergeTileContainers;
             _board = board;
-            _scoreSystem = scoreSystem;
+            ScoreSystem = scoreSystem;
         }
 
         public override async UniTask Run()
         {
-            Debug.Log($"{GetType()} turn");
-
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
-
-            IEnumerable<UniTask> mergeTasks = RunMergeTasks(_mergeTileContainers, _board);
-            await UniTask.WhenAll(mergeTasks);
+            IEnumerable<BoardAction> mergeActions = GetMergeActions(_mergeTileContainers, _board);
+            await RunMergeActions(mergeActions);
 
             int count = _mergeTileContainers.Count();
             IncrementContainerValue(_tileContainer, count);

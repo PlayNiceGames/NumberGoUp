@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1352681308646860753, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1352681308646860753, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
       propertyPath: m_LocalPosition.x
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689e723fde574eca9e53722b612bc5d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _durationSeconds: 1
+  _durationSeconds: 5
   _scaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -112,18 +112,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0

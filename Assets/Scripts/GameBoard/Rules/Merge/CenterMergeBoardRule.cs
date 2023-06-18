@@ -21,7 +21,6 @@ namespace GameBoard.Rules.Merge
             foreach (ValueTile tile in allTiles)
             {
                 IEnumerable<ValueTile> nearbyTiles = _board.GetNearbyTiles(tile.BoardPosition).OfType<ValueTile>();
-
                 IEnumerable<ValueTile> sameTiles = nearbyTiles.Where(nearbyTile => nearbyTile.Equals(tile)).ToList();
 
                 MergeContainer tileContainer = GetContainer(tile);
@@ -38,9 +37,9 @@ namespace GameBoard.Rules.Merge
         private MergeContainer GetContainer(ValueTile tile)
         {
             if (tile is RegularTile regularTile)
-                return new RegularTileContainer(regularTile);
+                return new RegularTileContainer(regularTile, tile);
             if (tile is MixedTile mixedTileContainer)
-                return new MixedTileContainer(mixedTileContainer, MixedTilePartType.Both);
+                return new MixedTileContainer(mixedTileContainer, tile, MixedTilePartType.Both);
 
             return null;
         }

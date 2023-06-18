@@ -10,34 +10,40 @@ namespace GameBoard.Turns.Merge
 {
     public abstract class MergeBoardTurn : BoardTurn
     {
-        protected ScoreSystem _scoreSystem;
+        protected ScoreSystem ScoreSystem;
 
         protected MergeBoardTurn(Board board, ScoreSystem scoreSystem) : base(board)
         {
-            _scoreSystem = scoreSystem;
+            ScoreSystem = scoreSystem;
         }
 
-        protected IEnumerable<UniTask> RunMergeTasks(IEnumerable<MergeContainer> mergeTiles, Board board)
+        protected IEnumerable<BoardAction> GetMergeActions(IEnumerable<MergeContainer> mergeTileContainers, Board board)
         {
-            foreach (MergeContainer mergedTile in mergeTiles)
+            foreach (MergeContainer mergeTileContainer in mergeTileContainers)
             {
                 BoardAction action = null;
 
-                if (mergedTile is RegularTileContainer mergeRegularTileContainer)
+                if (mergeTileContainer is RegularTileContainer mergeRegularTileContainer)
                 {
-                    action = new MergeTileBoardAction(mergeRegularTileContainer.Tile, board);
+                    action = new MergeTileBoardAction(mergeTileContainer, board);
                 }
-                else if (mergedTile is MixedTileContainer mergeMixedTileContainer)
+                else if (mergeTileContainer is MixedTileContainer mergeMixedTileContainer)
                 {
                     if (mergeMixedTileContainer.PartType == MixedTilePartType.Both)
-                        action = new MergeTileBoardAction(mergeMixedTileContainer.Tile, board);
+                        action = new MergeTileBoardAction(mergeTileContainer, board);
                     else
                         action = new MergeTilePartBoardAction(mergeMixedTileContainer, board);
                 }
 
                 if (action != null)
-                    yield return action.Run();
+                    yield return action;
             }
+        }
+
+        protected UniTask RunMergeActions(IEnumerable<BoardAction> mergeActions)
+        {
+            IEnumerable<UniTask> actionTasks = mergeActions.Select(action => action.Run());
+            return UniTask.WhenAll(actionTasks);
         }
 
         protected void IncrementContainerValue(MergeContainer container, int valueDelta = 1)
@@ -46,7 +52,7 @@ namespace GameBoard.Turns.Merge
 
             container.IncrementValue(valueDelta);
 
-            _scoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
+            ScoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
         }
     }
 }

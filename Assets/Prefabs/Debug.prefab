@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6297101862057784285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ RectTransform:
   m_Children:
   - {fileID: 6297101862057784285}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -323,8 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d346330921cd2e4ead61c9eb9345586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DebugPlaceTiles>k__BackingField: 0
-  <TilePlacer>k__BackingField: {fileID: 7187068695190948215}
   _board: {fileID: 0}
 --- !u!114 &7187068695190948215
 MonoBehaviour:
@@ -338,11 +336,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9649bd3d6a564a43857d56353a8ebc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  <DebugPlaceTiles>k__BackingField: 0
+  _type: 2
   _firstValue: 1
   _secondValue: 1
-  _firstGameColor: 0
-  _secondGameColor: 1
+  _useGameColors: 0
+  _firstColor: 0
+  _secondColor: 0
   _firstDisplayedColor: {r: 0, g: 0, b: 0, a: 0}
   _secondDisplayedColor: {r: 0, g: 0, b: 0, a: 0}
   _factory: {fileID: 0}

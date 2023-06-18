@@ -21,6 +21,7 @@ namespace GameBoard.Actions
         public override async UniTask Run()
         {
             _board.Grid.AddTileOffGrid(_tile);
+            _board.Grid.MoveTileOnTop(_tile);
 
             Vector2 worldPosition = _board.GetWorldPosition(_boardPosition);
             await _tile.Appear(worldPosition);

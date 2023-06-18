@@ -8,7 +8,7 @@ namespace Tiles.Containers
         public MixedTilePartType PartType { get; }
         public MixedTile MixedTile { get; }
 
-        public MixedTileContainer(MixedTile mixedTile, MixedTilePartType partType)
+        public MixedTileContainer(MixedTile mixedTile, ValueTile target, MixedTilePartType partType) : base(target)
         {
             MixedTile = mixedTile;
             PartType = partType;
@@ -108,7 +108,7 @@ namespace Tiles.Containers
                     throw new ArgumentOutOfRangeException();
             }
 
-            return new MixedTileContainer(MixedTile, newPartType);
+            return new MixedTileContainer(MixedTile, Target, newPartType);
         }
     }
 }
