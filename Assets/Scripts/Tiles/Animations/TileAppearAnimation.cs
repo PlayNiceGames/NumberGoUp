@@ -18,7 +18,7 @@ namespace Tiles.Animations
             tween.SetEase(_scaleCurve);
             tween.Play();
 
-            await _target.DOScale(Vector3.one, _scaleDurationSeconds).AsyncWaitForCompletion();
+            await tween.AsyncWaitForCompletion();
         }
     }
 }

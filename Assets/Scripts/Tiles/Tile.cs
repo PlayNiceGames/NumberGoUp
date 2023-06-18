@@ -13,9 +13,9 @@ namespace Tiles
 
         public event Action<Tile> OnClick;
 
-        [SerializeField] protected TileAppearAnimation _appearAnimation;
-
         [SerializeField] protected LayoutElement _layout;
+
+        [SerializeField] protected TileAppearAnimation _appearAnimation;
 
         public abstract TileType Type { get; }
 

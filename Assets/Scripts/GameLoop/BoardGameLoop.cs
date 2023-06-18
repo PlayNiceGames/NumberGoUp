@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameBoard;
+using GameBoard.Actions;
 using GameBoard.Rules;
 using GameBoard.Turns;
 using GameDebug;
@@ -19,12 +20,10 @@ namespace GameLoop
 
         [SerializeField] private DebugTilePlacer _debugTilePlacer;
 
-        private PlaceTileSequence _placeTileSequence;
         private BoardRules _boardRules;
 
         public void Setup()
         {
-            _placeTileSequence = new PlaceTileSequence(_board);
             _boardRules = new BoardRules(_board, _scoreSystem);
 
             _debugTilePlacer.Setup();
@@ -44,10 +43,12 @@ namespace GameLoop
             TileType nextTileType = GetNextTileType();
 
             Tile clickedTile = await WaitTileClicked(nextTileType);
+            Vector2Int clickTilePosition = clickedTile.BoardPosition;
 
             Tile nextTileQueueTile = PopNextTile();
 
-            await _placeTileSequence.PlaceTile(nextTileQueueTile, clickedTile.BoardPosition);
+            PlaceTileAction placeTileAction = new PlaceTileAction(_board, nextTileQueueTile, clickTilePosition);
+            await placeTileAction.Run();
         }
 
         private async UniTask<Tile> WaitTileClicked(TileType nextTileType)

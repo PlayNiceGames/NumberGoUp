@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using GameBoard.Actions;
 using GameBoard.Actions.Merge;
 using GameScore;
 using Tiles;
@@ -20,18 +21,22 @@ namespace GameBoard.Turns.Merge
         {
             foreach (MergeContainer mergedTile in mergeTiles)
             {
-                if (mergedTile.Tile is RegularTile mergeRegularTile)
-                {
-                    MergeRegularTileBoardAction action = new MergeRegularTileBoardAction(mergeRegularTile, board);
+                BoardAction action = null;
 
-                    yield return action.Run();
+                if (mergedTile is RegularTileContainer mergeRegularTileContainer)
+                {
+                    action = new MergeTileBoardAction(mergeRegularTileContainer.Tile, board);
                 }
                 else if (mergedTile is MixedTileContainer mergeMixedTileContainer)
                 {
-                    MergeMixedTileBoardAction action = new MergeMixedTileBoardAction(mergeMixedTileContainer, board);
-
-                    yield return action.Run();
+                    if (mergeMixedTileContainer.PartType == MixedTilePartType.Both)
+                        action = new MergeTileBoardAction(mergeMixedTileContainer.Tile, board);
+                    else
+                        action = new MergeTilePartBoardAction(mergeMixedTileContainer, board);
                 }
+
+                if (action != null)
+                    yield return action.Run();
             }
         }
 

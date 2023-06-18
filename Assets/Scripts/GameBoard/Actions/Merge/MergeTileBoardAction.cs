@@ -4,12 +4,12 @@ using Tiles;
 
 namespace GameBoard.Actions.Merge
 {
-    public class MergeRegularTileBoardAction : BoardAction
+    public class MergeTileBoardAction : BoardAction
     {
-        private RegularTile _tile;
+        private ValueTile _tile;
         private Board _board;
 
-        public MergeRegularTileBoardAction(RegularTile tile, Board board)
+        public MergeTileBoardAction(ValueTile tile, Board board)
         {
             _board = board;
             _tile = tile;
@@ -18,7 +18,7 @@ namespace GameBoard.Actions.Merge
         public override UniTask Run()
         {
             _board.ClearTile(_tile.BoardPosition); //TODO free tile from board and animate it
-            
+
             return UniTask.CompletedTask;
         }
 
