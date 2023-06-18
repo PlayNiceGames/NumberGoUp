@@ -40,8 +40,10 @@ namespace GameLoop
 
         private async UniTask ProcessUserInput()
         {
-            TileType nextTileType = GetNextTileType();
+            await _tileQueue.WaitUntilFree();
 
+            TileType nextTileType = GetNextTileType();
+            
             Tile clickedTile = await WaitTileClicked(nextTileType);
             Vector2Int clickTilePosition = clickedTile.BoardPosition;
 

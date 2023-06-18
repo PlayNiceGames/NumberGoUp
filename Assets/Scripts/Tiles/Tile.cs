@@ -23,6 +23,11 @@ namespace Tiles
         {
             transform.position = position;
 
+            return PlayAppearAnimation();
+        }
+
+        public UniTask PlayAppearAnimation()
+        {
             return _appearAnimation.Play();
         }
 

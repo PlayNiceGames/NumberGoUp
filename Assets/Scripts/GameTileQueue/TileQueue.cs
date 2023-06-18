@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using GameTileQueue.Generators;
-using Sirenix.OdinInspector;
 using Tiles;
 using Tiles.Data;
 using UnityEngine;
@@ -17,6 +17,8 @@ namespace GameTileQueue
         private TileQueueGenerator _generator;
         private Queue<Tile> _tiles;
 
+        private UniTaskCompletionSource _advanceTileAnimationPlaying;
+
         public void Setup(TileQueueGenerator generator)
         {
             _generator = generator;
@@ -27,7 +29,9 @@ namespace GameTileQueue
         {
             Tile firstTile = RemoveFirstTile();
 
-            AddNextTile();
+            Tile nextTile = AddNextTile();
+
+            PlayAdvanceTileAnimation(nextTile);
 
             return firstTile;
         }
@@ -37,7 +41,6 @@ namespace GameTileQueue
             return _tiles.TryPeek(out Tile result) ? result : null;
         }
 
-        [Button]
         public void AddInitialTiles()
         {
             ClearTiles();
@@ -56,13 +59,23 @@ namespace GameTileQueue
             _tiles.Clear();
         }
 
-        [Button]
-        private void AddNextTile()
+        private Tile AddNextTile()
         {
             Tile tile = InstantiateNextTile();
             tile.SetParent(_grid);
 
             _tiles.Enqueue(tile);
+
+            return tile;
+        }
+
+        private async UniTask PlayAdvanceTileAnimation(Tile nextTile)
+        {
+            _advanceTileAnimationPlaying = new UniTaskCompletionSource();
+
+            await nextTile.PlayAppearAnimation();
+
+            _advanceTileAnimationPlaying.TrySetResult();
         }
 
         private Tile InstantiateNextTile()
@@ -73,7 +86,6 @@ namespace GameTileQueue
             return tile;
         }
 
-        [Button]
         private Tile RemoveFirstTile()
         {
             bool result = _tiles.TryDequeue(out Tile tile);
@@ -84,6 +96,11 @@ namespace GameTileQueue
             tile.ClearParent();
 
             return tile;
+        }
+
+        public UniTask WaitUntilFree()
+        {
+            return _advanceTileAnimationPlaying?.Task ?? UniTask.CompletedTask;
         }
     }
 }

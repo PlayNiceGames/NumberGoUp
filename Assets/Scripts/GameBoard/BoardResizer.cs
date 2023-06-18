@@ -1,9 +1,10 @@
 ﻿using System;
 using Tiles;
+using UnityEngine;
 
 namespace GameBoard
 {
-    public class BoardResizer
+    public class BoardResizer : MonoBehaviour
     {
         private Board _board;
         private TileFactory _factory;
