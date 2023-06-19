@@ -40,6 +40,9 @@ namespace GameBoard.Actions
 
                     UniTask placeTileTask = tileAppearAction.Run();
                     placeTileTasks.Add(placeTileTask);
+
+                    if (tile.Type != TileType.Void)
+                        await UniTask.Delay(200);
                 }
             }
 

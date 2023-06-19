@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689e723fde574eca9e53722b612bc5d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _durationSeconds: 0.75
+  _durationSeconds: 1
   _scaleCurve:
     serializedVersion: 2
     m_Curve:
