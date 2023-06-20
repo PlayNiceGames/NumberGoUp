@@ -26,17 +26,17 @@ MonoBehaviour:
   - rid: 8647209695244451989
   - rid: 3805399464197488662
   - rid: 8647209695244451948
-  - rid: 8647209695244451959
+  - rid: 3805399464197488717
   - rid: 8647209695244451950
-  - rid: 8647209695244451960
+  - rid: 3805399464197488735
   - rid: 8647209695244451962
-  - rid: 8647209695244451964
+  - rid: 3805399464197488760
   - rid: 8647209695244451966
-  - rid: 8647209695244451968
+  - rid: 3805399464197488789
   - rid: 8647209695244451970
-  - rid: 8647209695244451973
+  - rid: 3805399464197488805
   - rid: 8647209695244451975
-  - rid: 8647209695244451977
+  - rid: 3805399464197488827
   - rid: 8647209967368273923
   - rid: 8647209967368273961
   - rid: 8647209967368273963
@@ -65,6 +65,36 @@ MonoBehaviour:
       data:
         TitleKey: dialog_title_basicrules
         DialogKey: dialog_lets_merge
+    - rid: 3805399464197488717
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_adjacent
+        DialogKey: dialog_nicely_done
+    - rid: 3805399464197488735
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_older
+        DialogKey: dialog_older_blocks
+    - rid: 3805399464197488760
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_oneplusone
+        DialogKey: dialog_number_3_up
+    - rid: 3805399464197488789
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_mwtm
+        DialogKey: dialog_number_3_place
+    - rid: 3805399464197488805
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_ngu
+        DialogKey: dialog_number_3_variants
+    - rid: 3805399464197488827
+      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
+      data:
+        TitleKey: dialog_title_highscore
+        DialogKey: dialog_make_numbers_go_up
     - rid: 8647209695244451948
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
@@ -73,52 +103,22 @@ MonoBehaviour:
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 1
-    - rid: 8647209695244451959
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_nicely_done
-    - rid: 8647209695244451960
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_older_blocks
     - rid: 8647209695244451962
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 1
-    - rid: 8647209695244451964
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_number_3_up
     - rid: 8647209695244451966
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 1
-    - rid: 8647209695244451968
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_number_3_place
     - rid: 8647209695244451970
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 1
-    - rid: 8647209695244451973
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_number_3_variants
     - rid: 8647209695244451975
       type: {class: BoardTurnTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
         TurnCount: 2
-    - rid: 8647209695244451977
-      type: {class: DialogTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
-      data:
-        TitleKey: 
-        DialogKey: dialog_make_numbers_go_up
     - rid: 8647209695244451989
       type: {class: SetupBoardTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
