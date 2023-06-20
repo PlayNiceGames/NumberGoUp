@@ -36,6 +36,14 @@ MonoBehaviour:
     - dialog_title_double_merge
     - dialog_text_double_merge
     - dialog_title_basicrules
+    - dialog_title_adjacent
+    - dialog_title_older
+    - dialog_title_oneplusone
+    - dialog_title_mwtm
+    - dialog_title_ngu
+    - dialog_title_highscore
+    - dialog_text_eraser
+    - dialog_title_eraser
     _valueData:
     - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
       the blocks that are up next at the bottom."
@@ -67,3 +75,12 @@ MonoBehaviour:
     - When a tile can merge with two tiles of the same number, it will and the number
       goes up in both tiles.
     - Basic Rules
+    - Adjacent Tiles
+    - Older Tiles
+    - 1+1+1=3
+    - Multiple ways to Merge
+    - Number Go Up
+    - High Score!
+    - Every 500 points you will have a chance to erase a tile! Tap on the tile you
+      want to remove
+    - The Eraser

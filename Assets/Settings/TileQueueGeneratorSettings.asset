@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileQueueSize: 4
   GuaranteedColorTileValue: 1
-  GuaranteedColorNotAppearingMaxCount: 6
+  GuaranteedColorNotAppearingMaxCount: 5
   BigTileQueueGenerationChance: 0.2
   BigTileValue: 2
   MixedTileValue: 1
   RemainingTileValue: 1
-  MaxRepeatingTileCount: 1
+  MaxRepeatingTileCount: 0
   RepeatingFixTileValue: 1
   EraserTileStartingScore: 500
   EraserTileScoreIncrement: 500
