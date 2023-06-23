@@ -4,3 +4,6 @@
 [submodule "Assets/Submodules/SimpleTextProvider"]
 	path = Assets/Submodules/SimpleTextProvider
 	url = https://github.com/Eugen1344/SimpleTextProvider
+[submodule "Assets/Submodules/SmallEditorTools"]
+	path = Assets/Submodules/SmallEditorTools
+	url = https://github.com/Eugen1344/SmallEditorTools.git
