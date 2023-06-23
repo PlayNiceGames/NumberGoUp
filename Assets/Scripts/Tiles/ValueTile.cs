@@ -12,7 +12,7 @@ namespace Tiles
 
         public abstract bool HasColor(int color);
 
-        public virtual UniTask Merge(Vector2 position)
+        public virtual UniTask PlayMergeAnimation(Vector2 position)
         {
             return _mergeAnimation.Play(position);
         }

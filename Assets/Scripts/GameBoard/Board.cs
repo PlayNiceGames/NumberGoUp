@@ -66,13 +66,13 @@ namespace GameBoard
             return tile;
         }
 
-        public Tile FreeTile(Tile tile)
+        public void FreeTile(Tile tile)
         {
             Vector2Int position = tile.BoardPosition;
             Tile boardTile = _tiles[position.x, position.y];
 
             if (tile != boardTile)
-                return tile;
+                return;
 
             tile.ClearParent();
             tile.OnClick -= OnTileClicked;
@@ -81,8 +81,6 @@ namespace GameBoard
             AddTile(emptyTile, position);
 
             UpdateGrid();
-
-            return tile;
         }
 
         public void ClearTile(Vector2Int position)

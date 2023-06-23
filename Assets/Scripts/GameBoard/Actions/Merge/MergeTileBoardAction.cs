@@ -26,7 +26,7 @@ namespace GameBoard.Actions.Merge
             Board.Grid.MoveTileOnTop(tile);
 
             Vector2 worldPosition = Board.GetWorldPosition(target.Tile.BoardPosition);
-            await tile.Merge(worldPosition);
+            await tile.PlayMergeAnimation(worldPosition);
 
             tile.Dispose();
         }

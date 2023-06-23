@@ -1,5 +1,7 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
+using Tiles.Animations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,9 @@ namespace Tiles
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
         [SerializeField] private TileColorsData _colorsData;
+        [Space]
+        [SerializeField] private TileMergeAnimation _mergeAnimation;
+        [SerializeField] private TilePartScaleAnimation _scaleAnimation;
 
         public void Setup(int value, int color)
         {
@@ -42,6 +47,16 @@ namespace Tiles
             Color color = _colorsData.GetColor(colorIndex);
 
             _background.color = color;
+        }
+
+        public UniTask PlayMergeAnimation(Vector2 position)
+        {
+            return _mergeAnimation.Play(position);
+        }
+
+        public UniTask PlayScaleUpAnimation()
+        {
+            return _scaleAnimation.Play();
         }
 
         public bool Equals(MixedTileModel other)
