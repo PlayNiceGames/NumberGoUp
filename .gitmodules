@@ -1,6 +1,3 @@
-[submodule "Assets/Submodules/UnityEditorExtensions"]
-	path = Assets/Submodules/UnityEditorExtensions
-	url = https://github.com/Eugen1344/UnityEditorExtensions.git
 [submodule "Assets/Submodules/SimpleTextProvider"]
 	path = Assets/Submodules/SimpleTextProvider
 	url = https://github.com/Eugen1344/SimpleTextProvider
