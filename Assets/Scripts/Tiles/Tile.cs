@@ -13,9 +13,9 @@ namespace Tiles
 
         public event Action<Tile> OnClick;
 
-        [SerializeField] protected LayoutElement _layout;
+        [field: SerializeField] public TileAppearAnimation AppearAnimation { get; private set; }
 
-        [SerializeField] protected TileAppearAnimation _appearAnimation;
+        [SerializeField] protected LayoutElement _layout;
 
         public abstract TileType Type { get; }
 
@@ -23,12 +23,7 @@ namespace Tiles
         {
             transform.position = position;
 
-            return PlayAppearAnimation();
-        }
-
-        public UniTask PlayAppearAnimation()
-        {
-            return _appearAnimation.Play();
+            return AppearAnimation.Play();
         }
 
         public void SetParent(Transform parent)

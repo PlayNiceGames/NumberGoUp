@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Tiles.Animations
         [SerializeField] private float _scaleDurationSeconds;
         [SerializeField] private AnimationCurve _scaleCurve;
         [SerializeField] private RectTransform _target;
+        [Space]
+        [SerializeField] private float _tilesAppearDelaySeconds;
 
         public async UniTask Play()
         {
@@ -19,6 +22,11 @@ namespace Tiles.Animations
             tween.Play();
 
             await tween.AsyncWaitForCompletion();
+        }
+
+        public UniTask WaitForTilesAppearDelay()
+        {
+            return UniTask.Delay(TimeSpan.FromSeconds(_tilesAppearDelaySeconds));
         }
     }
 }

@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoardPosition: {x: 0, y: 0}
+  <AppearAnimation>k__BackingField: {fileID: 500635017327546063}
   _layout: {fileID: -7911001308707777714}
-  _appearAnimation: {fileID: 500635017327546063}
 --- !u!222 &2060970891727607124
 CanvasRenderer:
   m_ObjectHideFlags: 0

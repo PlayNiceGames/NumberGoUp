@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoardPosition: {x: 0, y: 0}
+  <AppearAnimation>k__BackingField: {fileID: 7894263177904587911}
   _layout: {fileID: -4316165762891282507}
-  _appearAnimation: {fileID: 7894263177904587911}
   _mergeAnimation: {fileID: 5300400135658256685}
   Age: 0
   _numberText: {fileID: 5353836641061641243}

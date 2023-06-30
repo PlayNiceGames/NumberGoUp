@@ -9,6 +9,8 @@ namespace GameBoard.Actions
 {
     public class SetupBoardAction : BoardAction
     {
+        private const float TileAppearDelaySeconds = 0.2f;
+
         private BoardData _data;
         private TileFactory _factory;
 
@@ -42,7 +44,7 @@ namespace GameBoard.Actions
                     placeTileTasks.Add(placeTileTask);
 
                     if (tile.Type != TileType.Void)
-                        await UniTask.Delay(200);
+                        await tile.AppearAnimation.WaitForTilesAppearDelay();
                 }
             }
 
