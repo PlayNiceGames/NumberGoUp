@@ -46,13 +46,13 @@ namespace GameBoard.Turns.Merge
             return UniTask.WhenAll(actionTasks);
         }
 
-        protected void IncrementContainerValue(MergeContainer container, int valueDelta = 1)
+        protected UniTask IncrementContainerValue(MergeContainer container, int valueDelta = 1)
         {
             int startingValue = container.GetValue();
 
             container.IncrementValue(valueDelta);
 
-            ScoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
+            return ScoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
         }
     }
 }

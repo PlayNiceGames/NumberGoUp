@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Utils;
 
 namespace Tiles.Animations
 {
@@ -13,15 +14,14 @@ namespace Tiles.Animations
         [Space]
         [SerializeField] private float _tilesAppearDelaySeconds;
 
-        public async UniTask Play()
+        public UniTask Play()
         {
             _target.localScale = Vector3.zero;
 
             var tween = _target.DOScale(Vector3.one, _scaleDurationSeconds);
             tween.SetEase(_scaleCurve);
-            tween.Play();
 
-            await tween.AsyncWaitForCompletion();
+            return tween.PlayAsync();
         }
 
         public UniTask WaitForTilesAppearDelay()

@@ -44,17 +44,14 @@ namespace GameLoop.EndlessMode
 
         public override async UniTask Run()
         {
-            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
-            await SetupBoard(initialBoardSize);
-
-            _tileQueue.AddInitialTiles();
+            await SetupScene();
 
             while (true)
             {
                 await _boardLoop.Run();
-                
+
                 _gameRules.UpdateCurrentRules();
-                
+
                 await TryUpdateBoardSize();
 
                 bool shouldEndGame = await _gameOver.TryProcessGameOver();
@@ -64,6 +61,16 @@ namespace GameLoop.EndlessMode
             }
 
             EndGame();
+        }
+
+        private UniTask SetupScene()
+        {
+            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
+            UniTask setupBoardTask = SetupBoard(initialBoardSize);
+
+            UniTask setupTileQueueTask = _tileQueue.AddInitialTilesWithAnimation();
+
+            return UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
         }
 
         private UniTask SetupBoard(int size)

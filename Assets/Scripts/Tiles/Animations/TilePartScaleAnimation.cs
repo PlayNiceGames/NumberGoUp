@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Utils;
 
 namespace Tiles.Animations
 {
@@ -12,16 +13,15 @@ namespace Tiles.Animations
         [SerializeField] private RectTransform _targetTransform;
         [SerializeField] private RectTransform _rootTransform;
 
-        public async UniTask Play()
+        public UniTask Play()
         {
             float maxHeight = _rootTransform.rect.height;
             Vector2 targetSize = new Vector2(_targetTransform.sizeDelta.x, maxHeight);
 
             Tween tween = _targetTransform.DOSizeDelta(targetSize, _durationSeconds);
             tween.SetEase(_scaleCurve);
-            tween.Play();
 
-            await tween.AsyncWaitForCompletion();
+            return tween.PlayAsync();
         }
     }
 }

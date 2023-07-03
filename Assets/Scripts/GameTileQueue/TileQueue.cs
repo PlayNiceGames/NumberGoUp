@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using GameTileQueue.Generators;
 using Tiles;
@@ -13,14 +12,15 @@ namespace GameTileQueue
         private const int QueueSize = 4; //TODO temp, move
 
         [SerializeField] private Transform _grid;
-        [SerializeField] private GameObject _firstTileBorder;
+        [SerializeField] private TileQueueAppearSequence _appearSequence;
+
         [SerializeField] private TileFactory _factory;
 
         private TileQueueGenerator _generator;
         private Queue<Tile> _tiles;
 
         private UniTaskCompletionSource _advanceTileAnimationPlaying;
-        
+
         public void Setup(TileQueueGenerator generator)
         {
             _generator = generator;
@@ -45,24 +45,13 @@ namespace GameTileQueue
 
         public async UniTask AddInitialTilesWithAnimation()
         {
-            AddInitialTiles();
+            TileData[] initialTilesData = _generator.GetNextTilesData(QueueSize);
+            List<Tile> initialTiles = await _appearSequence.Play(initialTilesData);
 
-            await PlayTileAppearAnimations();
-
-            SetBorderEnabled(true);
+            _tiles = new Queue<Tile>(initialTiles);
         }
 
-        private async UniTask PlayTileAppearAnimations()
-        {
-            for (int i = QueueSize - 1; i >= 0; i--)
-            {
-                Tile tile = _tiles.ElementAt(i);
-
-                await tile.AppearAnimation.Play();
-            }
-        }
-
-        public void AddInitialTiles()
+        private void AddInitialTiles()
         {
             ClearTiles();
 
@@ -119,7 +108,7 @@ namespace GameTileQueue
             return tile;
         }
 
-        public UniTask WaitUntilFree()
+        public UniTask WaitUntilTileAdvances()
         {
             return _advanceTileAnimationPlaying?.Task ?? UniTask.CompletedTask;
         }

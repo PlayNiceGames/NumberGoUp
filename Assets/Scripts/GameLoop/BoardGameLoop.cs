@@ -41,7 +41,7 @@ namespace GameLoop
 
         private async UniTask ProcessUserInput()
         {
-            await _tileQueue.WaitUntilFree();
+            await _tileQueue.WaitUntilTileAdvances();
 
             TileType nextTileType = GetNextTileType();
 

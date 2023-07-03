@@ -34,8 +34,10 @@ namespace GameBoard.Turns.Merge
             IEnumerable<BoardAction> mergeActions = GetMergeActions(allContainers, _board);
             await RunMergeActions(mergeActions);
 
-            IncrementContainerValue(_firstContainer);
-            IncrementContainerValue(_secondContainer);
+            UniTask incrementFirstScoreTask = IncrementContainerValue(_firstContainer);
+            UniTask incrementSecondScoreTask = IncrementContainerValue(_secondContainer);
+
+            await UniTask.WhenAll(incrementFirstScoreTask, incrementSecondScoreTask);
         }
 
         private IEnumerable<MergeContainer> SpawnFakeContainers()

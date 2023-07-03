@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Utils;
 
 namespace Tiles.Animations
 {
@@ -19,24 +20,22 @@ namespace Tiles.Animations
             return UniTask.WhenAll(scaleTask, moveTask);
         }
 
-        private async UniTask ScaleDown()
+        private UniTask ScaleDown()
         {
             _target.localScale = Vector3.one;
 
             var tween = _target.DOScale(Vector3.zero, _durationSeconds);
             tween.SetEase(_scaleCurve);
-            tween.Play();
 
-            await tween.AsyncWaitForCompletion();
+            return tween.PlayAsync();
         }
 
-        private async UniTask MoveToPosition(Vector2 position)
+        private UniTask MoveToPosition(Vector2 position)
         {
             var tween = _target.DOMove(position, _durationSeconds);
             tween.SetEase(_moveCurve);
-            tween.Play();
 
-            await tween.AsyncWaitForCompletion();
+            return tween.PlayAsync();
         }
     }
 }

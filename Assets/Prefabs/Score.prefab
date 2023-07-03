@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920853082814781582}
   - component: {fileID: 4444880422333251563}
+  - component: {fileID: 793665234109563199}
   - component: {fileID: 814159805173759926}
   - component: {fileID: 4302411212078365175}
   m_Layer: 5
@@ -52,7 +53,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634b7fc83add4682b9b9ff68bede032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ui: {fileID: 793665234109563199}
   _data: {fileID: 11400000, guid: 146ba04bfa7516b44bc6fbe3ca083822, type: 2}
+--- !u!114 &793665234109563199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510789374133988757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3925b76a31f32b648a94bb2246973c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textUpdateTimeSeconds: 1
+  _textUpdateCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _label: {fileID: 6384794745975636689}
 --- !u!223 &814159805173759926
 Canvas:

@@ -33,7 +33,7 @@ namespace GameLoop.Tutorial
 
         public override async UniTask Run()
         {
-            _tileQueue.AddInitialTiles();
+            await _tileQueue.AddInitialTilesWithAnimation();
 
             foreach (ITutorialStepData stepData in _data.Steps)
             {

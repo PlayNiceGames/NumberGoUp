@@ -40,6 +40,8 @@ namespace GameBoard.Actions
 
                 UniTask placeTileTask = placeTileAction.Run();
                 placeTileTasks.Add(placeTileTask);
+
+                await emptyTile.AppearAnimation.WaitForTilesAppearDelay();
             }
 
             await UniTask.WhenAll(placeTileTasks);

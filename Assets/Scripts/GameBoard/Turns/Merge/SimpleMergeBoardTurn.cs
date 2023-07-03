@@ -24,7 +24,7 @@ namespace GameBoard.Turns.Merge
             IEnumerable<BoardAction> mergeActions = GetMergeActions(_mergeTileContainers, _board);
             await RunMergeActions(mergeActions);
 
-            IncrementContainerValue(_tileContainer);
+            await IncrementContainerValue(_tileContainer);
         }
 
         public override UniTask Undo()

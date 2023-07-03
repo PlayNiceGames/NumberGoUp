@@ -1,6 +1,6 @@
-﻿using Serialization;
+﻿using Cysharp.Threading.Tasks;
+using Serialization;
 using Tiles.Containers;
-using TMPro;
 using UnityEngine;
 
 namespace GameScore
@@ -12,29 +12,27 @@ namespace GameScore
         public int Score { get; private set; }
         public int HighScore { get; private set; }
 
+        [SerializeField] private ScoreSystemUI _ui;
+
         [SerializeField] private ScoreData _data;
-        [SerializeField] private TextMeshProUGUI _label;
 
         private void Start()
         {
             Deserialize();
 
-            UpdateText();
+            _ui.SetScore(Score);
         }
 
-        public void IncrementScoreForMerge(int startingValue, int deltaValue, MergeContainer container)
+        public UniTask IncrementScoreForMerge(int startingValue, int deltaValue, MergeContainer container)
         {
+            int prevScore = Score;
             int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, container);
 
             Score += scoreDelta;
 
-            UpdateText();
             UpdateHighScore();
-        }
 
-        private void UpdateText()
-        {
-            _label.text = Score.ToString();
+            return _ui.UpdateScoreWithAnimation(Score, prevScore);
         }
 
         private void UpdateHighScore()
@@ -43,7 +41,7 @@ namespace GameScore
             {
                 HighScore = Score;
 
-                Serialize();  //TODO temp, move to save/load manager
+                Serialize(); //TODO temp, move to save/load manager
             }
         }
 
