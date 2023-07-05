@@ -28,16 +28,19 @@ namespace GameBoard.Turns.Merge
 
         public override async UniTask Run()
         {
+            int scoreDelta = ScoreSystem.GetScoreForMerge(_firstContainer) + ScoreSystem.GetScoreForMerge(_secondContainer);
+            UniTask scoreTask = ScoreSystem.IncrementScore(scoreDelta);
+
             IEnumerable<MergeContainer> fakeContainers = SpawnFakeContainers();
             List<MergeContainer> allContainers = _mergeTileContainers.Concat(fakeContainers).ToList();
 
             IEnumerable<BoardAction> mergeActions = GetMergeActions(allContainers, _board);
-            await RunMergeActions(mergeActions);
+            UniTask mergeTask = RunMergeActions(mergeActions);
 
-            UniTask incrementFirstScoreTask = IncrementContainerValue(_firstContainer);
-            UniTask incrementSecondScoreTask = IncrementContainerValue(_secondContainer);
+            await UniTask.WhenAll(mergeTask, scoreTask);
 
-            await UniTask.WhenAll(incrementFirstScoreTask, incrementSecondScoreTask);
+            _firstContainer.IncrementValue();
+            _secondContainer.IncrementValue();
         }
 
         private IEnumerable<MergeContainer> SpawnFakeContainers()

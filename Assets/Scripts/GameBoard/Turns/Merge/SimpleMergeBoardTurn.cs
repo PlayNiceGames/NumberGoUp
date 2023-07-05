@@ -21,10 +21,15 @@ namespace GameBoard.Turns.Merge
 
         public override async UniTask Run()
         {
-            IEnumerable<BoardAction> mergeActions = GetMergeActions(_mergeTileContainers, _board);
-            await RunMergeActions(mergeActions);
+            int scoreDelta = ScoreSystem.GetScoreForMerge(_tileContainer);
+            UniTask scoreTask = ScoreSystem.IncrementScore(scoreDelta);
 
-            await IncrementContainerValue(_tileContainer);
+            IEnumerable<BoardAction> mergeActions = GetMergeActions(_mergeTileContainers, _board);
+            UniTask mergeTask = RunMergeActions(mergeActions);
+
+            await UniTask.WhenAll(mergeTask, scoreTask);
+
+            _tileContainer.IncrementValue();
         }
 
         public override UniTask Undo()

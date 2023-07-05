@@ -23,10 +23,16 @@ namespace GameScore
             _ui.SetScore(Score);
         }
 
-        public UniTask IncrementScoreForMerge(int startingValue, int deltaValue, MergeContainer container)
+        public int GetScoreForMerge(MergeContainer container, int deltaValue = 1)
+        {
+            int startingValue = container.GetValue();
+            int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, container);
+            return scoreDelta;
+        }
+
+        public UniTask IncrementScore(int scoreDelta)
         {
             int prevScore = Score;
-            int scoreDelta = _data.GetScoreForMerge(startingValue, deltaValue, container);
 
             Score += scoreDelta;
 

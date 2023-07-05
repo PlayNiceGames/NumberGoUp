@@ -45,14 +45,5 @@ namespace GameBoard.Turns.Merge
             IEnumerable<UniTask> actionTasks = mergeActions.Select(action => action.Run());
             return UniTask.WhenAll(actionTasks);
         }
-
-        protected UniTask IncrementContainerValue(MergeContainer container, int valueDelta = 1)
-        {
-            int startingValue = container.GetValue();
-
-            container.IncrementValue(valueDelta);
-
-            return ScoreSystem.IncrementScoreForMerge(startingValue, valueDelta, container);
-        }
     }
 }
