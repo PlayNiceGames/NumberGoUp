@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameAudio;
 using JetBrains.Annotations;
 using SimpleTextProvider;
 using UnityEngine;
@@ -41,6 +42,8 @@ namespace Tutorial.Dialog
         [UsedImplicitly]
         public void ClickExitButton()
         {
+            GameSounds.PlayClick();
+
             _buttonClicked?.TrySetResult();
         }
     }

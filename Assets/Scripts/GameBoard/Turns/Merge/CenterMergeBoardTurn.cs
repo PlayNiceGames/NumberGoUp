@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using GameAudio;
 using GameBoard.Actions;
 using GameScore;
 using Tiles.Containers;
@@ -23,6 +24,9 @@ namespace GameBoard.Turns.Merge
         public override async UniTask Run()
         {
             int containersCount = _mergeTileContainers.Count();
+            int newValue = _tileContainer.GetValue() + containersCount;
+
+            GameSounds.PlayMerge(newValue);
 
             int scoreDelta = ScoreSystem.GetScoreForMerge(_tileContainer, containersCount);
             UniTask scoreTask = ScoreSystem.IncrementScore(scoreDelta);

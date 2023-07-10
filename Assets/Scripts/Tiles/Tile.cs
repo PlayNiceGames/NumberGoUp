@@ -19,7 +19,7 @@ namespace Tiles
 
         public abstract TileType Type { get; }
 
-        public UniTask Appear(Vector2 position)
+        public virtual UniTask Appear(Vector2 position)
         {
             transform.position = position;
 

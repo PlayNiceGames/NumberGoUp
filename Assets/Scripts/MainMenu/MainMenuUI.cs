@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameAudio;
+using UnityEngine;
 
 namespace MainMenu
 {
@@ -6,11 +7,15 @@ namespace MainMenu
     {
         public void ClickPlay()
         {
+            GameSounds.PlayClick();
+            
             GameSceneManager.LoadEndlessMode();
         }
 
         public void ClickTutorial()
         {
+            GameSounds.PlayClick();
+            
             GameSceneManager.LoadTutorial();
         }
     }

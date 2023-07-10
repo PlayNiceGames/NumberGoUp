@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f53d52bdc56465ebfa0427619eaae0e, type: 3}
+  m_Name: SoundsDatabase
+  m_EditorClassIdentifier: 
+  <Music>k__BackingField: {fileID: 8300000, guid: 2058f01a6f8af484da3720440a84725d, type: 3}
+  <Click>k__BackingField: {fileID: 8300000, guid: 3d56fd5a478f08f4695447f02bee632e, type: 3}
+  <Eraser>k__BackingField: {fileID: 8300000, guid: a2d0d4a67ce371c45b53a155e9257a4d, type: 3}
+  _merge:
+    _keyData: 0200000003000000040000000500000006000000
+    _valueData:
+    - {fileID: 8300000, guid: 8a7ffce024ecdc847be2922e0881de02, type: 3}
+    - {fileID: 8300000, guid: f5a1de3107e0fed47b8bc6219bb1b998, type: 3}
+    - {fileID: 8300000, guid: aa74b83901bf9084e83678c42b4b5272, type: 3}
+    - {fileID: 8300000, guid: e236b81548bdabd4a9673d9756288c22, type: 3}
+    - {fileID: 8300000, guid: d0e8c70d71ac6094f8d6cc28eb0d93c6, type: 3}

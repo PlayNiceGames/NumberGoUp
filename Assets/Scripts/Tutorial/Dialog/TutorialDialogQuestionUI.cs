@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameAudio;
 using SimpleTextProvider;
 using UnityEngine;
 
@@ -39,11 +40,15 @@ namespace Tutorial.Dialog
 
         public void ClickPlayButton()
         {
+            GameSounds.PlayClick();
+
             _buttonClicked?.TrySetResult(TutorialQuestionAction.Play);
         }
 
         public void ClickContinueTutorialButton()
         {
+            GameSounds.PlayClick();
+
             _buttonClicked?.TrySetResult(TutorialQuestionAction.ContinueTutorial);
         }
     }
