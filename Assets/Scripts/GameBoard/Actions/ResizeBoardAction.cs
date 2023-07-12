@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using GameAudio;
 using Tiles;
 
 namespace GameBoard.Actions
@@ -21,6 +22,8 @@ namespace GameBoard.Actions
         {
             if (Board.Size == _newSize)
                 return;
+            
+            GameSounds.PlayBoardResize();
 
             Board.UpdateBoardSize(_newSize);
 

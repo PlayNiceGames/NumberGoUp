@@ -10,6 +10,8 @@ namespace GameAudio
         [field: SerializeField] public AudioClip Music { get; private set; }
         [field: SerializeField] public AudioClip Click { get; private set; }
         [field: SerializeField] public AudioClip Eraser { get; private set; }
+        [field: SerializeField] public AudioClip GameOver { get; private set; }
+        [field: SerializeField] public AudioClip BoardResize { get; private set; }
 
         [SerializeField] private SerializedDictionary<int, AudioClip> _merge;
 

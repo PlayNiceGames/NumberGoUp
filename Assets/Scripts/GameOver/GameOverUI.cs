@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameAudio;
 using SimpleTextProvider;
 using Tiles;
 using Tiles.Data;
@@ -31,6 +32,8 @@ namespace GameOver
             SetData(currentScore, highScore, biggestTileData, isEnabledContinueButton);
 
             gameObject.SetActive(true);
+            
+            GameSounds.PlayGameOver();
 
             _buttonClicked = new UniTaskCompletionSource<GameOverAction>();
             GameOverAction result = await _buttonClicked.Task;

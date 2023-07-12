@@ -52,6 +52,16 @@ namespace GameAudio
             AudioPlayer.Play(_sounds.Eraser);
         }
 
+        public static void PlayGameOver()
+        {
+            AudioPlayer.Play(_sounds.GameOver);
+        }
+
+        public static void PlayBoardResize()
+        {
+            AudioPlayer.Play(_sounds.BoardResize);
+        }
+
         public static void PlayMerge(int newValue)
         {
             AudioClip clip = _sounds.GetMergeSound(newValue);

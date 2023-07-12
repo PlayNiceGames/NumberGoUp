@@ -378,15 +378,15 @@ MonoBehaviour:
     - rid: 8647209875745276127
       type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
-        DelaySeconds: 2
+        DelaySeconds: 1
     - rid: 8647209875745276128
       type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
-        DelaySeconds: 2
+        DelaySeconds: 1
     - rid: 8647209875745276129
       type: {class: DelayTutorialStepData, ns: Tutorial.Steps.Data, asm: Assembly-CSharp}
       data:
-        DelaySeconds: 2
+        DelaySeconds: 1
     - rid: 8647209896712863746
       type: {class: RegularTileData, ns: Tiles.Data, asm: Assembly-CSharp}
       data:

@@ -15,6 +15,8 @@ MonoBehaviour:
   <Music>k__BackingField: {fileID: 8300000, guid: 2058f01a6f8af484da3720440a84725d, type: 3}
   <Click>k__BackingField: {fileID: 8300000, guid: 3d56fd5a478f08f4695447f02bee632e, type: 3}
   <Eraser>k__BackingField: {fileID: 8300000, guid: a2d0d4a67ce371c45b53a155e9257a4d, type: 3}
+  <GameOver>k__BackingField: {fileID: 8300000, guid: 2058f01a6f8af484da3720440a84725d, type: 3}
+  <BoardResize>k__BackingField: {fileID: 8300000, guid: 2058f01a6f8af484da3720440a84725d, type: 3}
   _merge:
     _keyData: 0200000003000000040000000500000006000000
     _valueData:
