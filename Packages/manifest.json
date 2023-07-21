@@ -1,6 +1,9 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.3.3",
+    "com.google.external-dependency-manager": "file:../Assets/Submodules/Packages/com.google.external-dependency-manager.tgz",
+    "com.google.firebase.analytics": "file:../Assets/Submodules/Packages/com.google.firebase.analytics.tgz",
+    "com.google.firebase.app": "file:../Assets/Submodules/Packages/com.google.firebase.app.tgz",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.24",
     "com.unity.ide.visualstudio": "2.0.18",
