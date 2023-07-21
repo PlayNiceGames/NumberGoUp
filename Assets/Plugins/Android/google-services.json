@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "129003848534",
+    "project_id": "playnicegames-mergemania",
+    "storage_bucket": "playnicegames-mergemania.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129003848534:android:5451130e1815e644644cf7",
+        "android_client_info": {
+          "package_name": "com.PlayNiceGames.MergeMania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129003848534-htu5avh35ul5tkcgtu6pouoms314ne1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbC1VXT1Sn6HgswGWn2clq4ECM4f3MQrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129003848534-htu5avh35ul5tkcgtu6pouoms314ne1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
