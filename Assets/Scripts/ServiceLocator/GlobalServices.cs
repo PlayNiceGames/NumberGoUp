@@ -9,7 +9,7 @@ namespace ServiceLocator
     {
         private const string GlobalServicesPrefabName = "GlobalServices";
 
-        public static Dictionary<Type, MonoBehaviour> _instantiatedServices = new Dictionary<Type, MonoBehaviour>();
+        private static readonly Dictionary<Type, MonoBehaviour> _instantiatedServices = new Dictionary<Type, MonoBehaviour>();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Load()
