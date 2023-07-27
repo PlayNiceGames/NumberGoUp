@@ -11,19 +11,21 @@ namespace GameBoard.Actions
         private int _newSize;
 
         private TileFactory _factory;
+        private Audio _audio;
 
-        public ResizeBoardAction(int newSize, TileFactory factory, Board board) : base(board)
+        public ResizeBoardAction(int newSize, TileFactory factory, Board board, Audio audio) : base(board)
         {
             _newSize = newSize;
             _factory = factory;
+            _audio = audio;
         }
 
         public override async UniTask Run()
         {
             if (Board.Size == _newSize)
                 return;
-            
-            GameSounds.PlayBoardResize();
+
+            _audio.PlayBoardResize();
 
             Board.UpdateBoardSize(_newSize);
 

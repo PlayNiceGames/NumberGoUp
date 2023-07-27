@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameAudio;
 using JetBrains.Annotations;
+using ServiceLocator;
 using SimpleTextProvider;
 using UnityEngine;
 
@@ -10,10 +11,14 @@ namespace Tutorial.Dialog
     {
         [SerializeField] private TextProviderTMP _dialogLabel;
 
+        private Audio _audio;
+
         private UniTaskCompletionSource _buttonClicked;
 
         public void Setup()
         {
+            _audio = GlobalServices.Get<Audio>();
+
             _dialogLabel.Setup();
 
             Hide();
@@ -42,7 +47,7 @@ namespace Tutorial.Dialog
         [UsedImplicitly]
         public void ClickExitButton()
         {
-            GameSounds.PlayClick();
+            _audio.PlayClick();
 
             _buttonClicked?.TrySetResult();
         }

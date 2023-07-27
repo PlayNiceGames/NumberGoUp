@@ -30,7 +30,7 @@ namespace GameBoard.Turns.Merge
         public override async UniTask Run()
         {
             int newValue = _firstContainer.GetValue() + 1;
-            GameSounds.PlayMerge(newValue);
+            PlayMergeSound(newValue);
 
             int scoreDelta = ScoreSystem.GetScoreForMerge(_firstContainer) + ScoreSystem.GetScoreForMerge(_secondContainer);
             UniTask scoreTask = ScoreSystem.IncrementScore(scoreDelta);

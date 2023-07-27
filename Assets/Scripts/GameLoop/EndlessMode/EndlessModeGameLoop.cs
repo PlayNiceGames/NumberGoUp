@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameAudio;
 using GameBoard;
 using GameBoard.Actions;
 using GameBoard.Rules;
@@ -7,6 +8,7 @@ using GameOver;
 using GameScore;
 using GameTileQueue;
 using GameTileQueue.Generators;
+using ServiceLocator;
 using Tiles;
 using UnityEngine;
 
@@ -24,12 +26,16 @@ namespace GameLoop.EndlessMode
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private GameOverUI _gameOverUI;
 
+        private Audio _audio;
+
         private BoardRules _boardRules;
         private EndlessModeTileQueueGenerator _tileQueueGenerator;
         private GameOverController _gameOver;
 
         public override void Setup()
         {
+            _audio = GlobalServices.Get<Audio>();
+
             _gameRules.Setup();
 
             _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
@@ -88,7 +94,7 @@ namespace GameLoop.EndlessMode
             if (_board.Size == newSize)
                 return UniTask.CompletedTask;
 
-            ResizeBoardAction resizeAction = new ResizeBoardAction(newSize, _tileFactory, _board);
+            ResizeBoardAction resizeAction = new ResizeBoardAction(newSize, _tileFactory, _board, _audio);
 
             return resizeAction.Run();
         }

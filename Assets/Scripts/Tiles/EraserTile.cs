@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameAudio;
+using ServiceLocator;
 using Tiles.Data;
 using UnityEngine;
 
@@ -9,9 +10,16 @@ namespace Tiles
     {
         public override TileType Type => TileType.Eraser;
 
+        private GameAudio.Audio _audio;
+
+        private void Awake()
+        {
+            _audio = GlobalServices.Get<Audio>();
+        }
+
         public override UniTask Appear(Vector2 position)
         {
-            GameSounds.PlayEraser();
+            _audio.PlayEraser();
 
             return base.Appear(position);
         }

@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameAudio;
+using ServiceLocator;
 using SimpleTextProvider;
 using UnityEngine;
 
@@ -9,10 +10,14 @@ namespace Tutorial.Dialog
     {
         [SerializeField] private TextProviderTMP _dialogLabel;
 
+        private Audio _audio;
+
         private UniTaskCompletionSource<TutorialQuestionAction> _buttonClicked;
 
         public void Setup()
         {
+            _audio = GlobalServices.Get<Audio>();
+
             _dialogLabel.Setup();
 
             Hide();
@@ -40,14 +45,14 @@ namespace Tutorial.Dialog
 
         public void ClickPlayButton()
         {
-            GameSounds.PlayClick();
+            _audio.PlayClick();
 
             _buttonClicked?.TrySetResult(TutorialQuestionAction.Play);
         }
 
         public void ClickContinueTutorialButton()
         {
-            GameSounds.PlayClick();
+            _audio.PlayClick();
 
             _buttonClicked?.TrySetResult(TutorialQuestionAction.ContinueTutorial);
         }

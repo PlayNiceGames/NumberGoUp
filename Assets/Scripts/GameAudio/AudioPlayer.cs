@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace GameAudio
 {
-    public static class AudioPlayer
+    public class AudioPlayer : MonoBehaviour
     {
-        public static AudioSource Play(AudioClip clip, bool loop = false)
+        public AudioSource Play(AudioClip clip, bool loop = false)
         {
             AudioSource source = InstantiateAudioSource(clip);
             source.loop = loop;
@@ -16,7 +16,7 @@ namespace GameAudio
             return source;
         }
 
-        public static UniTask PlayAsync(AudioClip clip)
+        public UniTask PlayAsync(AudioClip clip)
         {
             AudioSource source = InstantiateAudioSource(clip);
             source.Play();
@@ -24,7 +24,7 @@ namespace GameAudio
             return WaitAndDispose(source);
         }
 
-        private static AudioSource InstantiateAudioSource(AudioClip clip)
+        private AudioSource InstantiateAudioSource(AudioClip clip)
         {
             string name = $"(Sound) {clip.name}";
             GameObject audioObject = new GameObject(name);
@@ -35,12 +35,12 @@ namespace GameAudio
             return source;
         }
 
-        private static async UniTask WaitAndDispose(AudioSource source)
+        private async UniTask WaitAndDispose(AudioSource source)
         {
             await UniTask.WaitWhile(() => source != null && source.isPlaying);
 
             if (source != null)
-                Object.Destroy(source.gameObject);
+                Destroy(source.gameObject);
         }
     }
 }

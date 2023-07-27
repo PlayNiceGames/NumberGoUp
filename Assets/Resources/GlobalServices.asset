@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GlobalServices
   m_EditorClassIdentifier: 
   <Services>k__BackingField:
-  - {fileID: 6016924613258997311, guid: 2e940e5d1ea7645428e82b9a9bcb8e77, type: 3}
+  - {fileID: 1273902813161604880, guid: 6cef5e726f4645640a05199a2b8a8e4e, type: 3}
+  - {fileID: 9005222098029035866, guid: f3f4a87a848c9b34b8446fd3b60ed703, type: 3}

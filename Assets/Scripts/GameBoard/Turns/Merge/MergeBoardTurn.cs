@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using GameAudio;
 using GameBoard.Actions;
 using GameBoard.Actions.Merge;
 using GameScore;
+using ServiceLocator;
 using Tiles;
 using Tiles.Containers;
 
@@ -12,9 +14,13 @@ namespace GameBoard.Turns.Merge
     {
         protected ScoreSystem ScoreSystem;
 
+        private Audio _audio;
+
         protected MergeBoardTurn(Board board, ScoreSystem scoreSystem) : base(board)
         {
             ScoreSystem = scoreSystem;
+
+            _audio = GlobalServices.Get<Audio>();
         }
 
         protected IEnumerable<BoardAction> GetMergeActions(IEnumerable<MergeContainer> mergeTileContainers, Board board)
@@ -44,6 +50,11 @@ namespace GameBoard.Turns.Merge
         {
             IEnumerable<UniTask> actionTasks = mergeActions.Select(action => action.Run());
             return UniTask.WhenAll(actionTasks);
+        }
+
+        protected void PlayMergeSound(int newValue)
+        {
+            _audio.PlayMerge(newValue);
         }
     }
 }

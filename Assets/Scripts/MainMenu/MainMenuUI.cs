@@ -1,21 +1,29 @@
 ﻿using GameAudio;
+using ServiceLocator;
 using UnityEngine;
 
 namespace MainMenu
 {
     public class MainMenuUI : MonoBehaviour
     {
+        private GameAudio.Audio _audio;
+
+        private void Awake()
+        {
+            _audio = GlobalServices.Get<Audio>();
+        }
+
         public void ClickPlay()
         {
-            GameSounds.PlayClick();
-            
+            _audio.PlayClick();
+
             GameSceneManager.LoadEndlessMode();
         }
 
         public void ClickTutorial()
         {
-            GameSounds.PlayClick();
-            
+            _audio.PlayClick();
+
             GameSceneManager.LoadTutorial();
         }
     }

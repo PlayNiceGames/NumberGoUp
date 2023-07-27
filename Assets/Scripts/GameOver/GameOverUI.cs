@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameAudio;
+using ServiceLocator;
 using SimpleTextProvider;
 using Tiles;
 using Tiles.Data;
@@ -16,11 +17,15 @@ namespace GameOver
         [SerializeField] private Button _continueButton;
         [SerializeField] private TileFactory _tileFactory;
 
+        private Audio _audio;
+
         private Tile _biggestTile;
         private UniTaskCompletionSource<GameOverAction> _buttonClicked;
 
         public void Setup()
         {
+            _audio = GlobalServices.Get<Audio>();
+
             _currentScoreLabel.Setup();
             _highScoreLabel.Setup();
 
@@ -32,8 +37,8 @@ namespace GameOver
             SetData(currentScore, highScore, biggestTileData, isEnabledContinueButton);
 
             gameObject.SetActive(true);
-            
-            GameSounds.PlayGameOver();
+
+            _audio.PlayGameOver();
 
             _buttonClicked = new UniTaskCompletionSource<GameOverAction>();
             GameOverAction result = await _buttonClicked.Task;
