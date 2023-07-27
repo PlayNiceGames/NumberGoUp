@@ -2,7 +2,7 @@
 
 namespace GameAudio
 {
-    public static class GameSounds //TODO (hack) should be in Zenject as service, not static
+    public static class GameSounds
     {
         private const string SoundDatabaseAssetName = "SoundsDatabase";
 
