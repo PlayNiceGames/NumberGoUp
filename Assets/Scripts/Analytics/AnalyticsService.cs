@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Analytics
 {
-    public class AnalyticsSender : MonoBehaviour
+    public class AnalyticsService : MonoBehaviour
     {
         public bool IsAnalyticsEnabled;
         public bool IsPushNotificationsEnabled;
@@ -22,7 +22,6 @@ namespace Analytics
             Init();
 
             Send(new LaunchEvent());
-            Send(new FirstLaunchEvent());
         }
 
         private void Init()
