@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Analytics;
+using Cysharp.Threading.Tasks;
+using GameAnalytics.Events;
 using GameAudio;
 using GameBoard;
 using GameBoard.Actions;
@@ -27,6 +29,7 @@ namespace GameLoop.EndlessMode
         [SerializeField] private GameOverUI _gameOverUI;
 
         private Audio _audio;
+        private AnalyticsService _analytics;
 
         private BoardRules _boardRules;
         private EndlessModeTileQueueGenerator _tileQueueGenerator;
@@ -35,6 +38,7 @@ namespace GameLoop.EndlessMode
         public override void Setup()
         {
             _audio = GlobalServices.Get<Audio>();
+            _analytics = GlobalServices.Get<AnalyticsService>();
 
             _gameRules.Setup();
 
@@ -50,6 +54,8 @@ namespace GameLoop.EndlessMode
 
         public override async UniTask Run()
         {
+            _analytics.Send(new StartGameEvent(GameLoopType.EndlessMode));
+
             await SetupScene();
 
             while (true)

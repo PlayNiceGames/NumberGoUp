@@ -1,7 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Analytics;
+using Cysharp.Threading.Tasks;
+using GameAnalytics.Events;
 using GameBoard;
 using GameTileQueue;
 using GameTileQueue.Generators;
+using ServiceLocator;
 using Tutorial;
 using Tutorial.Dialog;
 using Tutorial.Steps;
@@ -20,6 +23,7 @@ namespace GameLoop.Tutorial
         [SerializeField] private TutorialDialogController _dialogController;
 
         private TutorialTileQueueGenerator _tileQueueGenerator;
+        private AnalyticsService _analytics;
 
         public override void Setup()
         {
@@ -29,10 +33,14 @@ namespace GameLoop.Tutorial
             _boardLoop.Setup();
 
             _dialogController.Setup();
+
+            _analytics = GlobalServices.Get<AnalyticsService>();
         }
 
         public override async UniTask Run()
         {
+            _analytics.Send(new StartTutorialEvent());
+
             await _tileQueue.AddInitialTilesWithAnimation();
 
             foreach (ITutorialStepData stepData in _data.Steps)

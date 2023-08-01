@@ -68,7 +68,7 @@ namespace Analytics
             Destroy(provider.gameObject);
         }
 
-        public void Send(AbstractEvent analyticsEvent)
+        public void Send(AnalyticsEvent analyticsEvent)
         {
             if (!IsAnalyticsEnabled)
                 return;

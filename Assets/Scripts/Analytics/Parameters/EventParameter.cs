@@ -2,8 +2,8 @@
 {
     public abstract class EventParameter<T> : AbstractEventParameter
     {
-        public readonly string Name;
-        public readonly T Value;
+        public string Name { get; protected set; }
+        public T Value { get; protected set; }
 
         protected EventParameter(string name, T value)
         {

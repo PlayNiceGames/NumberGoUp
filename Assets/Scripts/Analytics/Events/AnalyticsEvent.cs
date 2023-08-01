@@ -3,7 +3,7 @@ using Analytics.Parameters;
 
 namespace Analytics.Events
 {
-    public abstract class AbstractEvent
+    public abstract class AnalyticsEvent
     {
         public abstract string EventName { get; }
         public abstract string EventCategory { get; }

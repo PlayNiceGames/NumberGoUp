@@ -21,16 +21,19 @@ namespace Analytics.Providers.Analytics
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
         }
 
-        public override void Send(AbstractEvent analyticsEvent)
+        public override void Send(AnalyticsEvent analyticsEvent)
         {
             Parameter[] firebaseParameters = GetFirebaseParameters(analyticsEvent);
 
             SendFirebaseEvent(analyticsEvent.EventName, firebaseParameters);
         }
 
-        private Parameter[] GetFirebaseParameters(AbstractEvent analyticsEvent)
+        private Parameter[] GetFirebaseParameters(AnalyticsEvent analyticsEvent)
         {
-            IEnumerable<AbstractEventParameter> allParameters = analyticsEvent.GetBaseParameters().Concat(analyticsEvent.GetParameters());
+            IEnumerable<AbstractEventParameter> baseParameters = analyticsEvent.GetBaseParameters();
+            IEnumerable<AbstractEventParameter> parameters = analyticsEvent.GetParameters();
+            IEnumerable<AbstractEventParameter> allParameters = baseParameters.Concat(parameters);
+
             IEnumerable<Parameter> firebaseParameters = allParameters.Select(GetFirebaseParameter);
 
             return firebaseParameters.ToArray();
@@ -48,6 +51,8 @@ namespace Analytics.Providers.Analytics
                     return new Parameter(floatParameter.Name, floatParameter.Value);
                 case IntegerEventParameter intParameter:
                     return new Parameter(intParameter.Name, intParameter.Value);
+                case CounterParameter counterParameter:
+                    return new Parameter(counterParameter.Name, counterParameter.Value);
             }
 
             throw new ArgumentException("Invalid analytics parameter type in Firebase analytics provider");

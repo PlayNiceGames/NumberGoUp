@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Analytics.Providers.PushNotifications
 {
-	public class FirebasePushNotificationsProvider : PushNotificationsProvider
+	public class PushNotificationsProviderFirebase : PushNotificationsProvider
 	{
 		public override bool IsEnabledOnCurrentPlatform()
 		{
