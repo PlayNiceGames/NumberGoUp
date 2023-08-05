@@ -1,6 +1,6 @@
 ﻿namespace Tutorial.Steps.Data
 {
-    public class DelayTutorialStepData : ITutorialStepData
+    public class DelayTutorialStepData : TutorialStepData
     {
         public float DelaySeconds;
     }

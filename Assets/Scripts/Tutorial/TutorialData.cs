@@ -11,8 +11,8 @@ namespace Tutorial
         [field: SerializeReference] public TileData DefaultTileInQueue { get; private set; }
         [field: SerializeField] public SerializedReferenceDictionary<int, TileData> TileQueueOverrides { get; private set; }
 
-        [SerializeReference] private List<ITutorialStepData> _steps;
+        [field: SerializeReference] private List<TutorialStepData> _steps;
 
-        public IEnumerable<ITutorialStepData> Steps => _steps;
+        public IEnumerable<TutorialStepData> Steps => _steps;
     }
 }

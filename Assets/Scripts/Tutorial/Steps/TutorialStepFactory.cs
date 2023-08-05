@@ -15,7 +15,7 @@ namespace Tutorial.Steps
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TutorialDialogController _dialogController;
 
-        public TutorialStep CreateStep(ITutorialStepData data)
+        public TutorialStep CreateStep(TutorialStepData data)
         {
             switch (data)
             {

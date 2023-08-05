@@ -1,6 +1,6 @@
 ﻿namespace Tutorial.Steps.Data
 {
-    public struct BoardTurnTutorialStepData : ITutorialStepData
+    public class BoardTurnTutorialStepData : TutorialStepData
     {
         public int TurnCount;
     }

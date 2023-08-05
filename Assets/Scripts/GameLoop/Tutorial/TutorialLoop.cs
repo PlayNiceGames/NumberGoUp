@@ -39,17 +39,23 @@ namespace GameLoop.Tutorial
 
         public override async UniTask Run()
         {
-            _analytics.Send(new StartTutorialEvent());
+            _analytics.Send(new TutorialStartEvent());
 
             await _tileQueue.AddInitialTilesWithAnimation();
 
-            foreach (ITutorialStepData stepData in _data.Steps)
+            int index = 0;
+            foreach (TutorialStepData stepData in _data.Steps)
             {
+                _analytics.Send(new TutorialStepEvent(stepData.Name, index));
+
                 TutorialStep step = _stepFactory.CreateStep(stepData);
+
                 bool shouldEndTutorial = await step.Run();
 
                 if (shouldEndTutorial)
                     break;
+
+                index++;
             }
 
             EndTutorial();

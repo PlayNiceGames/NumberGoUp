@@ -1,6 +1,6 @@
 ﻿namespace Tutorial.Steps.Data
 {
-    public struct DialogTutorialStepData : ITutorialStepData
+    public class DialogTutorialStepData : TutorialStepData
     {
         public string TitleKey;
         public string DialogKey;

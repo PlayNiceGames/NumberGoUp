@@ -20,8 +20,8 @@ namespace GameAnalytics.Events
 
         public override IEnumerable<AbstractEventParameter> GetParameters()
         {
-            yield return new StringEventParameter("name", _stepName);
-            yield return new IntegerEventParameter("index", _stepIndex);
+            yield return new StringEventParameter("step_name", _stepName);
+            yield return new IntegerEventParameter("step_index", _stepIndex);
         }
     }
 }

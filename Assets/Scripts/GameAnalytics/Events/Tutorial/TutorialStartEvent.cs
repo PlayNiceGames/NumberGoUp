@@ -4,7 +4,7 @@ using Analytics.Parameters;
 
 namespace GameAnalytics.Events
 {
-    public class StartTutorialEvent : AnalyticsEvent
+    public class TutorialStartEvent : AnalyticsEvent
     {
         public override string EventName => "tutorial_start";
         public override string EventCategory => "tutorial";
