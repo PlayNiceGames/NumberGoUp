@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using GameBoard.Turns;
 using GameBoard.Turns.Merge;
 using GameScore;
@@ -11,11 +12,13 @@ namespace GameBoard.Rules.Merge
 {
     public class DoubleMergeBoardRule : MergeBoardRule
     {
-        private TileFactory _factory;
+        private readonly TileFactory _factory;
+        private AnalyticsService _analytics;
 
-        public DoubleMergeBoardRule(Board board, TileFactory factory, ScoreSystem scoreSystem) : base(board, scoreSystem)
+        public DoubleMergeBoardRule(Board board, TileFactory factory, ScoreSystem scoreSystem, AnalyticsService analytics) : base(board, scoreSystem)
         {
             _factory = factory;
+            _analytics = analytics;
         }
 
         public override BoardTurn GetTurn()
@@ -34,7 +37,7 @@ namespace GameBoard.Rules.Merge
                         continue;
 
                     DoubleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, diagonalContainer, mergeableContainers);
-                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _factory, _scoreSystem);
+                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _factory, _scoreSystem, _analytics);
                 }
             }
 
@@ -61,7 +64,7 @@ namespace GameBoard.Rules.Merge
             IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
                 MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
 
-            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _factory, _scoreSystem);
+            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _factory, _scoreSystem, _analytics);
         }
 
         private List<MergeContainer> GetMergeableContainers(MergeContainer container, MergeContainer diagonalContainer)

@@ -2,7 +2,7 @@
 using Analytics.Events;
 using Analytics.Parameters;
 
-namespace GameAnalytics.Events
+namespace GameAnalytics.Events.Tutorial
 {
     public class TutorialStepEvent : AnalyticsEvent
     {

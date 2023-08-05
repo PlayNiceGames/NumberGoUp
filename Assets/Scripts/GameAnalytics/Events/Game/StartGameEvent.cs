@@ -3,7 +3,7 @@ using Analytics.Events;
 using Analytics.Parameters;
 using GameLoop;
 
-namespace GameAnalytics.Events
+namespace GameAnalytics.Events.Game
 {
     public class StartGameEvent : AnalyticsEvent
     {

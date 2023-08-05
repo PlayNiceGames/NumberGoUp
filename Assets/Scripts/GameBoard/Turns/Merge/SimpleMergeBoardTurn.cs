@@ -9,6 +9,8 @@ namespace GameBoard.Turns.Merge
 {
     public class SimpleMergeBoardTurn : MergeBoardTurn
     {
+        public override MergeType Type => MergeType.Simple;
+
         private MergeContainer _tileContainer;
         private IEnumerable<MergeContainer> _mergeTileContainers;
 

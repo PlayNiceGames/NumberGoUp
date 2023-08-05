@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using Cysharp.Threading.Tasks;
-using GameAudio;
+using GameAnalytics.Events.Game;
 using GameBoard.Actions;
 using GameScore;
+using ServiceLocator;
 using Tiles;
 using Tiles.Containers;
 using Tiles.Data;
@@ -13,18 +15,24 @@ namespace GameBoard.Turns.Merge
 {
     public class DoubleMergeBoardTurn : MergeBoardTurn
     {
+        public override MergeType Type => MergeType.Double;
+
         private MergeContainer _firstContainer;
         private MergeContainer _secondContainer;
         private List<MergeContainer> _mergeTileContainers;
         private TileFactory _factory;
 
-        public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, TileFactory factory, ScoreSystem scoreSystem) : base(board, scoreSystem)
+        private AnalyticsService _analytics;
+
+        public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, TileFactory factory, ScoreSystem scoreSystem, AnalyticsService analytics) : base(board, scoreSystem)
         {
             _firstContainer = firstContainer;
             _secondContainer = secondContainer;
             _mergeTileContainers = mergeTileContainers.ToList();
             _board = board;
             _factory = factory;
+
+            _analytics = GlobalServices.Get<AnalyticsService>();
         }
 
         public override async UniTask Run()
@@ -45,6 +53,8 @@ namespace GameBoard.Turns.Merge
 
             _firstContainer.IncrementValue();
             _secondContainer.IncrementValue();
+
+            _analytics.Send(new SpecialMergeEvent(Type, ScoreSystem.Score, _firstContainer.GetValue()));
         }
 
         private IEnumerable<MergeContainer> SpawnFakeContainers()

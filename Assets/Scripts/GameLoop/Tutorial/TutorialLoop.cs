@@ -1,6 +1,6 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
-using GameAnalytics.Events;
+using GameAnalytics.Events.Tutorial;
 using GameBoard;
 using GameTileQueue;
 using GameTileQueue.Generators;
@@ -63,6 +63,8 @@ namespace GameLoop.Tutorial
 
         private void EndTutorial()
         {
+            _analytics.Send(new TutorialEndEvent());
+
             GameSceneManager.LoadEndlessMode();
         }
     }

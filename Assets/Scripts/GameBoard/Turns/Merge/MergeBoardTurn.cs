@@ -12,6 +12,8 @@ namespace GameBoard.Turns.Merge
 {
     public abstract class MergeBoardTurn : BoardTurn
     {
+        public abstract MergeType Type { get; }
+
         protected ScoreSystem ScoreSystem;
 
         private Audio _audio;

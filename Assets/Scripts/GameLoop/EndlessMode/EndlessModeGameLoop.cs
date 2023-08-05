@@ -1,6 +1,7 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events;
+using GameAnalytics.Events.Game;
 using GameAudio;
 using GameBoard;
 using GameBoard.Actions;

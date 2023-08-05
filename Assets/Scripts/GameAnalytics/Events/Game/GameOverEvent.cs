@@ -1,6 +1,6 @@
 ﻿using Analytics.Events;
 
-namespace GameAnalytics.Events
+namespace GameAnalytics.Events.Game
 {
     public class GameOverEvent : AnalyticsEvent
     {
