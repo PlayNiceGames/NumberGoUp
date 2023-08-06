@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using Cysharp.Threading.Tasks;
+using GameAnalytics.Events.Game;
 using GameBoard;
 using GameScore;
 using Tiles;
@@ -17,15 +19,17 @@ namespace GameOver
         private Board _board;
         private ScoreSystem _scoreSystem;
         private GameOverSettings _settings;
+        private AnalyticsService _analytics;
 
         private int _continueCount;
 
-        public GameOverController(GameOverUI ui, Board board, ScoreSystem scoreSystem, GameOverSettings settings)
+        public GameOverController(GameOverUI ui, Board board, ScoreSystem scoreSystem, GameOverSettings settings, AnalyticsService analytics)
         {
             _ui = ui;
             _board = board;
             _scoreSystem = scoreSystem;
             _settings = settings;
+            _analytics = analytics;
         }
 
         public void Setup()
@@ -35,26 +39,32 @@ namespace GameOver
 
         public async UniTask<bool> TryProcessGameOver()
         {
-            if (IsGameOver())
+            if (!IsGameOver())
+                return false;
+
+            ValueTileData biggestTile = GetBiggestTile(out int biggestTileValue);
+
+            int currentScore = _scoreSystem.Score;
+            int highScore = _scoreSystem.HighScore;
+            bool canContinueGame = _continueCount < _settings.MaxContinueCount;
+
+            _analytics.Send(new GameOverEvent(_scoreSystem.Score, _scoreSystem.HighScore, biggestTileValue, canContinueGame));
+
+            GameOverAction gameOverAction = await _ui.ShowWithResult(currentScore, highScore, biggestTile, canContinueGame);
+
+            switch (gameOverAction)
             {
-                ValueTileData biggestTile = GetBiggestTile(out int biggestTileValue);
+                case GameOverAction.Exit:
+                    _analytics.Send(new GameEndEvent(_scoreSystem.Score, _scoreSystem.HighScore, biggestTileValue));
+                    return true;
+                case GameOverAction.Continue:
+                    ClearSmallTiles(biggestTileValue);
 
-                int currentScore = _scoreSystem.Score;
-                int highScore = _scoreSystem.HighScore;
-                bool canContinueGame = _continueCount < _settings.MaxContinueCount;
+                    _continueCount++;
 
-                GameOverAction gameOverAction = await _ui.ShowWithResult(currentScore, highScore, biggestTile, canContinueGame);
+                    _analytics.Send(new GameOverContinueEvent(_scoreSystem.Score, _scoreSystem.HighScore, biggestTileValue));
 
-                switch (gameOverAction)
-                {
-                    case GameOverAction.Exit:
-                        return true;
-                    case GameOverAction.Continue:
-                        ClearSmallTiles(biggestTileValue);
-
-                        _continueCount++;
-                        return false;
-                }
+                    return false;
             }
 
             return false;

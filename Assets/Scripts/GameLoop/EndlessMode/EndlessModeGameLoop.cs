@@ -55,7 +55,7 @@ namespace GameLoop.EndlessMode
 
         public override async UniTask Run()
         {
-            _analytics.Send(new StartGameEvent(GameLoopType.EndlessMode));
+            _analytics.Send(new GameStartEvent(GameLoopType.EndlessMode));
 
             await SetupScene();
 
