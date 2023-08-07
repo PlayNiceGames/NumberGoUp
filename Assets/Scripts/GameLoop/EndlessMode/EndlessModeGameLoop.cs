@@ -48,7 +48,7 @@ namespace GameLoop.EndlessMode
 
             _boardLoop.Setup();
 
-            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings);
+            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings, _analytics);
 
             _gameOver.Setup();
         }

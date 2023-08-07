@@ -16,6 +16,8 @@ namespace GameScore
 
         [SerializeField] private ScoreData _data;
 
+        private int _prevScoreReachedEventScore;
+
         private void Start()
         {
             Deserialize();
@@ -38,6 +40,8 @@ namespace GameScore
 
             UpdateHighScore();
 
+            SendScoreReachedEvent();
+
             return _ui.UpdateScoreWithAnimation(Score, prevScore);
         }
 
@@ -59,6 +63,15 @@ namespace GameScore
         public void Deserialize()
         {
             HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+        }
+
+        private bool ShouldSendScoreReachedEvent()
+        {
+            return false;
+        }
+
+        private void SendScoreReachedEvent()
+        {
         }
     }
 }

@@ -51,7 +51,7 @@ namespace GameTileQueue
             if (!ShouldGenerateEraserTile(_currentScore))
                 return;
 
-            if (_prevSet == null || !_prevSet._prevGeneratedEraserTileScore.HasValue)
+            if (_prevSet?._prevGeneratedEraserTileScore == null)
             {
                 GenerateEraserTile();
                 return;
