@@ -13,8 +13,7 @@ namespace GameScore
         [SerializeField] private SerializedDictionary<int, int> _scoreOverrideForMixedTileMerge;
         [SerializeField] private int _regularTileScoreIncrement;
         [SerializeField] private int _mixedTileScoreIncrement;
-        [Space]
-        [SerializeField] private List<int> _analyticsReachedScoreOverrides;
+        [Space] [SerializeField] private List<int> _analyticsReachedScoreOverrides;
         [SerializeField] private int _analyticsReachedScoreIncrement;
 
         public int GetScoreForMerge(int startingValue, int deltaValue, MergeContainer container)
@@ -83,38 +82,36 @@ namespace GameScore
             return 0;
         }
 
-        private int? GetScoreReachedEventScoreRange(int score)
+        public int? GetScoreReachedEventScoreRange(int score, out int rangeScore)
         {
             int overrideIndex = _analyticsReachedScoreOverrides.FindLastIndex(overrideScore => overrideScore <= score);
 
             if (overrideIndex == -1)
+            {
+                rangeScore = 0;
                 return null;
+            }
 
             int lastOverrideIndex = _analyticsReachedScoreOverrides.Count - 1;
+            int overrideScore = _analyticsReachedScoreOverrides[overrideIndex];
+
             if (overrideIndex == lastOverrideIndex)
             {
-                int lastOverrideScore = _analyticsReachedScoreOverrides[overrideIndex];
-                int nextRangeScore = lastOverrideScore + _analyticsReachedScoreIncrement;
+                int lastOverrideScore = overrideScore;
+                int nextRangeScore = overrideScore + _analyticsReachedScoreIncrement;
 
                 if (nextRangeScore <= score)
                 {
-                    int range = score / nextRangeScore;
+                    int incrementRange = (score - lastOverrideScore) / _analyticsReachedScoreIncrement;
+                    int range = incrementRange + lastOverrideIndex;
+
+                    rangeScore = lastOverrideScore + incrementRange * _analyticsReachedScoreIncrement;
+                    return range;
                 }
             }
 
+            rangeScore = overrideScore;
             return overrideIndex;
-        }
-
-        private int GetRange(int index)
-        {
-            int lastOverrideIndex = _analyticsReachedScoreOverrides.Count - 1;
-            if (index <= lastOverrideIndex)
-                return _analyticsReachedScoreOverrides[index];
-
-            int lastOverrideScore = _analyticsReachedScoreOverrides[lastOverrideIndex];
-            int indexDelta = index - lastOverrideIndex;
-
-            return lastOverrideScore + indexDelta * _analyticsReachedScoreIncrement;
         }
     }
 }

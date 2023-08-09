@@ -20,5 +20,5 @@ MonoBehaviour:
     _valueData: 140000001e000000
   _regularTileScoreIncrement: 30
   _mixedTileScoreIncrement: 15
-  _analyticsReachedScoreOverrides: 00000000
-  _analyticsReachedScoreIncrement: 0
+  _analyticsReachedScoreOverrides: 3c000000640000008c000000
+  _analyticsReachedScoreIncrement: 50

@@ -1,5 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Analytics;
+using Cysharp.Threading.Tasks;
+using GameAnalytics.Events.Game;
 using Serialization;
+using ServiceLocator;
 using Tiles.Containers;
 using UnityEngine;
 
@@ -12,11 +15,17 @@ namespace GameScore
         public int Score { get; private set; }
         public int HighScore { get; private set; }
 
+        [SerializeField] private ScoreData _data;
         [SerializeField] private ScoreSystemUI _ui;
 
-        [SerializeField] private ScoreData _data;
+        private AnalyticsService _analytics;
 
         private int _prevScoreReachedEventScore;
+
+        private void Awake()
+        {
+            _analytics = GlobalServices.Get<AnalyticsService>();
+        }
 
         private void Start()
         {
@@ -40,7 +49,7 @@ namespace GameScore
 
             UpdateHighScore();
 
-            SendScoreReachedEvent();
+            TrySendScoreReachedEvent();
 
             return _ui.UpdateScoreWithAnimation(Score, prevScore);
         }
@@ -65,13 +74,22 @@ namespace GameScore
             HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
         }
 
-        private bool ShouldSendScoreReachedEvent()
+        private void TrySendScoreReachedEvent()
         {
-            return false;
-        }
+            int rangeScore = 0;
+            int? range = _data.GetScoreReachedEventScoreRange(Score, out rangeScore);
 
-        private void SendScoreReachedEvent()
-        {
+            if (range == null)
+                return;
+
+            int? prevRange = _data.GetScoreReachedEventScoreRange(_prevScoreReachedEventScore, out _);
+
+            if (prevRange == null || range > prevRange)
+            {
+                _prevScoreReachedEventScore = Score;
+
+                _analytics.Send(new ScoreReachedEvent(rangeScore, Score));
+            }
         }
     }
 }
