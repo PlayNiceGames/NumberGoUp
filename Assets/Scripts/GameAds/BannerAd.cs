@@ -15,20 +15,20 @@ namespace GameAds
             InitializeAndShowBanner();
         }
 
-        private void InitializeAndShowBanner()
-        {
-            LoadBanner();
-
-            IronSourceBannerEvents.onAdLoadedEvent += OnBannerLoaded;
-            IronSourceBannerEvents.onAdLoadFailedEvent += OnBannerLoadFailed;
-        }
-
         private void OnDestroy()
         {
             IronSourceBannerEvents.onAdLoadedEvent -= OnBannerLoaded;
             IronSourceBannerEvents.onAdLoadFailedEvent -= OnBannerLoadFailed;
 
             IronSource.Agent.destroyBanner();
+        }
+
+        private void InitializeAndShowBanner()
+        {
+            LoadBanner();
+
+            IronSourceBannerEvents.onAdLoadedEvent += OnBannerLoaded;
+            IronSourceBannerEvents.onAdLoadFailedEvent += OnBannerLoadFailed;
         }
 
         private void OnBannerLoaded(IronSourceAdInfo info)
@@ -38,7 +38,7 @@ namespace GameAds
 
         private void OnBannerLoadFailed(IronSourceError error)
         {
-            Debug.Log("Banner load failed");
+            Debug.Log($"Banner load failed: {error.getErrorCode()}.{error.getDescription()}");
 
             RetryBannerLoading().Forget();
         }

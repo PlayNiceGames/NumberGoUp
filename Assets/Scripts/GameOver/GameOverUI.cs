@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameAds;
 using GameAudio;
 using ServiceLocator;
 using SimpleTextProvider;
@@ -17,6 +18,7 @@ namespace GameOver
         [SerializeField] private Button _continueButton;
         [SerializeField] private TileFactory _tileFactory;
 
+        private AdsService _adsService;
         private Audio _audio;
 
         private Tile _biggestTile;
@@ -24,6 +26,7 @@ namespace GameOver
 
         public void Setup()
         {
+            _adsService = GlobalServices.Get<AdsService>();
             _audio = GlobalServices.Get<Audio>();
 
             _currentScoreLabel.Setup();
@@ -40,12 +43,38 @@ namespace GameOver
 
             _audio.PlayGameOver();
 
-            _buttonClicked = new UniTaskCompletionSource<GameOverAction>();
-            GameOverAction result = await _buttonClicked.Task;
+            GameOverAction finalAction = await ProcessButtonClicksUntilResult();
 
             Hide();
 
-            return result;
+            return finalAction;
+        }
+
+        private async UniTask<GameOverAction> ProcessButtonClicksUntilResult()
+        {
+            while (true)
+            {
+                _buttonClicked = new UniTaskCompletionSource<GameOverAction>();
+                GameOverAction buttonClickResult = await _buttonClicked.Task;
+
+                if (buttonClickResult == GameOverAction.Continue)
+                {
+                    RewardedAdShowResult adShowResult = await _adsService.ShowRewardedAd("game_over");
+
+                    switch (adShowResult)
+                    {
+                        case RewardedAdShowResult.Unavailable:
+                            await _adsService.ShowAdUnavailableMessage();
+                            break;
+                        case RewardedAdShowResult.Rewarded:
+                            return GameOverAction.Continue;
+                    }
+                }
+                else
+                {
+                    return buttonClickResult;
+                }
+            }
         }
 
         private void SetData(int currentScore, int highScore, ValueTileData biggestTileData, bool isEnabledContinueButton)

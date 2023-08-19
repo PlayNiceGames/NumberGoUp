@@ -109,6 +109,8 @@ namespace GameOver
 
         private bool IsGameOver()
         {
+            return true;
+            
             IEnumerable<EmptyTile> emptyTiles = _board.GetAllTiles<EmptyTile>();
 
             return !emptyTiles.Any();
