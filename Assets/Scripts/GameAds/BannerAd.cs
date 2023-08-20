@@ -38,7 +38,7 @@ namespace GameAds
 
         private void OnBannerLoadFailed(IronSourceError error)
         {
-            Debug.Log($"Banner load failed: {error.getErrorCode()}.{error.getDescription()}");
+            Debug.LogError($"Banner load failed: [{error.getErrorCode()}] {error.getDescription()}");
 
             RetryBannerLoading().Forget();
         }

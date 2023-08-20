@@ -45,6 +45,6 @@
     //Mediation Settings
     public const string IRONSOURCE_MEDIATION_SETTING_NAME = "IronSourceMediationSettings";
     public const string IRONSOURCE_MEDIATED_NETWORK_SETTING_NAME = "IronSourceMediatedNetworkSettings";
-    public const string IRONSOURCE_RESOURCES_PATH = "Assets/IronSource/Resources";
+    public const string IRONSOURCE_RESOURCES_PATH = "Assets/Submodules/IronSource/Resources";
     public const string IRONSOURCE_SKAN_ID_KEY = "su67r6k2v3.skadnetwork";
 }

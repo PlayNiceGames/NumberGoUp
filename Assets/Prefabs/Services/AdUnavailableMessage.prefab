@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeInDurationSeconds: 0.5
-  _delayDurationSeconds: 2
+  _delayDurationSeconds: 1
   _fadeOutDurationSeconds: 0.5
   _group: {fileID: 2033084700674935274}
 --- !u!223 &2804151118466292965

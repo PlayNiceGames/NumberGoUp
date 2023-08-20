@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace GameAds
 {
@@ -62,6 +63,8 @@ namespace GameAds
 
         private void OnAdShowFailed(IronSourceError error, IronSourceAdInfo info)
         {
+            Debug.LogError($"Rewarded ad show failed: [{error.getErrorCode()}] {error.getDescription()}");
+
             _adShowFailed = true;
         }
 
