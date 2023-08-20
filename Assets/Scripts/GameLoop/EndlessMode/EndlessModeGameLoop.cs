@@ -40,6 +40,8 @@ namespace GameLoop.EndlessMode
         {
             _audio = GlobalServices.Get<Audio>();
             _analytics = GlobalServices.Get<AnalyticsService>();
+            
+            _scoreSystem.SetEnabled(true);
 
             _gameRules.Setup();
 

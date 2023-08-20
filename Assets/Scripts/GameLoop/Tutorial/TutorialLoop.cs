@@ -1,7 +1,7 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Tutorial;
-using GameBoard;
+using GameScore;
 using GameTileQueue;
 using GameTileQueue.Generators;
 using ServiceLocator;
@@ -17,7 +17,7 @@ namespace GameLoop.Tutorial
     {
         [SerializeField] private TutorialData _data;
         [SerializeField] private TutorialStepFactory _stepFactory;
-        [SerializeField] private Board _board;
+        [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private TutorialDialogController _dialogController;
@@ -27,6 +27,8 @@ namespace GameLoop.Tutorial
 
         public override void Setup()
         {
+            _scoreSystem.SetEnabled(false);
+
             _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue, _data.TileQueueOverrides);
             _tileQueue.Setup(_tileQueueGenerator);
 

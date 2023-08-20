@@ -12,15 +12,16 @@ namespace GameScore
     {
         private const string HighScoreKey = "high_score"; //TODO temp, move to save/load manager
 
-        public int Score { get; private set; }
-        public int HighScore { get; private set; }
-
         [SerializeField] private ScoreData _data;
         [SerializeField] private ScoreSystemUI _ui;
 
         private AnalyticsService _analytics;
 
+        private bool _isEnabled = true;
         private int _prevScoreReachedEventScore;
+
+        public int Score { get; private set; }
+        public int HighScore { get; private set; }
 
         private void Awake()
         {
@@ -34,6 +35,23 @@ namespace GameScore
             _ui.SetScore(Score);
         }
 
+        public void Serialize()
+        {
+            PlayerPrefs.SetInt(HighScoreKey, HighScore);
+        }
+
+        public void Deserialize()
+        {
+            HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+        }
+
+        public void SetEnabled(bool isEnabled)
+        {
+            _ui.gameObject.SetActive(isEnabled);
+
+            _isEnabled = isEnabled;
+        }
+
         public int GetScoreForMerge(MergeContainer container, int deltaValue = 1)
         {
             int startingValue = container.GetValue();
@@ -43,6 +61,9 @@ namespace GameScore
 
         public UniTask IncrementScore(int scoreDelta)
         {
+            if (!_isEnabled)
+                return UniTask.CompletedTask;
+
             int prevScore = Score;
 
             Score += scoreDelta;
@@ -64,20 +85,9 @@ namespace GameScore
             }
         }
 
-        public void Serialize()
-        {
-            PlayerPrefs.SetInt(HighScoreKey, HighScore);
-        }
-
-        public void Deserialize()
-        {
-            HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-        }
-
         private void TrySendScoreReachedEvent()
         {
-            int rangeScore = 0;
-            int? range = _data.GetScoreReachedEventScoreRange(Score, out rangeScore);
+            int? range = _data.GetScoreReachedEventScoreRange(Score, out int rangeScore);
 
             if (range == null)
                 return;

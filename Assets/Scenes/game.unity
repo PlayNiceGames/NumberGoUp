@@ -709,6 +709,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 466784179}
     - target: {fileID: 2314361639130199756, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _scoreSystem
+      value: 
+      objectReference: {fileID: 491655412}
+    - target: {fileID: 2314361639130199756, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _dialogController
       value: 
       objectReference: {fileID: 2086228730}
