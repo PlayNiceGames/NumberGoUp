@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">129003848534</string>
-  <string name="google_storage_bucket" translatable="false">playnicegames-mergemania.appspot.com</string>
-  <string name="project_id" translatable="false">playnicegames-mergemania</string>
-  <string name="google_api_key" translatable="false">AIzaSyDbC1VXT1Sn6HgswGWn2clq4ECM4f3MQrk</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDbC1VXT1Sn6HgswGWn2clq4ECM4f3MQrk</string>
-  <string name="google_app_id" translatable="false">1:129003848534:android:5451130e1815e644644cf7</string>
-  <string name="default_web_client_id" translatable="false">129003848534-htu5avh35ul5tkcgtu6pouoms314ne1l.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">515873379704</string>
+  <string name="google_storage_bucket" translatable="false">number-go-up.appspot.com</string>
+  <string name="project_id" translatable="false">number-go-up</string>
+  <string name="google_api_key" translatable="false">AIzaSyCq8ze72NtHc9kdPzWZc8AOwKkEVxSUHPs</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCq8ze72NtHc9kdPzWZc8AOwKkEVxSUHPs</string>
+  <string name="google_app_id" translatable="false">1:515873379704:android:15548f33c2c1ebd7e7e48d</string>
+  <string name="default_web_client_id" translatable="false">515873379704-4i9m5237se41g4fa8r9dqdfpcqku9rb5.apps.googleusercontent.com</string>
 </resources>
