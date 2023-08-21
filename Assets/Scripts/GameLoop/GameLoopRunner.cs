@@ -26,6 +26,7 @@ namespace GameLoop
         private void Start()
         {
             AbstractGameLoop gameLoop = GetGameLoopToRun();
+
             gameLoop.Run().Forget();
         }
 
