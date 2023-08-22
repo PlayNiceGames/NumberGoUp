@@ -15,11 +15,11 @@ namespace GameOver
 {
     public class GameOverController
     {
-        private GameOverUI _ui;
-        private Board _board;
-        private ScoreSystem _scoreSystem;
-        private GameOverSettings _settings;
-        private AnalyticsService _analytics;
+        private readonly GameOverUI _ui;
+        private readonly Board _board;
+        private readonly ScoreSystem _scoreSystem;
+        private readonly GameOverSettings _settings;
+        private readonly AnalyticsService _analytics;
 
         private int _continueCount;
 
@@ -80,20 +80,18 @@ namespace GameOver
             ValueTile biggestTile = tiles.MaxBy(GetMaxValue);
 
             biggestTileValue = GetMaxValue(biggestTile);
-            return (ValueTileData) biggestTile.GetData();
+            return (ValueTileData)biggestTile.GetData();
         }
 
         private void ClearSmallTiles(int biggestTileValue)
         {
-            int tileValueThreshold = (int) (biggestTileValue * _settings.ClearSmallTilesBiggestTileMultiplier);
+            int tileValueThreshold = (int)(biggestTileValue * _settings.ClearSmallTilesBiggestTileMultiplier);
 
             IEnumerable<ValueTile> tiles = _board.GetAllTiles<ValueTile>();
             IEnumerable<ValueTile> smallTiles = tiles.Where(tile => GetMaxValue(tile) <= tileValueThreshold);
 
             foreach (ValueTile smallTile in smallTiles)
-            {
                 _board.ClearTile(smallTile.BoardPosition);
-            }
         }
 
         private int GetMaxValue(ValueTile tile) //TODO maybe move somewhere?
@@ -109,8 +107,6 @@ namespace GameOver
 
         private bool IsGameOver()
         {
-            return true;
-            
             IEnumerable<EmptyTile> emptyTiles = _board.GetAllTiles<EmptyTile>();
 
             return !emptyTiles.Any();
