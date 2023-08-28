@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameLoading
+namespace GameLoadingScene
 {
     public class LoadingScene : MonoBehaviour
     {
