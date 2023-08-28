@@ -6,7 +6,7 @@ namespace MainMenu
 {
     public class MainMenuUI : MonoBehaviour
     {
-        private GameAudio.Audio _audio;
+        private Audio _audio;
 
         private void Awake()
         {

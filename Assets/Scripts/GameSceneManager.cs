@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public static class GameSceneManager
 {
-    private const int MainMenuSceneIndex = 0;
-    private const int GameSceneIndex = 1;
+    private const int MainMenuSceneIndex = 1;
+    private const int GameSceneIndex = 2;
 
     public static void LoadMainMenu()
     {
