@@ -20,6 +20,7 @@ MonoBehaviour:
     - main_menu_button_play
     - main_menu_button_tutorial
     - ad_unavailable
+    - score_title
     _valueData:
     - Game Over
     - 'high score: {0}'
@@ -27,3 +28,4 @@ MonoBehaviour:
     - Play
     - Learn
     - Ads are loading...
+    - Total Score

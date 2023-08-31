@@ -69,6 +69,9 @@ namespace GameLoop
 
         private bool CanReplaceTile(TileType originalTileType, TileType newTileType)
         {
+            if (IsDebugPlaceTiles())
+                return true;
+            
             switch (newTileType)
             {
                 case TileType.Eraser:
