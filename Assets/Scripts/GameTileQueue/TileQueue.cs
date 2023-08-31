@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using GameTileQueue.Generators;
+using Serialization;
 using Tiles;
 using Tiles.Data;
 using UnityEngine;
 
 namespace GameTileQueue
 {
-    public class TileQueue : MonoBehaviour
+    public class TileQueue : MonoBehaviour, IDataSerializable<TileQueueData>
     {
         private const int QueueSize = 4; //TODO temp, move
 
@@ -56,9 +58,7 @@ namespace GameTileQueue
             ClearTiles();
 
             for (int i = 0; i < QueueSize; i++)
-            {
                 AddNextTile();
-            }
         }
 
         private void ClearTiles()
@@ -111,6 +111,21 @@ namespace GameTileQueue
         public UniTask WaitUntilTileAdvances()
         {
             return _advanceTileAnimationPlaying?.Task ?? UniTask.CompletedTask;
+        }
+
+        public TileQueueData GetData()
+        {
+            TileData[] tilesData = _tiles.Select(tile => tile.GetData()).ToArray();
+
+            return new TileQueueData(tilesData);
+        }
+
+        public void SetData(TileQueueData data)
+        {
+            foreach (TileData tileData in data.Tiles)
+            {
+                //Tile tile = 
+            }
         }
     }
 }

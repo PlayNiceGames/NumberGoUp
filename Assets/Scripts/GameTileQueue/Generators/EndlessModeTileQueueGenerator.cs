@@ -7,17 +7,14 @@ namespace GameTileQueue.Generators
 {
     public class EndlessModeTileQueueGenerator : TileQueueGenerator
     {
-        private TileQueueGeneratorSettings _settings;
-        private GameRules _rules;
-        private ScoreSystem _scoreSystem;
+        private readonly TileQueueGeneratorSettings _settings;
+        private readonly GameRules _rules;
+        private readonly ScoreSystem _scoreSystem;
+
+        private readonly Queue<TileData> _generatedTileQueue;
 
         private TileQueueSet _currentSet;
         private TileQueueSet _nextSet;
-
-        private int _bigTileNotGeneratedCount;
-        private int _mixedTileNotGeneratedCount;
-
-        private Queue<TileData> _generatedTileQueue;
 
         public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules, ScoreSystem scoreSystem)
         {
@@ -44,9 +41,7 @@ namespace GameTileQueue.Generators
 
             TileData[] nextTileSet = _nextSet.Generate();
             foreach (TileData tileData in nextTileSet)
-            {
                 _generatedTileQueue.Enqueue(tileData);
-            }
         }
     }
 }
