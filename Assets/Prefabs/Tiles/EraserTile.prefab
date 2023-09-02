@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 6016924613258997311}
   - component: {fileID: 2060970891727607124}
   - component: {fileID: -4316165762891282507}
+  - component: {fileID: 3073344266323738640}
   m_Layer: 0
   m_Name: EraserTile
   m_TagString: Untagged
@@ -133,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoardPosition: {x: 0, y: 0}
   <AppearAnimation>k__BackingField: {fileID: 2786150879804347154}
+  <FadeAnimation>k__BackingField: {fileID: 2822604112804437919}
   _layout: {fileID: -4316165762891282507}
 --- !u!222 &2060970891727607124
 CanvasRenderer:
@@ -162,6 +164,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &3073344266323738640
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663020921404853745}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2646808501639223541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,6 +448,10 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 5621496416458481308}
+    - target: {fileID: 8781364542685819318, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
+      propertyPath: _group
+      value: 
+      objectReference: {fileID: 3073344266323738640}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -448,6 +466,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a69b46c24fa42d396f19c222598c579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2822604112804437919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8781364542685819318, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
+  m_PrefabInstance: {fileID: 6842740225190161961}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a968176e1048faa8cb87ca18f164e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &5491008903179700728 stripped

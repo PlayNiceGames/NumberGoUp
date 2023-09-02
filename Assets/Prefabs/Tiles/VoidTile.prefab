@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 1846703775670571318}
   - component: {fileID: 2060970891727607124}
   - component: {fileID: -7911001308707777714}
+  - component: {fileID: 8399892674814961930}
   m_Layer: 0
   m_Name: VoidTile
   m_TagString: Untagged
@@ -174,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoardPosition: {x: 0, y: 0}
   <AppearAnimation>k__BackingField: {fileID: 500635017327546063}
+  <FadeAnimation>k__BackingField: {fileID: 536806795214881346}
   _layout: {fileID: -7911001308707777714}
 --- !u!222 &2060970891727607124
 CanvasRenderer:
@@ -203,6 +205,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &8399892674814961930
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663020921404853745}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &9128429658838348788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,12 +271,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8165299039018819822, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
       propertyPath: m_Name
-      value: TileAnimations
+      value: Animations
       objectReference: {fileID: 0}
     - target: {fileID: 8672858162679594299, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
       propertyPath: _target
       value: 
       objectReference: {fileID: 5621496416458481308}
+    - target: {fileID: 8781364542685819318, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
+      propertyPath: _group
+      value: 
+      objectReference: {fileID: 8399892674814961930}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -277,6 +295,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a69b46c24fa42d396f19c222598c579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &536806795214881346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8781364542685819318, guid: 99dceeca82034644595f81e8c1cb7190, type: 3}
+  m_PrefabInstance: {fileID: 9128429658838348788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a968176e1048faa8cb87ca18f164e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7812340258225771557 stripped

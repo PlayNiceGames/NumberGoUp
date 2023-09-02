@@ -14,6 +14,7 @@ namespace Tiles
         public event Action<Tile> OnClick;
 
         [field: SerializeField] public TileAppearAnimation AppearAnimation { get; private set; }
+        [field: SerializeField] public TileFadeAnimation FadeAnimation { get; private set; }
 
         [SerializeField] protected LayoutElement _layout;
 

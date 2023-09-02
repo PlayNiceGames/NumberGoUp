@@ -51,11 +51,12 @@ namespace GameTileQueue
                 VoidTile voidTile = voidTiles[i];
                 voidTile.Dispose();
 
-                TileData tileData = initialTilesData[i];
-                Tile tile = _factory.InstantiateTile(tileData);
-
-                tile.SetParent(_grid);
+                TileData data = initialTilesData[i];
+                Tile tile = InstantiateTile(data);
                 tile.transform.SetSiblingIndex(i + 1);
+
+                bool isLastTile = i == 0;
+                tile.FadeAnimation.Fade(!isLastTile);
 
                 tiles.Add(tile);
 
@@ -68,7 +69,16 @@ namespace GameTileQueue
             await UniTask.WhenAll(tileAppearTasks);
 
             tiles.Reverse();
+
             return tiles;
+        }
+
+        private Tile InstantiateTile(TileData data)
+        {
+            Tile tile = _factory.InstantiateTile(data);
+
+            tile.SetParent(_grid);
+            return tile;
         }
 
         private async UniTask WaitForGridUpdate()

@@ -33,9 +33,11 @@ namespace GameTileQueue
         {
             Tile firstTile = RemoveFirstTile();
 
-            Tile nextTile = AddNextTile();
+            Tile nextTile = _tiles.Peek();
+            nextTile.FadeAnimation.Fade(false);
 
-            PlayAdvanceTileAnimation(nextTile).Forget();
+            Tile newTile = AddNextTile();
+            PlayAdvanceTileAnimation(newTile).Forget();
 
             return firstTile;
         }
@@ -93,6 +95,7 @@ namespace GameTileQueue
             TileData tileData = _generator.GetNextTileData();
 
             Tile tile = _factory.InstantiateTile(tileData);
+            tile.FadeAnimation.Fade(true);
             return tile;
         }
 
