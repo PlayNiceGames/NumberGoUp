@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameLoop.Rules
 {
-    public class GameRulesData : ScriptableObject
+    public class GameRulesDatabase : ScriptableObject
     {
         [SerializeField] private List<GameRulesSet> _rulesSets;
 

@@ -15,7 +15,7 @@ namespace Tiles
 
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Image _background;
-        [SerializeField] private TileColorsData _colorsData;
+        [SerializeField] private TileColorsDatabase _colorsData;
         [Space]
         [SerializeField] private TileMergeAnimation _mergeAnimation;
         [SerializeField] private TilePartScaleAnimation _scaleAnimation;

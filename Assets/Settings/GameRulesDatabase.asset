@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 616447a15310487ea3ac8686d3ee6e16, type: 3}
-  m_Name: GameRulesData
+  m_Name: GameRulesDatabase
   m_EditorClassIdentifier: 
   _rulesSets:
   - RuleApplyStartingScore: 0

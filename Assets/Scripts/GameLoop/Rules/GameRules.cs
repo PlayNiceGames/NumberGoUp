@@ -10,8 +10,8 @@ namespace GameLoop.Rules
 {
     public class GameRules : MonoBehaviour
     {
-        [SerializeField] private GameRulesData _rulesData;
-        [SerializeField] private TileColorsData _colorsData;
+        [SerializeField] private GameRulesDatabase _rulesData;
+        [SerializeField] private TileColorsDatabase _colorsData;
         [SerializeField] private ScoreSystem _scoreSystem;
 
         public GameRulesSet CurrentRules { get; private set; }

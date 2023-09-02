@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4cb3df1e2964285af1b0e9362df3025, type: 3}
-  m_Name: TutorialData
+  m_Name: TutorialDatabase
   m_EditorClassIdentifier: 
   <DefaultTileInQueue>k__BackingField:
     rid: 8647209831203602432

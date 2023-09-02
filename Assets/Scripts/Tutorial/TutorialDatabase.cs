@@ -6,7 +6,7 @@ using Utils;
 
 namespace Tutorial
 {
-    public class TutorialData : ScriptableObject
+    public class TutorialDatabase : ScriptableObject
     {
         [field: SerializeReference] public TileData DefaultTileInQueue { get; private set; }
         [field: SerializeField] public SerializedReferenceDictionary<int, TileData> TileQueueOverrides { get; private set; }

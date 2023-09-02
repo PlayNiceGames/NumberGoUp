@@ -8,12 +8,13 @@ using UnityEngine;
 
 namespace GameScore
 {
-    public class ScoreSystem : MonoBehaviour, IPlayerPrefsSerializable
+    public class ScoreSystem : MonoBehaviour, IPlayerPrefsSerializable, IDataSerializable<int>
     {
         private const string HighScoreKey = "high_score"; //TODO temp, move to save/load manager
 
-        [SerializeField] private ScoreData _data;
         [SerializeField] private ScoreSystemUI _ui;
+
+        [SerializeField] private ScoreDatabase _data;
 
         private AnalyticsService _analytics;
 
@@ -100,6 +101,16 @@ namespace GameScore
 
                 _analytics.Send(new ScoreReachedEvent(rangeScore, Score));
             }
+        }
+
+        public int GetData()
+        {
+            return Score;
+        }
+
+        public void SetData(int score)
+        {
+            Score = score;
         }
     }
 }

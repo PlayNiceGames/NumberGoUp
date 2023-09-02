@@ -7,7 +7,7 @@ using Utils;
 
 namespace GameScore
 {
-    public class ScoreData : ScriptableObject
+    public class ScoreDatabase : ScriptableObject
     {
         [SerializeField] private SerializedDictionary<int, int> _scoreOverrideForRegularTileMerge;
         [SerializeField] private SerializedDictionary<int, int> _scoreOverrideForMixedTileMerge;

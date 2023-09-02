@@ -15,7 +15,7 @@ namespace GameLoop.Tutorial
 {
     public class TutorialLoop : AbstractGameLoop
     {
-        [SerializeField] private TutorialData _data;
+        [SerializeField] private TutorialDatabase _data;
         [SerializeField] private TutorialStepFactory _stepFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private BoardGameLoop _boardLoop;

@@ -31,7 +31,7 @@ namespace GameDebug
         [Space]
         [SerializeField] private TileFactory _factory;
         [SerializeField] private GameRules _rules;
-        [SerializeField] private TileColorsData _colorsData;
+        [SerializeField] private TileColorsDatabase _colorsData;
 
         private bool _isSetup;
 
