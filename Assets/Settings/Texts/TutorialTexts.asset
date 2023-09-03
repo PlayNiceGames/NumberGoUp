@@ -44,43 +44,66 @@ MonoBehaviour:
     - dialog_title_highscore
     - dialog_text_eraser
     - dialog_title_eraser
+    - dialog_text_mixed_tiles_split
+    - dialog_title_mixedsolid
+    - dialog_text_mixedsolid
+    - dialog_text_mixedsolidmerge
+    - dialog_title_solidmixed
+    - dialog_text_solidmixed
+    - dialog_text_mixedsolid2
+    - dialogue_title_4up
+    - dialog_text_largest_tile_2
+    - dialog_text_center_merge_2
+    - dialog_title_center_merge_2
+    - dialog_text_double_merge_2
     _valueData:
-    - "Let\u2019s Merge! Tap on an empty tile to place a block. You can always see
-      the blocks that are up next at the bottom."
-    - Nicely Done! The number goes up by absorbing adjacent blocks of the same color.
+    - "Let\u2019s Merge! Tap on an empty tile to place a number. Numbers in que are
+      shown at the bottom"
+    - Nicely Done! Number Go Up by absorbing adjacent blocks of the same color and
+      value
     - Older Blocks absorb newly placed ones. Blocks with the larger number will absorb
-      smaller numbers.
-    - For the number 3 to go up it has to absorb 3 adjacent blocks of the same color.
-    - These blocks can be separate blocks that touch the number 3 from different
-      sides. Place 3 blocks of the same color around the 3 Tile.
-    - You could place three 1 number tiles or One 1 number 1 tile and one 2 number
-      tile or just one 3 number tile.
-    - Well Done! Your tile is number 4 now. For the number to go up, it has to touch
-      4 blocks of the same color.
-    - You will gain more points for larger numbers! Make the number go up!
-    - Those are the basic rules! Start playing or select NEXT for extra rules.
+      smaller numbers
+    - For the Number 3 to Go Up it has to absorb 3 adjacent blocks of the same color
+    - The blocks could be 1+1+1 or 2+1. They just need to be adjacent to 3
+    - The blocks adjacent to 3 need to add up to 3
+    - For the Number to Go Up, blocks need to add up to 4
+    - You will gain more points for larger numbers! Make the Number Go Up
+    - Done with the Basics? Start Playing or select Next for Special Merges
     - Play
     - Next
-    - Largest Tile
-    - If a tile can merge with multiple tiles, it will choose the largest tile.
+    - Largest Merge
+    - If a block can merge with multiple blocks, it will choose the Largest Block
     - Center Merge
-    - Tiles that have the same value will always merge towards the center with a
-      Bonus number added to the tile.
-    - Mixed Tiles
-    - Mixed Tiles follow all the regular rules, except with two colors. Use them
+    - 3 Adjacent Blocks of the same value will merge towards the Center
+    - Mixed Blocks
+    - Mixed Blocks follow all the regular rules, except with two colors. Use them
       wisely!
-    - Numbers go Up!
-    - Now you know the rules. Time to make the
+    - Number Go Up
+    - You're Done! Please Enjoy
     - Double Merge
-    - When a tile can merge with two tiles of the same number, it will and the number
-      goes up in both tiles.
+    - When a block can merge with two blocks of the same number, it will and the
+      Number Go Up in both
     - Basic Rules
-    - Adjacent Tiles
-    - Older Tiles
+    - Adjacent Blocks
+    - Older Blocks
     - 1+1+1=3
-    - Multiple ways to Merge
+    - Different Ways
     - Number Go Up
     - High Score!
-    - Every 500 points you will have a chance to erase a tile! Tap on the tile you
-      want to remove
+    - The Eraser can remove blocks you don't like OR tap an empty tile if you don't
+      feel like removing a block
     - The Eraser
+    - The Mixed Block can split among existing solid blocks aready placed on the
+      board
+    - Mixed + Regular
+    - Mixed Blocks can work as part of a merge for regular blocks as well
+    - 1+1 = 2, Even if one block is part of a Mixed Block
+    - Regular + Mixed
+    - Regular blocks can also merge into mixed blocks that are already on the board
+    - The Mixed Block formed as a result of the merge can further merge into older
+      blocks on the board
+    - 2+1+1, 3+1
+    - 2+1 > 1+1 , When both are possible
+    - '2+2 Merge could occur on either side, so all 3 merge together '
+    - 2+2 .. +2?
+    - 2+1 Merge could occur with both blocks so Number Go Up in both
