@@ -9,10 +9,8 @@ namespace GameBoard.Actions
 {
     public class SetupBoardAction : BoardAction
     {
-        private const float TileAppearDelaySeconds = 0.2f;
-
-        private BoardData _data;
-        private TileFactory _factory;
+        private readonly BoardData _data;
+        private readonly TileFactory _factory;
 
         public SetupBoardAction(BoardData data, TileFactory factory, Board board) : base(board)
         {

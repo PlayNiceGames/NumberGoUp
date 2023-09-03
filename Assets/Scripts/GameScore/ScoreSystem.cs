@@ -111,6 +111,8 @@ namespace GameScore
         public void SetData(int score)
         {
             Score = score;
+
+            _ui.SetScore(Score);
         }
     }
 }
