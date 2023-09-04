@@ -4,7 +4,7 @@ using GameTileQueue;
 using Serialization;
 using UnityEngine;
 
-namespace GameSave
+namespace GameInitialization
 {
     public class GameDataSerializer : MonoBehaviour, IDataSerializable<GameData>
     {

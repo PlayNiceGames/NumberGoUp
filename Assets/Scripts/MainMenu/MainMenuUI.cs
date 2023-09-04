@@ -6,6 +6,8 @@ namespace MainMenu
 {
     public class MainMenuUI : MonoBehaviour
     {
+        [SerializeField] private MainMenuBackground _background;
+
         private Audio _audio;
 
         private void Awake()
@@ -13,16 +15,20 @@ namespace MainMenu
             _audio = GlobalServices.Get<Audio>();
         }
 
-        public void ClickPlay()
+        public async void ClickPlay()
         {
             _audio.PlayClick();
+            
+            await _background.PlayTransition();
 
             GameSceneManager.LoadEndlessMode();
         }
-
-        public void ClickTutorial()
+        
+        public async void ClickTutorial()
         {
             _audio.PlayClick();
+
+            await _background.PlayTransition();
 
             GameSceneManager.LoadTutorial();
         }

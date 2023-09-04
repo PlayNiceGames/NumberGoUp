@@ -1,7 +1,7 @@
 ﻿using GameBoard;
 using GameTileQueue;
 
-namespace GameSave
+namespace GameInitialization
 {
     public class GameData
     {

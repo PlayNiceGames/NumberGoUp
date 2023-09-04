@@ -25,7 +25,7 @@ MonoBehaviour:
     - Game Over
     - 'high score: {0}'
     - 'score: {0}'
-    - Play
-    - Learn
+    - PLAY
+    - TUTORIAL
     - Ads are loading...
     - Total Score
