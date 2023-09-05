@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5888961747371613197}
   - component: {fileID: 4466560617496512358}
   m_Layer: 5
-  m_Name: VolumeButton
+  m_Name: CircularButtonWithIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
