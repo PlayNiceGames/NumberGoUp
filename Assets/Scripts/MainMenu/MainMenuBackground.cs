@@ -9,11 +9,20 @@ namespace MainMenu
     {
         [SerializeField] private float _duration;
         [SerializeField] private AnimationCurve _curve;
+        [SerializeField] private RectTransform _topBackgroundTransform;
         [SerializeField] private RectTransform _bottomBackgroundTransform;
 
         public UniTask PlayTransition()
         {
-            Tween moveBackgroundTween = _bottomBackgroundTransform.DOSizeDelta(new Vector2(_bottomBackgroundTransform.sizeDelta.x, 0), _duration);
+            UniTask topFade = PlayBackgroundFade(_topBackgroundTransform);
+            UniTask bottomFade = PlayBackgroundFade(_bottomBackgroundTransform);
+
+            return UniTask.WhenAll(topFade, bottomFade);
+        }
+
+        private UniTask PlayBackgroundFade(RectTransform background)
+        {
+            Tween moveBackgroundTween = background.DOSizeDelta(new Vector2(background.sizeDelta.x, 0), _duration);
             moveBackgroundTween.SetEase(_curve);
             return moveBackgroundTween.PlayAsync();
         }

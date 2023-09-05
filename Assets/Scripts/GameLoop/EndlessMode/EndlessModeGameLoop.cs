@@ -1,6 +1,6 @@
-﻿using Analytics;
+﻿using System;
+using Analytics;
 using Cysharp.Threading.Tasks;
-using GameAnalytics.Events;
 using GameAnalytics.Events.Game;
 using GameAudio;
 using GameBoard;
@@ -8,6 +8,7 @@ using GameBoard.Actions;
 using GameBoard.Rules;
 using GameLoop.Rules;
 using GameOver;
+using GameSave;
 using GameScore;
 using GameTileQueue;
 using GameTileQueue.Generators;
@@ -36,11 +37,21 @@ namespace GameLoop.EndlessMode
         private EndlessModeTileQueueGenerator _tileQueueGenerator;
         private GameOverController _gameOver;
 
-        public override void Setup()
+        public override void SetupEmptyGame()
+        {
+            Setup
+        }
+
+        public override void SetupFromSavedGame(GameData currentSaveToLoad)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Setup()
         {
             _audio = GlobalServices.Get<Audio>();
             _analytics = GlobalServices.Get<AnalyticsService>();
-            
+
             _scoreSystem.SetEnabled(true);
 
             _gameRules.Setup();
@@ -59,7 +70,7 @@ namespace GameLoop.EndlessMode
         {
             _analytics.Send(new GameStartEvent(GameLoopType.EndlessMode));
 
-            await SetupScene();
+            await SetupSceneWithAnimation();
 
             while (true)
             {
@@ -78,17 +89,17 @@ namespace GameLoop.EndlessMode
             EndGame();
         }
 
-        private UniTask SetupScene()
+        private UniTask SetupSceneWithAnimation()
         {
             int initialBoardSize = _gameRules.CurrentRules.BoardSize;
-            UniTask setupBoardTask = SetupBoard(initialBoardSize);
+            UniTask setupBoardTask = SetupBoardWithAnimation(initialBoardSize);
 
             UniTask setupTileQueueTask = _tileQueue.AddInitialTilesWithAnimation();
 
             return UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
         }
 
-        private UniTask SetupBoard(int size)
+        private UniTask SetupBoardWithAnimation(int size)
         {
             BoardData initialBoardData = BoardData.Square(size);
             SetupBoardAction setupBoardAction = new SetupBoardAction(initialBoardData, _tileFactory, _board);

@@ -1,12 +1,12 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
+using GameLoop;
 using GameLoop.EndlessMode;
 using GameLoop.Tutorial;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameLoop
+namespace GameInitialization
 {
     public class GameLoopRunner : MonoBehaviour
     {
@@ -15,44 +15,26 @@ namespace GameLoop
         [SerializeField] private EndlessModeGameLoop _endlessMode;
         [SerializeField] private TutorialLoop _tutorial;
 
-        public static GameLoopType? GameLoopToRun;
-
-        private void Awake()
+        public AbstractGameLoop GetGameLoopToRun(GameLoopType? gameLoopType)
         {
-            AbstractGameLoop gameLoop = GetGameLoopToRun();
-            gameLoop.Setup();
+            if (gameLoopType != null)
+                return GetGameLoop(gameLoopType.Value);
+            if (Application.isEditor)
+                return GetDefaultEditorGameLoop();
+
+            throw new ArgumentException("GameLoop was not set");
         }
 
-        private void Start()
+        public AbstractGameLoop GetGameLoop(GameLoopType gameLoopType)
         {
-            AbstractGameLoop gameLoop = GetGameLoopToRun();
-
-            gameLoop.Run().Forget();
-        }
-
-        private AbstractGameLoop GetGameLoopToRun()
-        {
-            if (GameLoopToRun == null)
-            {
-                if (Application.isEditor)
-                    return GetDefaultEditorGameLoop();
-
-                throw new ArgumentException("GameLoop was not set");
-            }
-
-            return GetGameLoop(GameLoopToRun.Value);
-        }
-
-        private AbstractGameLoop GetGameLoop(GameLoopType gameType)
-        {
-            switch (gameType)
+            switch (gameLoopType)
             {
                 case GameLoopType.EndlessMode:
                     return _endlessMode;
                 case GameLoopType.Tutorial:
                     return _tutorial;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(gameType), gameType, null);
+                    throw new ArgumentOutOfRangeException(nameof(gameLoopType), gameLoopType, null);
             }
         }
 

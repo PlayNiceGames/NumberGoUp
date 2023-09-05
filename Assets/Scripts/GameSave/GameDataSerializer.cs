@@ -1,10 +1,11 @@
 ﻿using GameBoard;
+using GameInitialization;
 using GameScore;
 using GameTileQueue;
 using Serialization;
 using UnityEngine;
 
-namespace GameInitialization
+namespace GameSave
 {
     public class GameDataSerializer : MonoBehaviour, IDataSerializable<GameData>
     {
