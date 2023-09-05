@@ -2,20 +2,19 @@
 using GameAds;
 using GameAudio;
 using ServiceLocator;
-using SimpleTextProvider;
 using Tiles;
 using Tiles.Data;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GameOver
 {
     public class GameOverUI : MonoBehaviour
     {
-        [SerializeField] private TextProviderTMP _currentScoreLabel;
-        [SerializeField] private TextProviderTMP _highScoreLabel;
+        [SerializeField] private TextMeshProUGUI _currentScoreLabel;
+        [SerializeField] private TextMeshProUGUI _highScoreLabel;
         [SerializeField] private RectTransform _biggestTileRoot;
-        [SerializeField] private Button _continueButton;
+        [SerializeField] private GameOverContinueButton _continueButton;
         [SerializeField] private TileFactory _tileFactory;
 
         private AdsService _adsService;
@@ -28,9 +27,6 @@ namespace GameOver
         {
             _adsService = GlobalServices.Get<AdsService>();
             _audio = GlobalServices.Get<Audio>();
-
-            _currentScoreLabel.Setup();
-            _highScoreLabel.Setup();
 
             Hide();
         }
@@ -45,7 +41,8 @@ namespace GameOver
 
             GameOverAction finalAction = await ProcessButtonClicksUntilResult();
 
-            Hide();
+            if (finalAction == GameOverAction.Continue)
+                Hide();
 
             return finalAction;
         }
@@ -59,6 +56,12 @@ namespace GameOver
 
                 if (buttonClickResult == GameOverAction.Continue)
                 {
+                    if (Application.isEditor)
+                    {
+                        await _adsService.ShowAdUnavailableMessage();
+                        return GameOverAction.Continue;
+                    }
+
                     RewardedAdShowResult adShowResult = await _adsService.ShowRewardedAd("game_over");
 
                     switch (adShowResult)
@@ -79,15 +82,15 @@ namespace GameOver
 
         private void SetData(int currentScore, int highScore, ValueTileData biggestTileData, bool isEnabledContinueButton)
         {
-            _currentScoreLabel.FillText(currentScore);
-            _highScoreLabel.FillText(highScore);
+            _currentScoreLabel.text = currentScore.ToString();
+            _highScoreLabel.text = highScore.ToString();
 
             _biggestTile = _tileFactory.InstantiateTile(biggestTileData);
 
             _biggestTile.SetParent(_biggestTileRoot);
             _biggestTile.transform.localPosition = Vector3.zero;
 
-            _continueButton.interactable = isEnabledContinueButton;
+            _continueButton.SetInteractable(isEnabledContinueButton);
         }
 
         public void Hide()

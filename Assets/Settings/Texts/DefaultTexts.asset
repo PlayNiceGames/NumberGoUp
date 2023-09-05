@@ -21,11 +21,15 @@ MonoBehaviour:
     - main_menu_button_tutorial
     - ad_unavailable
     - score_title
+    - continue
+    - exit
     _valueData:
     - Game Over
-    - 'high score: {0}'
-    - 'score: {0}'
+    - HIGH SCORE
+    - SCORE
     - PLAY
-    - TUTORIAL
+    - LEARN
     - Ads are loading...
     - Total Score
+    - CONTINUE
+    - EXIT

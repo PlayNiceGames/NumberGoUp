@@ -69,8 +69,8 @@ MonoBehaviour:
     - For the Number to Go Up, blocks need to add up to 4
     - You will gain more points for larger numbers! Make the Number Go Up
     - Done with the Basics? Start Playing or select Next for Special Merges
-    - Play
-    - Next
+    - PLAY
+    - NEXT
     - Largest Merge
     - If a block can merge with multiple blocks, it will choose the Largest Block
     - Center Merge
@@ -78,7 +78,7 @@ MonoBehaviour:
     - Mixed Blocks
     - Mixed Blocks follow all the regular rules, except with two colors. Use them
       wisely!
-    - Number Go Up
+    - NUMBER GO UP!
     - You're Done! Please Enjoy
     - Double Merge
     - When a block can merge with two blocks of the same number, it will and the
