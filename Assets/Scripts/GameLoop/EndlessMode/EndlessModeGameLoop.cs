@@ -1,5 +1,4 @@
-﻿using System;
-using Analytics;
+﻿using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Game;
 using GameAudio;
@@ -29,6 +28,7 @@ namespace GameLoop.EndlessMode
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private GameOverUI _gameOverUI;
+        [SerializeField] private GameDataSerializer _serializer;
 
         private Audio _audio;
         private AnalyticsService _analytics;
@@ -39,15 +39,17 @@ namespace GameLoop.EndlessMode
 
         public override void SetupEmptyGame()
         {
-            Setup
+            SetupDependencies();
         }
 
         public override void SetupFromSavedGame(GameData currentSaveToLoad)
         {
-            throw new NotImplementedException();
+            SetupDependencies();
+
+            _serializer.SetData(currentSaveToLoad);
         }
 
-        private void Setup()
+        private void SetupDependencies()
         {
             _audio = GlobalServices.Get<Audio>();
             _analytics = GlobalServices.Get<AnalyticsService>();
@@ -59,11 +61,7 @@ namespace GameLoop.EndlessMode
             _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
             _tileQueue.Setup(_tileQueueGenerator);
 
-            _boardLoop.Setup();
-
             _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings, _analytics);
-
-            _gameOver.Setup();
         }
 
         public override async UniTask Run()

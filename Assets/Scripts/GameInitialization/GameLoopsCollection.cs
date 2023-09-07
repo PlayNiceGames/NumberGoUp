@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace GameInitialization
 {
-    public class GameLoopRunner : MonoBehaviour
+    public class GameLoopsCollection : MonoBehaviour
     {
         private const string DefaultEditorGameLoopKey = "default_editor_game_loop";
 

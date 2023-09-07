@@ -32,11 +32,6 @@ namespace GameOver
             _analytics = analytics;
         }
 
-        public void Setup()
-        {
-            _ui.Setup();
-        }
-
         public async UniTask<bool> TryProcessGameOver()
         {
             if (!IsGameOver())

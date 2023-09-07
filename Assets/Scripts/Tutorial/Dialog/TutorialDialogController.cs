@@ -14,13 +14,6 @@ namespace Tutorial.Dialog
             HideAll();
         }
 
-        public void Setup()
-        {
-            _dialogUI.Setup();
-            _dialogQuestionUI.Setup();
-            _dialogExitUI.Setup();
-        }
-
         public void ShowDialog(string titleKey, string dialogKey)
         {
             HideAll();

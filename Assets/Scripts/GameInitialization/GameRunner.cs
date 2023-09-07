@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace GameInitialization
 {
-    public class GameInitializer : MonoBehaviour
+    public class GameRunner : MonoBehaviour
     {
         public static GameLoopType? GameLoopToRun;
         public static GameData CurrentSaveToLoad;
 
-        [SerializeField] private GameLoopRunner _gameLoopRunner;
-        [SerializeField] private GameDataSerializer _gameSerializer;
+        [SerializeField] private GameLoopsCollection _gameLoopRunner;
 
         private AbstractGameLoop _currentGameLoop;
 
@@ -23,11 +22,6 @@ namespace GameInitialization
                 _currentGameLoop.SetupEmptyGame();
             else
                 _currentGameLoop.SetupFromSavedGame(CurrentSaveToLoad);
-        }
-
-        private void InitializeFromSavedGame()
-        {
-            _gameSerializer.SetData(CurrentSaveToLoad);
         }
 
         private void Start()

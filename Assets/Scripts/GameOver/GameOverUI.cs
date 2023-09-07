@@ -23,7 +23,7 @@ namespace GameOver
         private Tile _biggestTile;
         private UniTaskCompletionSource<GameOverAction> _buttonClicked;
 
-        public void Setup()
+        private void Awake()
         {
             _adsService = GlobalServices.Get<AdsService>();
             _audio = GlobalServices.Get<Audio>();

@@ -1,6 +1,7 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Tutorial;
+using GameSave;
 using GameScore;
 using GameTileQueue;
 using GameTileQueue.Generators;
@@ -25,16 +26,22 @@ namespace GameLoop.Tutorial
         private TutorialTileQueueGenerator _tileQueueGenerator;
         private AnalyticsService _analytics;
 
-        public override void Setup()
+        public override void SetupEmptyGame()
+        {
+            SetupDependencies();
+        }
+
+        public override void SetupFromSavedGame(GameData currentSaveToLoad)
+        {
+            SetupDependencies();
+        }
+
+        private void SetupDependencies()
         {
             _scoreSystem.SetEnabled(false);
 
             _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue, _data.TileQueueOverrides);
             _tileQueue.Setup(_tileQueueGenerator);
-
-            _boardLoop.Setup();
-
-            _dialogController.Setup();
 
             _analytics = GlobalServices.Get<AnalyticsService>();
         }

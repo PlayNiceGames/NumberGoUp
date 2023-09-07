@@ -8,14 +8,6 @@ namespace Tutorial.Dialog
         [SerializeField] private TextProviderTMP _titleLabel;
         [SerializeField] private TextProviderTMP _dialogLabel;
 
-        public void Setup()
-        {
-            _titleLabel.Setup();
-            _dialogLabel.Setup();
-
-            Hide();
-        }
-
         public void Show()
         {
             gameObject.SetActive(true);

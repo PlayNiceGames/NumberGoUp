@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameInitialization;
 using GameLoop;
+using GameSave;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,30 +15,31 @@ public static class GameSceneManager
         SceneManager.LoadScene(MainMenuSceneIndex);
     }
 
-    public static void LoadEndlessMode()
+    public static void LoadEndlessMode(GameData savedGame = null)
     {
-        GameLoopRunner.GameLoopToRun = GameLoopType.EndlessMode;
+        GameRunner.GameLoopToRun = GameLoopType.EndlessMode;
+        GameRunner.CurrentSaveToLoad = savedGame;
 
         SceneManager.LoadScene(GameSceneIndex);
     }
 
     public static UniTask LoadEndlessModeAsync()
     {
-        GameLoopRunner.GameLoopToRun = GameLoopType.EndlessMode;
+        GameRunner.GameLoopToRun = GameLoopType.EndlessMode;
 
         return LoadSceneAsync(GameSceneIndex);
     }
 
     public static void LoadTutorial()
     {
-        GameLoopRunner.GameLoopToRun = GameLoopType.Tutorial;
+        GameRunner.GameLoopToRun = GameLoopType.Tutorial;
 
         SceneManager.LoadScene(GameSceneIndex);
     }
 
     public static UniTask LoadTutorialAsync()
     {
-        GameLoopRunner.GameLoopToRun = GameLoopType.Tutorial;
+        GameRunner.GameLoopToRun = GameLoopType.Tutorial;
 
         return LoadSceneAsync(GameSceneIndex);
     }

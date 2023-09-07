@@ -23,11 +23,9 @@ namespace GameLoop
 
         private BoardRules _boardRules;
 
-        public void Setup()
+        private void Awake()
         {
             _boardRules = new BoardRules(_board, _scoreSystem, _factory);
-
-            _debugTilePlacer.Setup();
         }
 
         public async UniTask Run()
@@ -71,7 +69,7 @@ namespace GameLoop
         {
             if (IsDebugPlaceTiles())
                 return true;
-            
+
             switch (newTileType)
             {
                 case TileType.Eraser:

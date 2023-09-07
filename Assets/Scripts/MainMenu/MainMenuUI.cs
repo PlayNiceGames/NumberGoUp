@@ -1,4 +1,5 @@
-﻿using GameAudio;
+﻿using Cysharp.Threading.Tasks;
+using GameAudio;
 using GameSave;
 using ServiceLocator;
 using UnityEngine;
@@ -10,12 +11,14 @@ namespace MainMenu
         [SerializeField] private MainMenuBackground _background;
 
         private Audio _audio;
+        private GameSaveService _gameSaveService;
 
         private bool _isLoadingScene;
 
         private void Awake()
         {
             _audio = GlobalServices.Get<Audio>();
+            _gameSaveService = GlobalServices.Get<GameSaveService>();
         }
 
         public async void ClickPlay()
@@ -27,13 +30,23 @@ namespace MainMenu
 
             _audio.PlayClick();
 
-            GameData currentSave = _gameSaveService.CurrentSave;
+            GameData currentSave = _gameSaveService.LastSave;
             if (currentSave != null)
-                await ShowSaveDialog();
+            {
+                NewGameDialogResult dialogResult = await ShowSaveDialog();
 
-            await _background.PlayTransition();
+                if (dialogResult == NewGameDialogResult.NewGame)
+                    currentSave = null;
+            }
 
-            GameSceneManager.LoadEndlessMode();
+            await _background.PlayTransition(); //TODO create google system for UI transition
+
+            GameSceneManager.LoadEndlessMode(currentSave);
+        }
+
+        private async UniTask<NewGameDialogResult> ShowSaveDialog()
+        {
+            return NewGameDialogResult.Continue;
         }
 
         public async void ClickTutorial()

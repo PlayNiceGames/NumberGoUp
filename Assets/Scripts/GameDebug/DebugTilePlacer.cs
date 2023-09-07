@@ -15,6 +15,7 @@ namespace GameDebug
 
         [Space]
         [SerializeField] private int _firstValue;
+
         [SerializeField] private int _secondValue;
 
         [Space]
@@ -22,20 +23,25 @@ namespace GameDebug
 
         [Space]
         [SerializeField] private int _firstColor;
+
         [SerializeField] private int _secondColor;
 
         [Space]
-        [SerializeField] [ReadOnly] [UsedImplicitly] private Color _firstDisplayedColor;
-        [SerializeField] [ReadOnly] [UsedImplicitly] private Color _secondDisplayedColor;
+        [SerializeField] [ReadOnly] [UsedImplicitly]
+        private Color _firstDisplayedColor;
+
+        [SerializeField] [ReadOnly] [UsedImplicitly]
+        private Color _secondDisplayedColor;
 
         [Space]
         [SerializeField] private TileFactory _factory;
+
         [SerializeField] private GameRules _rules;
         [SerializeField] private TileColorsDatabase _colorsData;
 
         private bool _isSetup;
 
-        public void Setup()
+        private void Start()
         {
             _isSetup = true;
 
@@ -78,12 +84,12 @@ namespace GameDebug
                     break;
                 case TileType.Regular:
                     int colorIndex = GetActualColorIndex(_firstColor);
-                    data = new RegularTileData(_firstValue, colorIndex, 0);
+                    data = new RegularTileData(_firstValue, colorIndex);
                     break;
                 case TileType.Mixed:
                     int topColorIndex = GetActualColorIndex(_firstColor);
                     int bottomColorIndex = GetActualColorIndex(_secondColor);
-                    data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex, 0);
+                    data = new MixedTileData(_firstValue, topColorIndex, _secondValue, bottomColorIndex);
                     break;
                 default:
                     Tile defaultTile = _factory.InstantiateTile(_type);

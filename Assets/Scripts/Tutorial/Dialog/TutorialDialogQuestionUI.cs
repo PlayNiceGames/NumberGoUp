@@ -14,13 +14,9 @@ namespace Tutorial.Dialog
 
         private UniTaskCompletionSource<TutorialQuestionAction> _buttonClicked;
 
-        public void Setup()
+        private void Awake()
         {
             _audio = GlobalServices.Get<Audio>();
-
-            _dialogLabel.Setup();
-
-            Hide();
         }
 
         public UniTask<TutorialQuestionAction> ShowWithResult()
