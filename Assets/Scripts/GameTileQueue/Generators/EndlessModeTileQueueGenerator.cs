@@ -11,10 +11,10 @@ namespace GameTileQueue.Generators
         private readonly GameRules _rules;
         private readonly ScoreSystem _scoreSystem;
 
-        private readonly Queue<TileData> _generatedTileQueue;
+        private Queue<TileData> _generatedTileQueue;
 
+        private TileQueueSet _prevSet;
         private TileQueueSet _currentSet;
-        private TileQueueSet _nextSet;
 
         public EndlessModeTileQueueGenerator(TileQueueGeneratorSettings settings, GameRules rules, ScoreSystem scoreSystem)
         {
@@ -36,12 +36,25 @@ namespace GameTileQueue.Generators
 
         private void GenerateNextSet()
         {
-            _currentSet = _nextSet;
-            _nextSet = new TileQueueSet(_currentSet, _settings, _rules, _scoreSystem.Score);
+            _prevSet = _currentSet;
+            _currentSet = new TileQueueSet(_prevSet, _settings, _rules, _scoreSystem);
 
-            TileData[] nextTileSet = _nextSet.Generate();
+            TileData[] nextTileSet = _currentSet.Generate();
             foreach (TileData tileData in nextTileSet)
                 _generatedTileQueue.Enqueue(tileData);
+        }
+
+        public override TileQueueGeneratorData GetData()
+        {
+            return new TileQueueGeneratorData(_generatedTileQueue.ToArray(), _currentSet.GetData());
+        }
+
+        public override void SetData(TileQueueGeneratorData data)
+        {
+            _generatedTileQueue = new Queue<TileData>(data.GeneratedTileData);
+
+            _currentSet = new TileQueueSet(null, _settings, _rules, _scoreSystem);
+            _currentSet.SetData(data.CurrentSetData);
         }
     }
 }

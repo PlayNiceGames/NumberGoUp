@@ -6,8 +6,9 @@ namespace GameLoop
 {
     public abstract class AbstractGameLoop : MonoBehaviour
     {
-        public abstract void SetupEmptyGame();
-        public abstract void SetupFromSavedGame(GameData currentSaveToLoad);
-        public abstract UniTask Run();
+        public abstract void Setup();
+        public abstract UniTask RunNewGame();
+        public abstract UniTask RunSavedGame(GameData save);
+        protected abstract UniTask Run();
     }
 }

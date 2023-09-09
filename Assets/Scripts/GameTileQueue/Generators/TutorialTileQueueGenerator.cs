@@ -9,7 +9,7 @@ namespace GameTileQueue.Generators
         private readonly TileData _defaultTile;
         private readonly Dictionary<int, TileData> _tileOverrides;
 
-        private int _tileIndex = 0;
+        private int _tileIndex;
 
         public TutorialTileQueueGenerator(TileData defaultTile, Dictionary<int, TileData> tileOverrides)
         {
@@ -26,6 +26,15 @@ namespace GameTileQueue.Generators
             Debug.Log($"[Tutorial] Current tile index: {_tileIndex}");
 
             return tile;
+        }
+
+        public override TileQueueGeneratorData GetData()
+        {
+            return null;
+        }
+
+        public override void SetData(TileQueueGeneratorData data)
+        {
         }
     }
 }

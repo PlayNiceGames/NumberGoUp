@@ -2,13 +2,14 @@
 using System.Linq;
 using GameLoop.Rules.TileRules;
 using GameScore;
+using Serialization;
 using Tiles;
 using UnityEngine;
 using Utils;
 
 namespace GameLoop.Rules
 {
-    public class GameRules : MonoBehaviour
+    public class GameRules : MonoBehaviour, IDataSerializable<GameRulesData>
     {
         [SerializeField] private GameRulesDatabase _rulesData;
         [SerializeField] private TileColorsDatabase _colorsData;
@@ -18,7 +19,7 @@ namespace GameLoop.Rules
 
         private List<int> _mixedColors;
 
-        public void Setup()
+        public void SetInitialData()
         {
             CurrentRules = _rulesData.GetInitialRules();
             _mixedColors = _colorsData.GetRandomColors();
@@ -64,6 +65,16 @@ namespace GameLoop.Rules
         private int RandomColorIndex()
         {
             return Random.Range(0, CurrentRules.AvailableColorCount);
+        }
+
+        public GameRulesData GetData()
+        {
+            return new GameRulesData(_mixedColors);
+        }
+
+        public void SetData(GameRulesData data)
+        {
+            _mixedColors = data.MixedColors;
         }
     }
 }

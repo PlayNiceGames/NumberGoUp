@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameTileQueue
+namespace GameTileQueue.Generators
 {
     public class TileQueueGeneratorSettings : ScriptableObject
     {

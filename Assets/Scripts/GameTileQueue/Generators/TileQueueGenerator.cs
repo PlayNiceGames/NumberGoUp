@@ -1,10 +1,13 @@
-﻿using Tiles.Data;
+﻿using Serialization;
+using Tiles.Data;
 
 namespace GameTileQueue.Generators
 {
-    public abstract class TileQueueGenerator
+    public abstract class TileQueueGenerator : IDataSerializable<TileQueueGeneratorData>
     {
         public abstract TileData GetNextTileData();
+        public abstract TileQueueGeneratorData GetData();
+        public abstract void SetData(TileQueueGeneratorData data);
 
         public TileData[] GetNextTilesData(int count)
         {

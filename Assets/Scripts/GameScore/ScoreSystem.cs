@@ -39,6 +39,7 @@ namespace GameScore
         public void Serialize()
         {
             PlayerPrefs.SetInt(HighScoreKey, HighScore);
+            PlayerPrefs.Save();
         }
 
         public void Deserialize()

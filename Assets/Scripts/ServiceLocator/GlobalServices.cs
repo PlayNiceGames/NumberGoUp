@@ -43,11 +43,13 @@ namespace ServiceLocator
 
         private static MonoBehaviour InstantiateService(MonoBehaviour service)
         {
+            Type serviceType = service.GetType();
+
             GameObject instantiatedServiceObject = Object.Instantiate(service.gameObject);
+            instantiatedServiceObject.name = serviceType.Name;
             Object.DontDestroyOnLoad(instantiatedServiceObject);
 
-            Type serviceType = service.GetType();
-            MonoBehaviour instantiatedService = (MonoBehaviour) instantiatedServiceObject.GetComponent(serviceType);
+            MonoBehaviour instantiatedService = (MonoBehaviour)instantiatedServiceObject.GetComponent(serviceType);
 
             return instantiatedService;
         }
@@ -61,7 +63,7 @@ namespace ServiceLocator
             if (!isServiceFound)
                 throw new MissingServiceException(serviceType);
 
-            return (T) service;
+            return (T)service;
         }
     }
 }

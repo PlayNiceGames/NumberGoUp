@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 namespace GameSave
@@ -9,15 +11,20 @@ namespace GameSave
 
         public GameData LastSave { get; private set; }
 
+        private JsonSerializerSettings _settings;
+
         private void Awake()
         {
+            _settings = GetSerializerSettings();
+
             LastSave = ReadFromPlayerPrefs();
         }
 
         public void Save(GameData data)
         {
-            string jsonData = JsonUtility.ToJson(data);
+            string jsonData = JsonConvert.SerializeObject(data, _settings);
             PlayerPrefs.SetString(EndlessModeSaveKey, jsonData);
+            PlayerPrefs.Save();
 
             LastSave = data;
         }
@@ -31,13 +38,34 @@ namespace GameSave
 
             try
             {
-                GameData data = JsonUtility.FromJson<GameData>(jsonData);
+                GameData data = JsonConvert.DeserializeObject<GameData>(jsonData, _settings);
                 return data;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.LogException(e);
+                DeleteCurrentSave();
+
                 return null;
             }
+        }
+
+        public void DeleteCurrentSave()
+        {
+            PlayerPrefs.DeleteKey(EndlessModeSaveKey);
+            PlayerPrefs.Save();
+
+            LastSave = null;
+        }
+
+        private JsonSerializerSettings GetSerializerSettings()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Converters.Add(new StringEnumConverter());
+            settings.TypeNameHandling = TypeNameHandling.All;
+            settings.TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple;
+
+            return settings;
         }
     }
 }

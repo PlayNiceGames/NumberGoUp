@@ -27,8 +27,6 @@ namespace GameOver
         {
             _adsService = GlobalServices.Get<AdsService>();
             _audio = GlobalServices.Get<Audio>();
-
-            Hide();
         }
 
         public async UniTask<GameOverAction> ShowWithResult(int currentScore, int highScore, ValueTileData biggestTileData, bool isEnabledContinueButton)

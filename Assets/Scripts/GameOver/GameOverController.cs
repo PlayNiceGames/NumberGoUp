@@ -6,6 +6,8 @@ using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Game;
 using GameBoard;
 using GameScore;
+using GameTileQueue;
+using Serialization;
 using Tiles;
 using Tiles.Data;
 using UnityEngine;
@@ -13,22 +15,24 @@ using Utils;
 
 namespace GameOver
 {
-    public class GameOverController
+    public class GameOverController : IDataSerializable<int>
     {
         private readonly GameOverUI _ui;
         private readonly Board _board;
         private readonly ScoreSystem _scoreSystem;
         private readonly GameOverSettings _settings;
+        private readonly TileQueue _tileQueue;
         private readonly AnalyticsService _analytics;
 
         private int _continueCount;
 
-        public GameOverController(GameOverUI ui, Board board, ScoreSystem scoreSystem, GameOverSettings settings, AnalyticsService analytics)
+        public GameOverController(GameOverUI ui, Board board, ScoreSystem scoreSystem, GameOverSettings settings, TileQueue tileQueue, AnalyticsService analytics)
         {
             _ui = ui;
             _board = board;
             _scoreSystem = scoreSystem;
             _settings = settings;
+            _tileQueue = tileQueue;
             _analytics = analytics;
         }
 
@@ -104,7 +108,22 @@ namespace GameOver
         {
             IEnumerable<EmptyTile> emptyTiles = _board.GetAllTiles<EmptyTile>();
 
-            return !emptyTiles.Any();
+            bool noEmptyTiles = !emptyTiles.Any();
+
+            Tile nextTileInQueue = _tileQueue.PeekNextTile();
+            bool noEraser = nextTileInQueue.Type != TileType.Eraser;
+
+            return noEmptyTiles && noEraser;
+        }
+
+        public int GetData()
+        {
+            return _continueCount;
+        }
+
+        public void SetData(int data)
+        {
+            _continueCount = data;
         }
     }
 }

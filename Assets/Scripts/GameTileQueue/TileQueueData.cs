@@ -1,15 +1,19 @@
-﻿using Tiles.Data;
-using UnityEngine;
+﻿using System;
+using GameTileQueue.Generators;
+using Tiles.Data;
 
 namespace GameTileQueue
 {
+    [Serializable]
     public class TileQueueData
     {
-        [SerializeReference] public TileData[] Tiles;
+        public TileData[] Tiles;
+        public TileQueueGeneratorData GeneratorData;
 
-        public TileQueueData(TileData[] tiles)
+        public TileQueueData(TileData[] tiles, TileQueueGeneratorData generatorData)
         {
             Tiles = tiles;
+            GeneratorData = generatorData;
         }
     }
 }

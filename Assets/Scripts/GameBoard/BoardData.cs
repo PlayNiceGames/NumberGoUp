@@ -18,7 +18,7 @@ namespace GameBoard
             Tiles = tiles;
         }
 
-        public static BoardData Square(int size)
+        public static BoardData EmptySquare(int size)
         {
             TileData[,] data = new TileData[size, size];
 

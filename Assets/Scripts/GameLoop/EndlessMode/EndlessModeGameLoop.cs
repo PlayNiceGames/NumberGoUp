@@ -30,6 +30,7 @@ namespace GameLoop.EndlessMode
         [SerializeField] private GameOverUI _gameOverUI;
         [SerializeField] private GameDataSerializer _serializer;
 
+        private GameSaveService _saveService;
         private Audio _audio;
         private AnalyticsService _analytics;
 
@@ -37,39 +38,56 @@ namespace GameLoop.EndlessMode
         private EndlessModeTileQueueGenerator _tileQueueGenerator;
         private GameOverController _gameOver;
 
-        public override void SetupEmptyGame()
+        public override void Setup()
         {
-            SetupDependencies();
-        }
-
-        public override void SetupFromSavedGame(GameData currentSaveToLoad)
-        {
-            SetupDependencies();
-
-            _serializer.SetData(currentSaveToLoad);
-        }
-
-        private void SetupDependencies()
-        {
+            _saveService = GlobalServices.Get<GameSaveService>();
             _audio = GlobalServices.Get<Audio>();
             _analytics = GlobalServices.Get<AnalyticsService>();
 
             _scoreSystem.SetEnabled(true);
 
-            _gameRules.Setup();
-
             _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
             _tileQueue.Setup(_tileQueueGenerator);
 
-            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings, _analytics);
+            _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings, _tileQueue, _analytics);
         }
 
-        public override async UniTask Run()
+        public override async UniTask RunNewGame()
         {
             _analytics.Send(new GameStartEvent(GameLoopType.EndlessMode));
 
-            await SetupSceneWithAnimation();
+            _gameRules.SetInitialData();
 
+            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
+            BoardData boardData = BoardData.EmptySquare(initialBoardSize);
+            UniTask setupBoardTask = SetupBoardWithAnimation(boardData);
+            UniTask setupTileQueueTask = _tileQueue.SetupInitialTilesWithAnimation();
+
+            await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
+
+            await Run();
+        }
+
+        public override async UniTask RunSavedGame(GameData save)
+        {
+            _analytics.Send(new GameStartEvent(GameLoopType.EndlessMode));
+
+            _gameRules.SetData(save.GameRulesData);
+            _scoreSystem.SetData(save.Score);
+            _gameOver.SetData(save.GameOverContinueCount);
+
+            _gameRules.UpdateCurrentRules();
+
+            UniTask setupBoardTask = SetupBoardWithAnimation(save.BoardData);
+            UniTask setupTileQueueTask = _tileQueue.SetDataWithAnimation(save.TileQueueData);
+
+            await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
+
+            await Run();
+        }
+
+        protected override async UniTask Run()
+        {
             while (true)
             {
                 await _boardLoop.Run();
@@ -78,29 +96,29 @@ namespace GameLoop.EndlessMode
 
                 await TryUpdateBoardSize();
 
-                bool shouldEndGame = await _gameOver.TryProcessGameOver();
+                SaveGame();
 
-                if (shouldEndGame)
+                bool isGameOver = await _gameOver.TryProcessGameOver();
+
+                if (isGameOver)
+                {
+                    _saveService.DeleteCurrentSave();
                     break;
+                }
             }
 
-            EndGame();
+            ExitGame();
         }
 
-        private UniTask SetupSceneWithAnimation()
+        private void SaveGame()
         {
-            int initialBoardSize = _gameRules.CurrentRules.BoardSize;
-            UniTask setupBoardTask = SetupBoardWithAnimation(initialBoardSize);
-
-            UniTask setupTileQueueTask = _tileQueue.AddInitialTilesWithAnimation();
-
-            return UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
+            GameData data = _serializer.GetData();
+            _saveService.Save(data);
         }
 
-        private UniTask SetupBoardWithAnimation(int size)
+        private UniTask SetupBoardWithAnimation(BoardData boardData)
         {
-            BoardData initialBoardData = BoardData.Square(size);
-            SetupBoardAction setupBoardAction = new SetupBoardAction(initialBoardData, _tileFactory, _board);
+            SetupBoardAction setupBoardAction = new SetupBoardAction(boardData, _tileFactory, _board);
 
             return setupBoardAction.Run();
         }
@@ -117,7 +135,7 @@ namespace GameLoop.EndlessMode
             return resizeAction.Run();
         }
 
-        private void EndGame()
+        private void ExitGame()
         {
             GameSceneManager.LoadMainMenu();
         }

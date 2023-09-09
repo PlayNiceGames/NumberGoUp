@@ -7,7 +7,6 @@ using GameTileQueue;
 using GameTileQueue.Generators;
 using ServiceLocator;
 using Tutorial;
-using Tutorial.Dialog;
 using Tutorial.Steps;
 using Tutorial.Steps.Data;
 using UnityEngine;
@@ -19,24 +18,12 @@ namespace GameLoop.Tutorial
         [SerializeField] private TutorialDatabase _data;
         [SerializeField] private TutorialStepFactory _stepFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
-        [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileQueue _tileQueue;
-        [SerializeField] private TutorialDialogController _dialogController;
 
         private TutorialTileQueueGenerator _tileQueueGenerator;
         private AnalyticsService _analytics;
 
-        public override void SetupEmptyGame()
-        {
-            SetupDependencies();
-        }
-
-        public override void SetupFromSavedGame(GameData currentSaveToLoad)
-        {
-            SetupDependencies();
-        }
-
-        private void SetupDependencies()
+        public override void Setup()
         {
             _scoreSystem.SetEnabled(false);
 
@@ -46,12 +33,27 @@ namespace GameLoop.Tutorial
             _analytics = GlobalServices.Get<AnalyticsService>();
         }
 
-        public override async UniTask Run()
+        public override UniTask RunNewGame()
+        {
+            return RunGame();
+        }
+
+        public override UniTask RunSavedGame(GameData save)
+        {
+            return RunGame();
+        }
+
+        private async UniTask RunGame()
         {
             _analytics.Send(new TutorialStartEvent());
 
-            await _tileQueue.AddInitialTilesWithAnimation();
+            await _tileQueue.SetupInitialTilesWithAnimation();
 
+            await Run();
+        }
+
+        protected override async UniTask Run()
+        {
             int index = 0;
             foreach (TutorialStepData stepData in _data.Steps)
             {

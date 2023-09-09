@@ -29,6 +29,25 @@ namespace GameTileQueue
             _tiles = new Queue<Tile>();
         }
 
+        public UniTask SetupInitialTilesWithAnimation()
+        {
+            TileData[] initialTilesData = _generator.GetNextTilesData(QueueSize);
+            return SetupTilesWithAnimation(initialTilesData);
+        }
+
+        public UniTask SetDataWithAnimation(TileQueueData data)
+        {
+            return SetupTilesWithAnimation(data.Tiles);
+        }
+
+        private async UniTask SetupTilesWithAnimation(TileData[] tileData)
+        {
+            ClearTiles();
+
+            List<Tile> tiles = await _appearSequence.Play(tileData);
+            _tiles = new Queue<Tile>(tiles);
+        }
+
         public Tile PopNextTile()
         {
             Tile firstTile = RemoveFirstTile();
@@ -37,48 +56,10 @@ namespace GameTileQueue
             nextTile.FadeAnimation.Fade(false);
 
             Tile newTile = AddNextTile();
+            newTile.FadeAnimation.Fade(true);
             PlayAdvanceTileAnimation(newTile).Forget();
 
             return firstTile;
-        }
-
-        public Tile PeekNextTile()
-        {
-            return _tiles.TryPeek(out Tile result) ? result : null;
-        }
-
-        public async UniTask AddInitialTilesWithAnimation()
-        {
-            TileData[] initialTilesData = _generator.GetNextTilesData(QueueSize);
-            List<Tile> initialTiles = await _appearSequence.Play(initialTilesData);
-
-            _tiles = new Queue<Tile>(initialTiles);
-        }
-
-        private void AddInitialTiles()
-        {
-            ClearTiles();
-
-            for (int i = 0; i < QueueSize; i++)
-                AddNextTile();
-        }
-
-        private void ClearTiles()
-        {
-            foreach (Tile tile in _tiles)
-                tile.ClearParent();
-
-            _tiles.Clear();
-        }
-
-        private Tile AddNextTile()
-        {
-            Tile tile = InstantiateNextTile();
-            tile.SetParent(_grid);
-
-            _tiles.Enqueue(tile);
-
-            return tile;
         }
 
         private async UniTask PlayAdvanceTileAnimation(Tile nextTile)
@@ -90,12 +71,37 @@ namespace GameTileQueue
             _advanceTileAnimationPlaying.TrySetResult();
         }
 
-        private Tile InstantiateNextTile()
+        public Tile PeekNextTile()
+        {
+            return _tiles.TryPeek(out Tile result) ? result : null;
+        }
+
+        private void ClearTiles()
+        {
+            if (_tiles == null)
+                return;
+
+            foreach (Tile tile in _tiles)
+                tile.ClearParent();
+
+            _tiles.Clear();
+        }
+
+        private Tile AddNextTile()
         {
             TileData tileData = _generator.GetNextTileData();
+            Tile tile = AddTile(tileData);
 
+            return tile;
+        }
+
+        private Tile AddTile(TileData tileData)
+        {
             Tile tile = _factory.InstantiateTile(tileData);
-            tile.FadeAnimation.Fade(true);
+            tile.SetParent(_grid);
+
+            _tiles.Enqueue(tile);
+
             return tile;
         }
 
@@ -119,15 +125,23 @@ namespace GameTileQueue
         public TileQueueData GetData()
         {
             TileData[] tilesData = _tiles.Select(tile => tile.GetData()).ToArray();
+            TileQueueGeneratorData generatorData = _generator.GetData();
 
-            return new TileQueueData(tilesData);
+            return new TileQueueData(tilesData, generatorData);
         }
 
         public void SetData(TileQueueData data)
         {
-            foreach (TileData tileData in data.Tiles)
+            ClearTiles();
+
+            _generator.SetData(data.GeneratorData);
+
+            for (int i = 0; i < data.Tiles.Length; i++)
             {
-                //Tile tile = 
+                TileData tileData = data.Tiles[i];
+                Tile tile = AddTile(tileData);
+
+                tile.FadeAnimation.Fade(i == 0);
             }
         }
     }

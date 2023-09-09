@@ -1,39 +1,42 @@
 ﻿using System.Collections.Generic;
 using GameLoop.Rules;
+using GameScore;
+using Serialization;
 using Tiles.Data;
 using UnityEngine;
 using Utils;
 
-namespace GameTileQueue
+namespace GameTileQueue.Generators
 {
-    public class TileQueueSet
+    public class TileQueueSet : IDataSerializable<TileQueueSetData>
     {
-        private TileQueueSet _prevSet;
+        private readonly TileQueueSet _prevSet;
 
-        private TileQueueGeneratorSettings _settings;
-        private GameRules _rules;
-        private int _currentScore;
+        private readonly TileQueueGeneratorSettings _settings;
+        private readonly GameRules _rules;
+        private readonly ScoreSystem _scoreSystem;
 
         private bool _bigTileGenerated;
         private bool _mixedTileGenerated;
         private int? _prevGeneratedEraserTileScore;
-        private Dictionary<int, int> _colorNotAppearingCount;
+        private Dictionary<int, int> _colorsNotAppearingCount;
 
         private TileData[] _tiles;
 
-        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules, int currentScore)
+        public TileQueueSet(TileQueueSet prevSet, TileQueueGeneratorSettings settings, GameRules rules, ScoreSystem scoreSystem)
         {
             _prevSet = prevSet;
             _settings = settings;
             _rules = rules;
-            _currentScore = currentScore;
+            _scoreSystem = scoreSystem;
 
-            _colorNotAppearingCount = new Dictionary<int, int>();
-            _tiles = new TileData[_settings.TileQueueSize];
+            _colorsNotAppearingCount = new Dictionary<int, int>();
         }
 
         public TileData[] Generate()
         {
+            _tiles = new TileData[_settings.TileQueueSize];
+
             TryGenerateEraserTile();
             TrySetGuaranteedColors();
             TrySetGuaranteedBigTile();
@@ -48,31 +51,33 @@ namespace GameTileQueue
 
         private void TryGenerateEraserTile()
         {
-            if (!ShouldGenerateEraserTile(_currentScore))
+            int currentScore = _scoreSystem.Score;
+
+            if (!ShouldGenerateEraserTile(currentScore))
                 return;
 
             if (_prevSet?._prevGeneratedEraserTileScore == null)
             {
-                GenerateEraserTile();
+                GenerateEraserTile(currentScore);
                 return;
             }
 
-            int scoreRange = GetEraserTileScoreRange(_currentScore);
+            int scoreRange = GetEraserTileScoreRange(currentScore);
             int prevScoreRange = GetEraserTileScoreRange(_prevSet._prevGeneratedEraserTileScore.Value);
 
             if (scoreRange == prevScoreRange)
                 _prevGeneratedEraserTileScore = _prevSet._prevGeneratedEraserTileScore;
             else
-                GenerateEraserTile();
+                GenerateEraserTile(currentScore);
         }
 
-        private void GenerateEraserTile()
+        private void GenerateEraserTile(int score)
         {
             EraserTileData eraserTileData = new EraserTileData();
 
             if (TrySetTileInRandomPlace(eraserTileData))
             {
-                _prevGeneratedEraserTileScore = _currentScore;
+                _prevGeneratedEraserTileScore = score;
 
                 Debug.Log("Placed eraser tile");
             }
@@ -97,7 +102,7 @@ namespace GameTileQueue
             if (_prevSet == null)
                 return;
 
-            foreach (KeyValuePair<int, int> colorCount in _prevSet._colorNotAppearingCount)
+            foreach (KeyValuePair<int, int> colorCount in _prevSet._colorsNotAppearingCount)
             {
                 TryPlaceGuaranteedColorTile(colorCount);
             }
@@ -143,7 +148,7 @@ namespace GameTileQueue
                 }
                 else
                 {
-                    Debug.LogWarning($"Unable to place big tile");
+                    Debug.LogWarning("Unable to place big tile");
                 }
             }
         }
@@ -168,7 +173,7 @@ namespace GameTileQueue
                 }
                 else
                 {
-                    Debug.LogWarning($"Unable to place mixed tile");
+                    Debug.LogWarning("Unable to place mixed tile");
                 }
             }
         }
@@ -265,21 +270,21 @@ namespace GameTileQueue
 
         private void RecordTileColorIndexes()
         {
-            _colorNotAppearingCount.Clear();
+            _colorsNotAppearingCount.Clear();
             List<int> availableColors = _rules.GetAvailableColors();
 
             foreach (int color in availableColors)
             {
                 if (TryGetColorLastAppearedIndex(color, out int index))
                 {
-                    _colorNotAppearingCount[color] = _settings.TileQueueSize - index - 1;
+                    _colorsNotAppearingCount[color] = _settings.TileQueueSize - index - 1;
                 }
                 else
                 {
-                    if (_prevSet != null && _prevSet._colorNotAppearingCount.TryGetValue(color, out int prevColorNotAppearingCount))
-                        _colorNotAppearingCount[color] = prevColorNotAppearingCount + _settings.TileQueueSize;
+                    if (_prevSet != null && _prevSet._colorsNotAppearingCount.TryGetValue(color, out int prevColorNotAppearingCount))
+                        _colorsNotAppearingCount[color] = prevColorNotAppearingCount + _settings.TileQueueSize;
                     else
-                        _colorNotAppearingCount[color] = _settings.GuaranteedColorNotAppearingMaxCount;
+                        _colorsNotAppearingCount[color] = _settings.GuaranteedColorNotAppearingMaxCount;
                 }
             }
         }
@@ -304,6 +309,19 @@ namespace GameTileQueue
             }
 
             return isColorFound;
+        }
+
+        public TileQueueSetData GetData()
+        {
+            return new TileQueueSetData(_bigTileGenerated, _mixedTileGenerated, _prevGeneratedEraserTileScore, _colorsNotAppearingCount);
+        }
+
+        public void SetData(TileQueueSetData data)
+        {
+            _bigTileGenerated = data.BigTileGenerated;
+            _mixedTileGenerated = data.MixedTileGenerated;
+            _prevGeneratedEraserTileScore = data.PrevGeneratedEraserTileScore;
+            _colorsNotAppearingCount = data.ColorsNotAppearingCount;
         }
     }
 }

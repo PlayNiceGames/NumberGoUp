@@ -12,7 +12,7 @@ namespace GameBoard
         [Button, DisableInEditorMode]
         public void CreateBoard(int size)
         {
-            BoardData testData = BoardData.Square(size);
+            BoardData testData = BoardData.EmptySquare(size);
             _board.SetData(testData);
         }
 
