@@ -14,8 +14,14 @@ namespace GameSave
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private ScoreSystem _scoreSystem;
-        [SerializeField] private GameOverController _gameOver;
+        
+        private GameOverController _gameOver;
 
+        public void Setup(GameOverController gameOver)
+        {
+            _gameOver = gameOver;
+        }
+        
         public GameData GetData()
         {
             BoardData boardData = _board.GetData();

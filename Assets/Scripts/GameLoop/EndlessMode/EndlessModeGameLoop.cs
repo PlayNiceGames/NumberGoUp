@@ -50,6 +50,8 @@ namespace GameLoop.EndlessMode
             _tileQueue.Setup(_tileQueueGenerator);
 
             _gameOver = new GameOverController(_gameOverUI, _board, _scoreSystem, _settings.GameOverSettings, _tileQueue, _analytics);
+
+            _serializer.Setup(_gameOver);
         }
 
         public override async UniTask RunNewGame()
