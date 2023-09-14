@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using GameAudio;
+﻿using GameAudio;
 using GameSave;
 using ServiceLocator;
 using UnityEngine;
@@ -8,6 +7,7 @@ namespace MainMenu
 {
     public class MainMenuUI : MonoBehaviour
     {
+        [SerializeField] private NewGameDialogUI _newGameDialog;
         [SerializeField] private MainMenuBackground _background;
 
         private Audio _audio;
@@ -33,7 +33,7 @@ namespace MainMenu
             GameData currentSave = _gameSaveService.LastSave;
             if (currentSave != null)
             {
-                NewGameDialogResult dialogResult = await ShowSaveDialog();
+                NewGameDialogResult dialogResult = await _newGameDialog.Show();
 
                 if (dialogResult == NewGameDialogResult.NewGame)
                     currentSave = null;
@@ -42,11 +42,6 @@ namespace MainMenu
             await _background.PlayTransition(); //TODO create good system for UI transition
 
             GameSceneManager.LoadEndlessMode(currentSave);
-        }
-
-        private async UniTask<NewGameDialogResult> ShowSaveDialog()
-        {
-            return NewGameDialogResult.Continue;
         }
 
         public async void ClickTutorial()

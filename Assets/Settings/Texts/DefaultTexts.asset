@@ -23,6 +23,8 @@ MonoBehaviour:
     - score_title
     - continue
     - exit
+    - new_game
+    - continue_game
     _valueData:
     - Game Over
     - HIGH SCORE
@@ -33,3 +35,5 @@ MonoBehaviour:
     - Total Score
     - CONTINUE
     - EXIT
+    - NEW GAME
+    - CONTINUE

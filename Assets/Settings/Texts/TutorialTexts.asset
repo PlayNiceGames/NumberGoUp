@@ -57,8 +57,8 @@ MonoBehaviour:
     - dialog_title_center_merge_2
     - dialog_text_double_merge_2
     _valueData:
-    - "Let\u2019s Merge! Tap on an empty tile to place a number. Numbers in que are
-      shown at the bottom"
+    - "Let\u2019s Merge! Tap on an empty tile to place a number. Numbers in queue
+      are shown at the bottom"
     - Nicely Done! Number Go Up by absorbing adjacent blocks of the same color and
       value
     - Older Blocks absorb newly placed ones. Blocks with the larger number will absorb
