@@ -18,7 +18,7 @@
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.2.0"
+        "com.google.firebase.app": "11.4.0"
       }
     },
     "com.google.firebase.app": {
@@ -26,7 +26,7 @@
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.176"
+        "com.google.external-dependency-manager": "1.2.177"
       }
     },
     "com.google.firebase.messaging": {

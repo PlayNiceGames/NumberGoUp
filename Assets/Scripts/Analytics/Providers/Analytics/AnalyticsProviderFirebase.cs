@@ -1,4 +1,4 @@
-﻿#if FIREBASE
+﻿#if FIREBASE_ANALYTICS
 using System;
 using System.Collections.Generic;
 using System.Linq;

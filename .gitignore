@@ -13,6 +13,7 @@ UserSettings/
 # ===================================== #
 .idea
 .vs
+.utmp
 _ReSharper*/
 ExportedObj/
 obj/

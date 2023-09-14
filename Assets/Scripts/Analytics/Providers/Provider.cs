@@ -1,5 +1,4 @@
-﻿using Analytics.Events;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Analytics.Providers
 {
