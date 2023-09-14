@@ -29,6 +29,14 @@
         "com.google.external-dependency-manager": "1.2.176"
       }
     },
+    "com.google.firebase.messaging": {
+      "version": "file:../Assets/Submodules/Packages/com.google.firebase.messaging.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.firebase.app": "11.4.0"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "10.0.2",
       "depth": 1,
