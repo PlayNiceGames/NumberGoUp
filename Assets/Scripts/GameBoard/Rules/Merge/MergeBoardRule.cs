@@ -14,6 +14,13 @@ namespace GameBoard.Rules.Merge
         {
             _scoreSystem = scoreSystem;
         }
+        
+        protected IEnumerable<MergeContainer> GetSortedTileContainers()
+        {
+            IEnumerable<ValueTile> allValueTiles = _board.GetAllTiles<ValueTile>();
+            IEnumerable<MergeContainer> tiles = GetAllMergeableTileParts(allValueTiles);
+            return tiles.OrderByDescending(LargestTileSortingRule).ThenByDescending(AgeTileSortingRule);
+        }
 
         protected IEnumerable<MergeContainer> GetAllMergeableTileParts(IEnumerable<ValueTile> tiles)
         {
@@ -29,13 +36,6 @@ namespace GameBoard.Rules.Merge
                     yield return new RegularTileContainer(regularTile, null);
                 }
             }
-        }
-
-        protected IEnumerable<MergeContainer> GetSortedTileContainers()
-        {
-            IEnumerable<ValueTile> allValueTiles = _board.GetAllTiles<ValueTile>();
-            IEnumerable<MergeContainer> tiles = GetAllMergeableTileParts(allValueTiles);
-            return tiles.OrderByDescending(LargestTileSortingRule).ThenByDescending(AgeTileSortingRule);
         }
 
         private int LargestTileSortingRule(MergeContainer container)

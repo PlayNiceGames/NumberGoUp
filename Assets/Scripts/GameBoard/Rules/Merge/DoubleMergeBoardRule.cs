@@ -13,7 +13,7 @@ namespace GameBoard.Rules.Merge
     public class DoubleMergeBoardRule : MergeBoardRule
     {
         private readonly TileFactory _factory;
-        private AnalyticsService _analytics;
+        private readonly AnalyticsService _analytics;
 
         public DoubleMergeBoardRule(Board board, TileFactory factory, ScoreSystem scoreSystem, AnalyticsService analytics) : base(board, scoreSystem)
         {
@@ -44,9 +44,9 @@ namespace GameBoard.Rules.Merge
             return null;
         }
 
-        private DoubleMergeBoardTurn TryGetBothPartsTurn(MergeContainer container, MergeContainer diagonalContainer, IEnumerable<MergeContainer> mergeableContainers)
+        private DoubleMergeBoardTurn TryGetBothPartsTurn(MergeContainer target, MergeContainer diagonalContainer, IEnumerable<MergeContainer> mergeableContainers)
         {
-            if (container is not MixedTileContainer mixedContainer || diagonalContainer is not MixedTileContainer mixedDiagonalContainer)
+            if (target is not MixedTileContainer mixedContainer || diagonalContainer is not MixedTileContainer mixedDiagonalContainer)
                 return null;
 
             MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
@@ -62,7 +62,8 @@ namespace GameBoard.Rules.Merge
             MixedTileContainer bothPartsDiagonalContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
 
             IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
+                    MergeContainer.TryCreateMergeContainer(mergeableContainer.Tile, bothPartsContainer))
+                .Where(container => container != null);
 
             return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _factory, _scoreSystem, _analytics);
         }
@@ -75,10 +76,10 @@ namespace GameBoard.Rules.Merge
             if (_board.GetTile(firstPosition) is not ValueTile firstTile || _board.GetTile(secondPosition) is not ValueTile secondTile)
                 return null;
 
-            MergeContainer firstTileContainer = MergeContainer.GetMergeContainer(firstTile, container);
-            MergeContainer secondTileContainer = MergeContainer.GetMergeContainer(secondTile, container);
+            MergeContainer firstTileContainer = MergeContainer.TryCreateMergeContainer(firstTile, container);
+            MergeContainer secondTileContainer = MergeContainer.TryCreateMergeContainer(secondTile, container);
 
-            if (!firstTileContainer.IsMergeable(container) || !secondTileContainer.IsMergeable(container))
+            if (firstTileContainer == null || secondTileContainer == null)
                 return null;
 
             int sum = firstTileContainer.GetValue() + secondTileContainer.GetValue();
@@ -86,14 +87,15 @@ namespace GameBoard.Rules.Merge
             if (sum != container.GetValue())
                 return null;
 
-            return new List<MergeContainer> {firstTileContainer, secondTileContainer};
+            return new List<MergeContainer> { firstTileContainer, secondTileContainer };
         }
 
-        private IEnumerable<MergeContainer> GetDiagonalTileContainers(MergeContainer container)
+        private IEnumerable<MergeContainer> GetDiagonalTileContainers(MergeContainer target)
         {
-            IEnumerable<ValueTile> diagonalTiles = _board.GetDiagonalTiles(container.Tile.BoardPosition).OfType<ValueTile>();
-            IEnumerable<ValueTile> sameDiagonalTiles = diagonalTiles.Where(tile => tile.Equals(container.Tile));
-            IEnumerable<MergeContainer> diagonalContainers = sameDiagonalTiles.Select(sameTile => MergeContainer.GetMergeContainer(sameTile, container));
+            IEnumerable<ValueTile> diagonalTiles = _board.GetDiagonalTiles(target.Tile.BoardPosition).OfType<ValueTile>();
+            IEnumerable<ValueTile> sameDiagonalTiles = diagonalTiles.Where(tile => tile.Equals(target.Tile));
+            IEnumerable<MergeContainer> diagonalContainers = sameDiagonalTiles.Select(sameTile => MergeContainer.TryCreateMergeContainer(sameTile, target))
+                .Where(container => container != null);
 
             return diagonalContainers;
         }

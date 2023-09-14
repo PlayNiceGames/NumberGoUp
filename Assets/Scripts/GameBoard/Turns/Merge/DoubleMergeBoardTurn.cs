@@ -66,7 +66,7 @@ namespace GameBoard.Turns.Merge
                 ValueTile fakeTile = (ValueTile) _factory.InstantiateTile(fakeTileData);
                 fakeTile.transform.position = mergeContainer.Tile.transform.position;
 
-                MergeContainer fakeTileContainer = MergeContainer.GetMergeContainer(fakeTile, _secondContainer);
+                MergeContainer fakeTileContainer = MergeContainer.TryCreateMergeContainer(fakeTile, _secondContainer);
 
                 yield return fakeTileContainer;
             }

@@ -4,7 +4,6 @@
     {
         Top,
         Bottom,
-        Both,
-        None
+        Both
     }
 }

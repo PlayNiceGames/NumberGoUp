@@ -14,26 +14,31 @@
             Target = target;
         }
 
-        public static MergeContainer GetMergeContainer(ValueTile tile, MergeContainer target)
+        public static MergeContainer TryCreateMergeContainer(ValueTile tile, MergeContainer target)
         {
+            MergeContainer container = null;
+
             if (tile is RegularTile regularTile)
-                return new RegularTileContainer(regularTile, target);
-
-            if (tile is MixedTile mixedTile)
             {
-                if (target is RegularTileContainer regularMergeContainer)
-                {
-                    if (mixedTile.Top.Color == regularMergeContainer.GetColor())
-                        return new MixedTileContainer(mixedTile, target, MixedTilePartType.Top);
-                    if (mixedTile.Bottom.Color == regularMergeContainer.GetColor())
-                        return new MixedTileContainer(mixedTile, target, MixedTilePartType.Bottom);
-
-                    return new MixedTileContainer(mixedTile, target, MixedTilePartType.None);
-                }
-
-                if (target is MixedTileContainer mixedMergeContainer)
-                    return new MixedTileContainer(mixedTile, target, mixedMergeContainer.PartType);
+                container = new RegularTileContainer(regularTile, target);
             }
+            else if (tile is MixedTile mixedTile)
+            {
+                if (target is RegularTileContainer regularTileTargetContainer)
+                {
+                    if (mixedTile.Top.Color == regularTileTargetContainer.GetColor())
+                        container = new MixedTileContainer(mixedTile, target, MixedTilePartType.Top);
+                    if (mixedTile.Bottom.Color == regularTileTargetContainer.GetColor())
+                        container = new MixedTileContainer(mixedTile, target, MixedTilePartType.Bottom);
+                }
+                else if (target is MixedTileContainer mixedTileTargetContainer)
+                {
+                    container = new MixedTileContainer(mixedTile, target, mixedTileTargetContainer.PartType);
+                }
+            }
+
+            if (container != null && container.IsMergeable(target))
+                return container;
 
             return null;
         }

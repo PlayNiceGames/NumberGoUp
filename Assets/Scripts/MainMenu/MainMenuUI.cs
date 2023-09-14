@@ -39,7 +39,7 @@ namespace MainMenu
                     currentSave = null;
             }
 
-            await _background.PlayTransition(); //TODO create google system for UI transition
+            await _background.PlayTransition(); //TODO create good system for UI transition
 
             GameSceneManager.LoadEndlessMode(currentSave);
         }

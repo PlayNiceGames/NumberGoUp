@@ -34,9 +34,9 @@ namespace GameBoard.Rules.Merge
             return null;
         }
 
-        private SimpleMergeBoardTurn TryGetBothPartsTurn(MergeContainer container, IEnumerable<MergeContainer> mergeableContainers)
+        private SimpleMergeBoardTurn TryGetBothPartsTurn(MergeContainer target, IEnumerable<MergeContainer> mergeableContainers)
         {
-            if (container is not MixedTileContainer mixedContainer)
+            if (target is not MixedTileContainer mixedContainer)
                 return null;
 
             MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
@@ -50,7 +50,8 @@ namespace GameBoard.Rules.Merge
             MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
 
             IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                MergeContainer.GetMergeContainer(mergeableContainer.Tile, bothPartsContainer));
+                    MergeContainer.TryCreateMergeContainer(mergeableContainer.Tile, bothPartsContainer))
+                .Where(container => container != null);
 
             return new SimpleMergeBoardTurn(bothPartsContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
@@ -63,18 +64,18 @@ namespace GameBoard.Rules.Merge
             return tiles;
         }
 
-        private List<MergeContainer> GetNearbyMergeableTiles(MergeContainer container, List<ValueTile> validNearbyTiles)
+        private List<MergeContainer> GetNearbyMergeableTiles(MergeContainer target, List<ValueTile> validNearbyTiles)
         {
-            IEnumerable<MergeContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => MergeContainer.GetMergeContainer(tile, container));
-            IEnumerable<MergeContainer> mergeableTiles = validNearbyTileContainers.Where(tile => tile.IsMergeable(container));
-            IEnumerable<IEnumerable<MergeContainer>> combinations = mergeableTiles.Combinations();
+            IEnumerable<MergeContainer> validNearbyTileContainers = validNearbyTiles.Select(tile => MergeContainer.TryCreateMergeContainer(tile, target))
+                .Where(container => container != null);
+            IEnumerable<IEnumerable<MergeContainer>> combinations = validNearbyTileContainers.Combinations();
 
             foreach (IEnumerable<MergeContainer> combination in combinations)
             {
                 List<MergeContainer> combinationList = combination.ToList();
 
                 int sum = combinationList.Sum(combinationContainer => combinationContainer.GetValue());
-                if (sum == container.GetValue())
+                if (sum == target.GetValue())
                     return combinationList;
             }
 

@@ -71,9 +71,6 @@ namespace Tiles.Containers
 
         public override bool IsMergeable(MergeContainer other)
         {
-            if (PartType == MixedTilePartType.None)
-                return false;
-
             if (PartType == MixedTilePartType.Both)
             {
                 if (other is MixedTileContainer mixedTileContainer)
@@ -99,11 +96,7 @@ namespace Tiles.Containers
                     newPartType = MixedTilePartType.Top;
                     break;
                 case MixedTilePartType.Both:
-                    newPartType = MixedTilePartType.None;
-                    break;
-                case MixedTilePartType.None:
-                    newPartType = MixedTilePartType.Both;
-                    break;
+                    return null;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

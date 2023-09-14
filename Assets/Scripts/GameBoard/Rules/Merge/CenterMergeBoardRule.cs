@@ -11,8 +11,8 @@ namespace GameBoard.Rules.Merge
 {
     public class CenterMergeBoardRule : MergeBoardRule
     {
-        private AnalyticsService _analytics;
-        
+        private readonly AnalyticsService _analytics;
+
         public CenterMergeBoardRule(Board board, ScoreSystem scoreSystem, AnalyticsService analytics) : base(board, scoreSystem)
         {
             _scoreSystem = scoreSystem;
@@ -21,21 +21,33 @@ namespace GameBoard.Rules.Merge
 
         public override BoardTurn GetTurn()
         {
-            IEnumerable<ValueTile> allTiles = _board.GetAllTiles<ValueTile>();
-            foreach (ValueTile tile in allTiles)
+            IEnumerable<MergeContainer> allMergeableContainers = GetSortedTileContainers();
+
+            foreach (MergeContainer target in allMergeableContainers)
             {
-                IEnumerable<ValueTile> nearbyTiles = _board.GetNearbyTiles(tile.BoardPosition).OfType<ValueTile>();
-                IEnumerable<ValueTile> sameTiles = nearbyTiles.Where(nearbyTile => nearbyTile.Equals(tile)).ToList();
+                List<ValueTile> nearbyTiles = _board.GetNearbyTiles(target.Tile.BoardPosition).OfType<ValueTile>().ToList();
+                List<MergeContainer> mergeableTileContainers = GetMergeableTiles(target, nearbyTiles).ToList();
 
-                MergeContainer tileContainer = GetContainer(tile);
-                List<MergeContainer> sameTileContainers = sameTiles.Select(sameTile => MergeContainer.GetMergeContainer(sameTile, tileContainer)).ToList();
-
-                int sameTilesCount = sameTileContainers.Count;
+                int sameTilesCount = mergeableTileContainers.Count;
                 if (sameTilesCount > 1)
-                    return new CenterMergeBoardTurn(tileContainer, sameTileContainers, _board, _scoreSystem, _analytics);
+                    return new CenterMergeBoardTurn(target, mergeableTileContainers, _board, _scoreSystem, _analytics);
             }
 
             return null;
+        }
+
+        private IEnumerable<MergeContainer> GetMergeableTiles(MergeContainer target, List<ValueTile> nearbyTiles)
+        {
+            foreach (ValueTile nearbyTile in nearbyTiles)
+            {
+                MergeContainer mergeContainer = MergeContainer.TryCreateMergeContainer(nearbyTile, target);
+
+                if (mergeContainer == null)
+                    continue;
+
+                if (mergeContainer.GetValue() == target.GetValue())
+                    yield return mergeContainer;
+            }
         }
 
         private MergeContainer GetContainer(ValueTile tile)
