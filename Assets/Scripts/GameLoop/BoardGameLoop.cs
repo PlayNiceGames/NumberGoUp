@@ -28,16 +28,14 @@ namespace GameLoop
             _boardRules = new BoardRules(_board, _scoreSystem, _factory);
         }
 
-        public async UniTask Run()
+        public async UniTask ProcessBoard()
         {
-            await ProcessUserInput();
-
             await _boardRules.ProcessRules();
 
             await AgeTiles();
         }
 
-        private async UniTask ProcessUserInput()
+        public async UniTask ProcessUserInput()
         {
             await _tileQueue.WaitUntilTileAdvances();
 

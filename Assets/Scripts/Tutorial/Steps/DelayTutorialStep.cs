@@ -15,7 +15,7 @@ namespace Tutorial.Steps
 
         public override async UniTask<bool> Run()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_data.DelaySeconds));
+            await UniTask.WaitForSeconds(_data.DelaySeconds);
 
             return false;
         }

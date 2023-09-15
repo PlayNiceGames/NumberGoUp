@@ -5,7 +5,7 @@ namespace GameAds
 {
     public class RewardedAd
     {
-        private const int AdRewardTimeoutMs = 200;
+        private const float AdRewardTimeoutSeconds = 0.5f;
 
         private readonly string _placementName;
         private bool _adClosed;
@@ -54,7 +54,7 @@ namespace GameAds
             await adClosedTask;
 
             UniTask adRewardedTask = UniTask.WaitUntil(() => _adRewarded);
-            UniTask rewardTimeoutTask = UniTask.Delay(AdRewardTimeoutMs);
+            UniTask rewardTimeoutTask = UniTask.WaitForSeconds(AdRewardTimeoutSeconds);
 
             await UniTask.WhenAny(adRewardedTask, rewardTimeoutTask);
 

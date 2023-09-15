@@ -34,6 +34,8 @@ namespace Analytics.Providers.PushNotifications
             FirebaseMessaging.TokenReceived += OnTokenReceived;
             FirebaseMessaging.MessageReceived += OnMessageReceived;
 
+            Debug.Log("Firebase Cloud messaging is ready");
+            
             IsReady = true;
         }
 
@@ -43,7 +45,7 @@ namespace Analytics.Providers.PushNotifications
 
             if (status == DependencyStatus.Available)
             {
-                Debug.Log("Firebase initialized");
+                Debug.Log("Firebase dependencies fixed");
 
                 _firebase = FirebaseApp.DefaultInstance;
 

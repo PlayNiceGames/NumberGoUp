@@ -1,6 +1,7 @@
 ﻿using System;
 using GameBoard;
 using GameLoop;
+using GameSettings;
 using Tiles;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
@@ -14,6 +15,7 @@ namespace Tutorial.Steps
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TutorialDialogController _dialogController;
+        [SerializeField] private GameExitButton _exitButton;
 
         public TutorialStep CreateStep(TutorialStepData data)
         {
@@ -24,7 +26,7 @@ namespace Tutorial.Steps
                 case SetupBoardTutorialStepData setupBoardStepData:
                     return new SetupBoardTutorialStep(setupBoardStepData, _tileFactory, _board);
                 case BoardTurnTutorialStepData boardTurnStepData:
-                    return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop);
+                    return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop, _exitButton);
                 case DialogTutorialStepData dialogStepData:
                     return new DialogTutorialStep(dialogStepData, _dialogController);
                 case DialogQuestionTutorialStepData dialogQuestionStepData:

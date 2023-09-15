@@ -9,11 +9,13 @@ using GameLoop.Rules;
 using GameOver;
 using GameSave;
 using GameScore;
+using GameSettings;
 using GameTileQueue;
 using GameTileQueue.Generators;
 using ServiceLocator;
 using Tiles;
 using UnityEngine;
+using Utils;
 
 namespace GameLoop.EndlessMode
 {
@@ -28,6 +30,7 @@ namespace GameLoop.EndlessMode
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private GameOverUI _gameOverUI;
+        [SerializeField] private GameExitButton _exitButton;
         [SerializeField] private GameDataSerializer _serializer;
 
         private GameSaveService _saveService;
@@ -92,17 +95,25 @@ namespace GameLoop.EndlessMode
         {
             while (true)
             {
-                await _boardLoop.Run();
+                UniTask boardInputTask = _boardLoop.ProcessUserInput();
+                UniTask backButtonClickTask = _exitButton.WaitForClick();
+
+                await UniTask.WhenAny(boardInputTask, backButtonClickTask);
+
+                if (backButtonClickTask.IsCompleted())
+                    break;
+
+                await _boardLoop.ProcessBoard();
 
                 _gameRules.UpdateCurrentRules();
 
                 await TryUpdateBoardSize();
 
+                bool showEndGame = await _gameOver.TryProcessGameOver();
+
                 SaveGame();
 
-                bool isGameOver = await _gameOver.TryProcessGameOver();
-
-                if (isGameOver)
+                if (showEndGame)
                 {
                     _saveService.DeleteCurrentSave();
                     break;

@@ -6,6 +6,8 @@ namespace GameAds
 {
     public class BannerAd : MonoBehaviour
     {
+        private const float BannerLoadRetryTime = 5.0f;
+        
         [SerializeField] private string _placementName;
         [SerializeField] private BannerAdSize _size;
         [SerializeField] private IronSourceBannerPosition _position;
@@ -62,7 +64,7 @@ namespace GameAds
 
         private async UniTask RetryBannerLoading()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: destroyCancellationToken);
+            await UniTask.WaitForSeconds(BannerLoadRetryTime, cancellationToken: destroyCancellationToken);
 
             LoadBanner();
         }
