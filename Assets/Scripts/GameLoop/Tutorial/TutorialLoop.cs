@@ -35,15 +35,15 @@ namespace GameLoop.Tutorial
 
         public override UniTask RunNewGame()
         {
-            return RunGame();
+            return RunTutorial();
         }
 
         public override UniTask RunSavedGame(GameData save)
         {
-            return RunGame();
+            return RunTutorial();
         }
 
-        private async UniTask RunGame()
+        private async UniTask RunTutorial()
         {
             _analytics.Send(new TutorialStartEvent());
 
@@ -57,26 +57,38 @@ namespace GameLoop.Tutorial
             int index = 0;
             foreach (TutorialStepData stepData in _data.Steps)
             {
-                _analytics.Send(new TutorialStepEvent(stepData.Name, index));
-
                 TutorialStep step = _stepFactory.CreateStep(stepData);
 
-                bool shouldEndTutorial = await step.Run();
+                TutorialStepResult result = await step.Run();
 
-                if (shouldEndTutorial)
+                _analytics.Send(new TutorialStepEvent(stepData.Name, index, result));
+
+                if (result == TutorialStepResult.StartGame)
+                {
+                    StartGame();
                     break;
+                }
+
+                if (result == TutorialStepResult.ExitToMenu)
+                {
+                    ExitToMainMenu();
+                    break;
+                }
 
                 index++;
             }
-
-            EndTutorial();
         }
 
-        private void EndTutorial()
+        private void StartGame()
         {
             _analytics.Send(new TutorialEndEvent());
 
             GameSceneManager.LoadEndlessMode();
+        }
+
+        private void ExitToMainMenu()
+        {
+            GameSceneManager.LoadMainMenu();
         }
     }
 }

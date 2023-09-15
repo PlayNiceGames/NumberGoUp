@@ -22,7 +22,7 @@ namespace Tutorial.Steps
             _board = board;
         }
 
-        public override async UniTask<bool> Run()
+        public override async UniTask<TutorialStepResult> Run()
         {
             BoardData boardData = _data.BoardConfiguration;
 
@@ -30,7 +30,7 @@ namespace Tutorial.Steps
 
             await setupBoardAction.Run();
 
-            return false;
+            return TutorialStepResult.Completed;
         }
     }
 }

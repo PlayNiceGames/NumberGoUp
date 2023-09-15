@@ -20,7 +20,7 @@ namespace Tutorial.Steps
             _exitButton = exitButton;
         }
 
-        public override async UniTask<bool> Run()
+        public override async UniTask<TutorialStepResult> Run()
         {
             for (int i = 0; i < _data.TurnCount; i++)
             {
@@ -30,12 +30,12 @@ namespace Tutorial.Steps
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask);
 
                 if (backButtonClickTask.IsCompleted())
-                    return true;
+                    return TutorialStepResult.ExitToMenu;
 
                 await _loop.ProcessBoard();
             }
 
-            return false;
+            return TutorialStepResult.Completed;
         }
     }
 }

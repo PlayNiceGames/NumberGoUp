@@ -13,11 +13,11 @@ namespace Tutorial.Steps
             _data = data;
         }
 
-        public override async UniTask<bool> Run()
+        public override async UniTask<TutorialStepResult> Run()
         {
             await UniTask.WaitForSeconds(_data.DelaySeconds);
 
-            return false;
+            return TutorialStepResult.Completed;
         }
     }
 }

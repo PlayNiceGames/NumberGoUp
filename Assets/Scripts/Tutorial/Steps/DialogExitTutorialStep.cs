@@ -1,7 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using GameSettings;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
+using Utils;
 
 namespace Tutorial.Steps
 {
@@ -11,18 +13,26 @@ namespace Tutorial.Steps
         private DialogExitTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
+        private GameExitButton _exitButton;
 
-        public DialogExitTutorialStep(DialogExitTutorialStepData data, TutorialDialogController dialogController)
+        public DialogExitTutorialStep(DialogExitTutorialStepData data, TutorialDialogController dialogController, GameExitButton exitButton)
         {
             _data = data;
             _dialogController = dialogController;
+            _exitButton = exitButton;
         }
 
-        public override async UniTask<bool> Run()
+        public override async UniTask<TutorialStepResult> Run()
         {
-            await _dialogController.ShowDialogExit(_data.DialogKey);
+            UniTask dialogTask = _dialogController.ShowDialogExit(_data.DialogKey);
+            UniTask backButtonClickTask = _exitButton.WaitForClick();
 
-            return true;
+            await UniTask.WhenAny(dialogTask, backButtonClickTask);
+
+            if (backButtonClickTask.IsCompleted())
+                return TutorialStepResult.ExitToMenu;
+
+            return TutorialStepResult.StartGame;
         }
     }
 }

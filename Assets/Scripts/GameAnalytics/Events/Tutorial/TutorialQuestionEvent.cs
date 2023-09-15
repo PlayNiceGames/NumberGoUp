@@ -2,6 +2,7 @@
 using Analytics.Events;
 using Analytics.Parameters;
 using Tutorial.Dialog;
+using Tutorial.Steps;
 
 namespace GameAnalytics.Events.Tutorial
 {
@@ -10,9 +11,9 @@ namespace GameAnalytics.Events.Tutorial
         public override string EventName => "tutorial_question";
         public override string EventCategory => "tutorial";
 
-        private readonly TutorialQuestionAction _action;
+        private readonly TutorialStepResult _action;
 
-        public TutorialQuestionEvent(TutorialQuestionAction action)
+        public TutorialQuestionEvent(TutorialStepResult action)
         {
             _action = action;
         }

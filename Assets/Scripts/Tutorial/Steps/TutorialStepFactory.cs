@@ -30,9 +30,9 @@ namespace Tutorial.Steps
                 case DialogTutorialStepData dialogStepData:
                     return new DialogTutorialStep(dialogStepData, _dialogController);
                 case DialogQuestionTutorialStepData dialogQuestionStepData:
-                    return new DialogQuestionTutorialStep(dialogQuestionStepData, _dialogController);
+                    return new DialogQuestionTutorialStep(dialogQuestionStepData, _dialogController, _exitButton);
                 case DialogExitTutorialStepData dialogExitStepData:
-                    return new DialogExitTutorialStep(dialogExitStepData, _dialogController);
+                    return new DialogExitTutorialStep(dialogExitStepData, _dialogController, _exitButton);
             }
 
             throw new ArgumentException();

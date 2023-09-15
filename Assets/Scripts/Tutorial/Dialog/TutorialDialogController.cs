@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Tutorial.Steps;
 using UnityEngine;
 
 namespace Tutorial.Dialog
@@ -22,7 +23,7 @@ namespace Tutorial.Dialog
             _dialogUI.Show();
         }
 
-        public UniTask<TutorialQuestionAction> ShowDialogQuestion(string dialogKey)
+        public UniTask<TutorialStepResult> ShowDialogQuestion(string dialogKey)
         {
             HideAll();
 

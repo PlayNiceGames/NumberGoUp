@@ -2,6 +2,7 @@
 using GameAudio;
 using ServiceLocator;
 using SimpleTextProvider;
+using Tutorial.Steps;
 using UnityEngine;
 
 namespace Tutorial.Dialog
@@ -12,18 +13,18 @@ namespace Tutorial.Dialog
 
         private Audio _audio;
 
-        private UniTaskCompletionSource<TutorialQuestionAction> _buttonClicked;
+        private UniTaskCompletionSource<TutorialStepResult> _buttonClicked;
 
         private void Awake()
         {
             _audio = GlobalServices.Get<Audio>();
         }
 
-        public UniTask<TutorialQuestionAction> ShowWithResult()
+        public UniTask<TutorialStepResult> ShowWithResult()
         {
             gameObject.SetActive(true);
 
-            _buttonClicked = new UniTaskCompletionSource<TutorialQuestionAction>();
+            _buttonClicked = new UniTaskCompletionSource<TutorialStepResult>();
 
             return _buttonClicked.Task;
         }
@@ -43,14 +44,14 @@ namespace Tutorial.Dialog
         {
             _audio.PlayClick();
 
-            _buttonClicked?.TrySetResult(TutorialQuestionAction.Play);
+            _buttonClicked?.TrySetResult(TutorialStepResult.StartGame);
         }
 
         public void ClickContinueTutorialButton()
         {
             _audio.PlayClick();
 
-            _buttonClicked?.TrySetResult(TutorialQuestionAction.ContinueTutorial);
+            _buttonClicked?.TrySetResult(TutorialStepResult.Completed);
         }
     }
 }

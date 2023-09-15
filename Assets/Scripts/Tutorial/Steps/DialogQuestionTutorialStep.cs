@@ -2,9 +2,11 @@
 using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Tutorial;
+using GameSettings;
 using ServiceLocator;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
+using Utils;
 
 namespace Tutorial.Steps
 {
@@ -14,29 +16,36 @@ namespace Tutorial.Steps
         private DialogQuestionTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
+        private GameExitButton _exitButton;
 
         private AnalyticsService _analytics;
 
-        public DialogQuestionTutorialStep(DialogQuestionTutorialStepData data, TutorialDialogController dialogController)
+        public DialogQuestionTutorialStep(DialogQuestionTutorialStepData data, TutorialDialogController dialogController, GameExitButton exitButton)
         {
             _data = data;
             _dialogController = dialogController;
+            _exitButton = exitButton;
 
             _analytics = GlobalServices.Get<AnalyticsService>();
         }
 
-        public override async UniTask<bool> Run()
+        public override async UniTask<TutorialStepResult> Run()
         {
-            TutorialQuestionAction action = await _dialogController.ShowDialogQuestion(_data.DialogKey);
+            UniTask<TutorialStepResult> dialogTask = _dialogController.ShowDialogQuestion(_data.DialogKey);
+            UniTask backButtonClickTask = _exitButton.WaitForClick();
 
-            _analytics.Send(new TutorialQuestionEvent(action));
+            await UniTask.WhenAny(dialogTask, backButtonClickTask);
 
-            return action switch
-            {
-                TutorialQuestionAction.Play => true,
-                TutorialQuestionAction.ContinueTutorial => false,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            TutorialStepResult result;
+
+            if (backButtonClickTask.IsCompleted())
+                result = TutorialStepResult.ExitToMenu;
+            else
+                result = await dialogTask;
+
+            _analytics.Send(new TutorialQuestionEvent(result));
+
+            return result;
         }
     }
 }
