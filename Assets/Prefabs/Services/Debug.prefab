@@ -524,7 +524,7 @@ MonoBehaviour:
   _secondValue: 1
   _useGameColors: 0
   _firstColor: 0
-  _secondColor: 0
+  _secondColor: 1
   _firstDisplayedColor: {r: 0, g: 0, b: 0, a: 0}
   _secondDisplayedColor: {r: 0, g: 0, b: 0, a: 0}
   _factory: {fileID: 0}

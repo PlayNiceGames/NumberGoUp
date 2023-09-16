@@ -26,34 +26,10 @@ namespace GameBoard.Rules.Merge
                 if (mergeableContainers == null)
                     continue;
 
-                SimpleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, mergeableContainers);
-
-                return bothPartsTurn ?? new SimpleMergeBoardTurn(container, mergeableContainers, _board, _scoreSystem);
+                return new SimpleMergeBoardTurn(container, mergeableContainers, _board, _scoreSystem);
             }
 
             return null;
-        }
-
-        private SimpleMergeBoardTurn TryGetBothPartsTurn(MergeContainer target, IEnumerable<MergeContainer> mergeableContainers)
-        {
-            if (target is not MixedTileContainer mixedContainer)
-                return null;
-
-            MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
-
-            List<MergeContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer);
-
-            if (otherPartMergeableContainers == null)
-                return null;
-
-            MixedTile tile = mixedContainer.MixedTile;
-            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
-
-            IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                    MergeContainer.TryCreateMergeContainer(mergeableContainer.Tile, bothPartsContainer))
-                .Where(container => container != null);
-
-            return new SimpleMergeBoardTurn(bothPartsContainer, bothPartsMergeableContainers, _board, _scoreSystem);
         }
 
         private List<MergeContainer> GetMergeableContainers(MergeContainer container)

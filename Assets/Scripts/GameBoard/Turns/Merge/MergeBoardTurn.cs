@@ -33,7 +33,7 @@ namespace GameBoard.Turns.Merge
 
                 if (mergeTileContainer is RegularTileContainer mergeRegularTileContainer)
                 {
-                    action = new MergeTileBoardAction(mergeTileContainer, board);
+                    action = new MergeTileBoardAction(mergeRegularTileContainer, board);
                 }
                 else if (mergeTileContainer is MixedTileContainer mergeMixedTileContainer)
                 {

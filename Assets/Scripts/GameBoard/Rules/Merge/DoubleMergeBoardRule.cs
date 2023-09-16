@@ -36,36 +36,11 @@ namespace GameBoard.Rules.Merge
                     if (mergeableContainers == null)
                         continue;
 
-                    DoubleMergeBoardTurn bothPartsTurn = TryGetBothPartsTurn(container, diagonalContainer, mergeableContainers);
-                    return bothPartsTurn ?? new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _factory, _scoreSystem, _analytics);
+                    return new DoubleMergeBoardTurn(container, diagonalContainer, mergeableContainers, _board, _factory, _scoreSystem, _analytics);
                 }
             }
 
             return null;
-        }
-
-        private DoubleMergeBoardTurn TryGetBothPartsTurn(MergeContainer target, MergeContainer diagonalContainer, IEnumerable<MergeContainer> mergeableContainers)
-        {
-            if (target is not MixedTileContainer mixedContainer || diagonalContainer is not MixedTileContainer mixedDiagonalContainer)
-                return null;
-
-            MixedTileContainer otherPartContainer = mixedContainer.GetOtherPart();
-            MixedTileContainer otherDiagonalContainer = mixedDiagonalContainer.GetOtherPart();
-
-            List<MergeContainer> otherPartMergeableContainers = GetMergeableContainers(otherPartContainer, otherDiagonalContainer);
-
-            if (otherPartMergeableContainers == null)
-                return null;
-
-            MixedTile tile = mixedContainer.MixedTile;
-            MixedTileContainer bothPartsContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
-            MixedTileContainer bothPartsDiagonalContainer = new MixedTileContainer(tile, null, MixedTilePartType.Both);
-
-            IEnumerable<MergeContainer> bothPartsMergeableContainers = mergeableContainers.Select(mergeableContainer =>
-                    MergeContainer.TryCreateMergeContainer(mergeableContainer.Tile, bothPartsContainer))
-                .Where(container => container != null);
-
-            return new DoubleMergeBoardTurn(bothPartsContainer, bothPartsDiagonalContainer, bothPartsMergeableContainers, _board, _factory, _scoreSystem, _analytics);
         }
 
         private List<MergeContainer> GetMergeableContainers(MergeContainer container, MergeContainer diagonalContainer)

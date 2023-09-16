@@ -17,12 +17,12 @@ namespace GameBoard.Turns.Merge
     {
         public override MergeType Type => MergeType.Double;
 
-        private MergeContainer _firstContainer;
-        private MergeContainer _secondContainer;
-        private List<MergeContainer> _mergeTileContainers;
-        private TileFactory _factory;
+        private readonly MergeContainer _firstContainer;
+        private readonly MergeContainer _secondContainer;
+        private readonly List<MergeContainer> _mergeTileContainers;
+        private readonly TileFactory _factory;
 
-        private AnalyticsService _analytics;
+        private readonly AnalyticsService _analytics;
 
         public DoubleMergeBoardTurn(MergeContainer firstContainer, MergeContainer secondContainer, IEnumerable<MergeContainer> mergeTileContainers, Board board, TileFactory factory, ScoreSystem scoreSystem, AnalyticsService analytics) : base(board, scoreSystem)
         {
@@ -61,15 +61,22 @@ namespace GameBoard.Turns.Merge
         {
             foreach (MergeContainer mergeContainer in _mergeTileContainers)
             {
-                TileData fakeTileData = mergeContainer.Tile.GetData();
-
-                ValueTile fakeTile = (ValueTile) _factory.InstantiateTile(fakeTileData);
-                fakeTile.transform.position = mergeContainer.Tile.transform.position;
+                ValueTile fakeTile = InstantiateFakeTile(mergeContainer.Tile);
 
                 MergeContainer fakeTileContainer = MergeContainer.TryCreateMergeContainer(fakeTile, _secondContainer);
-
                 yield return fakeTileContainer;
             }
+        }
+
+        private ValueTile InstantiateFakeTile(Tile tile)
+        {
+            TileData fakeTileData = tile.GetData();
+            ValueTile fakeTile = (ValueTile)_factory.InstantiateTile(fakeTileData);
+
+            _board.Grid.AddTileOffGrid(fakeTile);
+            fakeTile.transform.position = tile.transform.position;
+            fakeTile.BoardPosition = tile.BoardPosition;
+            return fakeTile;
         }
 
         public override UniTask Undo()

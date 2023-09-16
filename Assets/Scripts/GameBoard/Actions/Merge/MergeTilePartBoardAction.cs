@@ -24,7 +24,7 @@ namespace GameBoard.Actions.Merge
 
             Board.Grid.AddTileOffGrid(tile);
             Board.Grid.MoveTileOnTop(tile);
-
+            
             await PlayMergePartAnimation();
 
             CreateLeftoverTile();

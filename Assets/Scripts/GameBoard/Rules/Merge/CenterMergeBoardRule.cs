@@ -49,15 +49,5 @@ namespace GameBoard.Rules.Merge
                     yield return mergeContainer;
             }
         }
-
-        private MergeContainer GetContainer(ValueTile tile)
-        {
-            if (tile is RegularTile regularTile)
-                return new RegularTileContainer(regularTile, null);
-            if (tile is MixedTile mixedTileContainer)
-                return new MixedTileContainer(mixedTileContainer, null, MixedTilePartType.Both);
-
-            return null;
-        }
     }
 }
