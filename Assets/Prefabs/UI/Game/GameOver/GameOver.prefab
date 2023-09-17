@@ -1066,6 +1066,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2004819785200206941, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 56.09
+      objectReference: {fileID: 0}
     - target: {fileID: 2189026556876739986, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
       propertyPath: m_AspectMode
       value: 1
@@ -1076,7 +1080,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945490569191165390, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
       propertyPath: Key
-      value: continue
+      value: game_over_continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945490569191165390, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
+      propertyPath: FillOnStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5441822436628121205, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1112,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475676137970801879, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
       propertyPath: m_text
-      value: CONTINUE
+      value: 'CONTINUE [1/1]'
       objectReference: {fileID: 0}
     - target: {fileID: 7475676137970801879, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
       propertyPath: m_fontSize
@@ -1276,7 +1284,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _disabledAlpha: 0.4
   _continueButton: {fileID: 54058317927099667}
+  _text: {fileID: 9044357974532843176}
   _group: {fileID: 5313279487503744467}
+--- !u!114 &9044357974532843176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3945490569191165390, guid: b77de173dfcee634097e90dfd0cddc16, type: 3}
+  m_PrefabInstance: {fileID: 5423795667854912358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1aaf31200654b9a9f97518732fb7276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5801956166412595572
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ MonoBehaviour:
     - main_menu_button_tutorial
     - ad_unavailable
     - score_title
-    - continue
+    - game_over_continue
     - exit
     - new_game
     - continue_game
@@ -33,7 +33,7 @@ MonoBehaviour:
     - LEARN
     - Ads are loading...
     - Total Score
-    - CONTINUE
+    - 'CONTINUE [{0}/{1}]'
     - EXIT
     - NEW GAME
     - CONTINUE

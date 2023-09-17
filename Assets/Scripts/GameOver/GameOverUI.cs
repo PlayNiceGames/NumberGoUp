@@ -29,9 +29,9 @@ namespace GameOver
             _audio = GlobalServices.Get<Audio>();
         }
 
-        public async UniTask<GameOverAction> ShowWithResult(int currentScore, int highScore, ValueTileData biggestTileData, bool isEnabledContinueButton)
+        public async UniTask<GameOverAction> ShowWithResult(int currentScore, int highScore, ValueTileData biggestTileData, int continueCount, int maxContinueCount)
         {
-            SetData(currentScore, highScore, biggestTileData, isEnabledContinueButton);
+            SetData(currentScore, highScore, biggestTileData, continueCount, maxContinueCount);
 
             gameObject.SetActive(true);
 
@@ -78,7 +78,7 @@ namespace GameOver
             }
         }
 
-        private void SetData(int currentScore, int highScore, ValueTileData biggestTileData, bool isEnabledContinueButton)
+        private void SetData(int currentScore, int highScore, ValueTileData biggestTileData, int continueCount, int maxContinueCount)
         {
             _currentScoreLabel.text = currentScore.ToString();
             _highScoreLabel.text = highScore.ToString();
@@ -88,9 +88,9 @@ namespace GameOver
             _biggestTile.SetParent(_biggestTileRoot);
             _biggestTile.transform.localPosition = Vector3.zero;
 
-            _continueButton.SetInteractable(isEnabledContinueButton);
+            _continueButton.SetData(continueCount, maxContinueCount);
         }
-
+        
         public void Hide()
         {
             if (_biggestTile != null)

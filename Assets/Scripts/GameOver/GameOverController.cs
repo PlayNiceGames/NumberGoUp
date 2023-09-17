@@ -49,7 +49,7 @@ namespace GameOver
 
             _analytics.Send(new GameOverEvent(_scoreSystem.Score, _scoreSystem.HighScore, biggestTileValue, canContinueGame));
 
-            GameOverAction gameOverAction = await _ui.ShowWithResult(currentScore, highScore, biggestTile, canContinueGame);
+            GameOverAction gameOverAction = await _ui.ShowWithResult(currentScore, highScore, biggestTile, _continueCount, _settings.MaxContinueCount);
 
             switch (gameOverAction)
             {
@@ -84,7 +84,7 @@ namespace GameOver
 
         private void ClearSmallTiles(int biggestTileValue)
         {
-            int tileValueThreshold = (int)(biggestTileValue * _settings.ClearSmallTilesBiggestTileMultiplier);
+            int tileValueThreshold = Mathf.CeilToInt(biggestTileValue * _settings.ClearSmallTilesBiggestTileMultiplier);
 
             IEnumerable<ValueTile> tiles = _board.GetAllTiles<ValueTile>();
             IEnumerable<ValueTile> smallTiles = tiles.Where(tile => GetMaxValue(tile) <= tileValueThreshold);
