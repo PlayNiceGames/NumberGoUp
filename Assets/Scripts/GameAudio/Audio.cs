@@ -6,25 +6,23 @@ namespace GameAudio
     public class Audio : MonoBehaviour
     {
         [SerializeField] private SoundsDatabase _sounds;
-        [SerializeField] private bool _isMusicEnabled_TEST;
 
         private AudioPlayer _player;
 
         private AudioSource _musicSource;
 
-        private void Awake()
+        private void Start()
         {
             _player = GlobalServices.Get<AudioPlayer>();
 
-            if (_isMusicEnabled_TEST)
-                PlayMusic();
+            PlayMusic();
         }
 
         public void PlayMusic()
         {
             if (_musicSource == null)
             {
-                _musicSource = _player.Play(_sounds.Music, true);
+                _musicSource = _player.PlayMusic(_sounds.Music);
                 DontDestroyOnLoad(_musicSource.gameObject);
             }
             else
@@ -41,28 +39,28 @@ namespace GameAudio
 
         public void PlayClick()
         {
-            _player.Play(_sounds.Click);
+            _player.PlaySound(_sounds.Click);
         }
 
         public void PlayEraser()
         {
-            _player.Play(_sounds.Eraser);
+            _player.PlaySound(_sounds.Eraser);
         }
 
         public void PlayGameOver()
         {
-            _player.Play(_sounds.GameOver);
+            _player.PlaySound(_sounds.GameOver);
         }
 
         public void PlayBoardResize()
         {
-            _player.Play(_sounds.BoardResize);
+            _player.PlaySound(_sounds.BoardResize);
         }
 
         public void PlayMerge(int newValue)
         {
             AudioClip clip = _sounds.GetMergeSound(newValue);
-            _player.Play(clip);
+            _player.PlaySound(clip);
         }
     }
 }

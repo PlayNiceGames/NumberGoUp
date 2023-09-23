@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.cysharp.unitask": "2.4.0",
+    "com.cysharp.unitask": "2.4.1",
     "com.google.external-dependency-manager": "file:../Assets/Submodules/Packages/com.google.external-dependency-manager.tgz",
     "com.google.firebase.analytics": "file:../Assets/Submodules/Packages/com.google.firebase.analytics.tgz",
     "com.google.firebase.app": "file:../Assets/Submodules/Packages/com.google.firebase.app.tgz",

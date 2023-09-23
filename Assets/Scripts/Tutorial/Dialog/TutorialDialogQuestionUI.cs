@@ -42,16 +42,16 @@ namespace Tutorial.Dialog
 
         public void ClickPlayButton()
         {
-            _audio.PlayClick();
-
             _buttonClicked?.TrySetResult(TutorialStepResult.StartGame);
+            
+            _audio.PlayClick();
         }
 
         public void ClickContinueTutorialButton()
         {
-            _audio.PlayClick();
-
             _buttonClicked?.TrySetResult(TutorialStepResult.Completed);
+            
+            _audio.PlayClick();
         }
     }
 }

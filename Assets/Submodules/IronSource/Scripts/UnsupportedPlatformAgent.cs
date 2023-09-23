@@ -6,7 +6,6 @@ public class UnsupportedPlatformAgent : IronSourceIAgent
 {
     public UnsupportedPlatformAgent()
     {
-        Debug.Log("Generated with Unity editor");
     }
 
     #region IronSourceAgent implementation

@@ -102,11 +102,15 @@ namespace GameOver
         public void OnContinueButtonClicked()
         {
             _buttonClicked?.TrySetResult(GameOverAction.Continue);
+            
+            _audio.PlayClick();
         }
 
         public void OnExitButtonClicked()
         {
             _buttonClicked?.TrySetResult(GameOverAction.Exit);
+            
+            _audio.PlayClick();
         }
     }
 }

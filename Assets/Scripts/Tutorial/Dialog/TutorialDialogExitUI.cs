@@ -43,9 +43,9 @@ namespace Tutorial.Dialog
         [UsedImplicitly]
         public void ClickExitButton()
         {
-            _audio.PlayClick();
-
             _buttonClicked?.TrySetResult();
+            
+            _audio.PlayClick();
         }
     }
 }
