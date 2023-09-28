@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameActions;
 using GameLoop;
-using GameSettings;
+using Tiles;
 using Tutorial.Steps.Data;
 using Utils;
 
@@ -10,13 +11,15 @@ namespace Tutorial.Steps
     {
         private readonly BoardTurnTutorialStepData _data;
 
-        private readonly BoardGameLoop _loop;
-        private readonly GameExitButton _exitButton;
+        private readonly BoardInput _boardInput;
+        private readonly BoardGameLoop _boardLoop;
+        private readonly GameButton _exitButton;
 
-        public BoardTurnTutorialStep(BoardTurnTutorialStepData data, BoardGameLoop loop, GameExitButton exitButton)
+        public BoardTurnTutorialStep(BoardTurnTutorialStepData data, BoardInput boardInput, BoardGameLoop boardLoop, GameButton exitButton)
         {
             _data = data;
-            _loop = loop;
+            _boardInput = boardInput;
+            _boardLoop = boardLoop;
             _exitButton = exitButton;
         }
 
@@ -24,18 +27,38 @@ namespace Tutorial.Steps
         {
             for (int i = 0; i < _data.TurnCount; i++)
             {
-                UniTask boardInputTask = _loop.ProcessUserInput();
+                bool shouldExit = await ProcessInput();
+
+                if (shouldExit)
+                    return TutorialStepResult.ExitToMenu;
+
+                await _boardLoop.ProcessBoard();
+            }
+
+            return TutorialStepResult.Completed;
+        }
+
+        private async UniTask<bool> ProcessInput()
+        {
+            while (true)
+            {
+                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked();
                 UniTask backButtonClickTask = _exitButton.WaitForClick();
 
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask);
 
+                if (boardInputTask.AsUniTask().IsCompleted())
+                {
+                    Tile tile = await boardInputTask;
+                    bool isCorrectTile = await _boardLoop.ProcessInput(tile);
+
+                    if (!isCorrectTile)
+                        continue;
+                }
+
                 if (backButtonClickTask.IsCompleted())
-                    return TutorialStepResult.ExitToMenu;
-
-                await _loop.ProcessBoard();
+                    return true;
             }
-
-            return TutorialStepResult.Completed;
         }
     }
 }

@@ -82,7 +82,7 @@ namespace GameTileQueue
                 return;
 
             foreach (Tile tile in _tiles)
-                tile.ClearParent();
+                tile.Dispose();
 
             _tiles.Clear();
         }
@@ -141,7 +141,7 @@ namespace GameTileQueue
                 TileData tileData = data.Tiles[i];
                 Tile tile = AddTile(tileData);
 
-                tile.FadeAnimation.Fade(i == 0);
+                tile.FadeAnimation.Fade(i != 0);
             }
         }
     }

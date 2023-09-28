@@ -4,15 +4,15 @@ using JetBrains.Annotations;
 using ServiceLocator;
 using UnityEngine;
 
-namespace GameSettings
+namespace GameLoop
 {
-    public class GameExitButton : MonoBehaviour
+    public class GameButton : MonoBehaviour
     {
-        private UniTaskCompletionSource _waitForClick;
+        protected UniTaskCompletionSource _waitForClick;
 
         private Audio _audio;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _audio = GlobalServices.Get<Audio>();
         }
@@ -20,12 +20,12 @@ namespace GameSettings
         public UniTask WaitForClick()
         {
             _waitForClick = new UniTaskCompletionSource();
-
+            
             return _waitForClick.Task;
         }
 
         [UsedImplicitly]
-        public void ClickExitButton()
+        public void ClickButton()
         {
             _waitForClick?.TrySetResult();
 

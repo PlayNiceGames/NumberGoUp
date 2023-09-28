@@ -1,15 +1,16 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
+using GameActions;
 using GameAnalytics.Events.Game;
 using GameAudio;
 using GameBoard;
 using GameBoard.Actions;
 using GameBoard.Rules;
+using GameConsumables;
 using GameLoop.Rules;
 using GameOver;
 using GameSave;
 using GameScore;
-using GameSettings;
 using GameTileQueue;
 using GameTileQueue.Generators;
 using ServiceLocator;
@@ -25,12 +26,14 @@ namespace GameLoop.EndlessMode
         [SerializeField] private TileQueueGeneratorSettings _tileQueueGeneratorSettings;
         [SerializeField] private GameRules _gameRules;
         [SerializeField] private BoardGameLoop _boardLoop;
+        [SerializeField] private BoardInput _boardInput;
         [SerializeField] private Board _board;
+        [SerializeField] private GameButton _exitButton;
+        [SerializeField] private GameRewindButton _rewindButton;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private GameOverUI _gameOverUI;
-        [SerializeField] private GameExitButton _exitButton;
         [SerializeField] private GameDataSerializer _serializer;
 
         private GameSaveService _saveService;
@@ -70,7 +73,7 @@ namespace GameLoop.EndlessMode
 
             await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
 
-            await Run();
+            Run().Forget();
         }
 
         public override async UniTask RunSavedGame(GameData save)
@@ -88,19 +91,16 @@ namespace GameLoop.EndlessMode
 
             await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
 
-            await Run();
+            Run().Forget();
         }
 
         protected override async UniTask Run()
         {
             while (true)
             {
-                UniTask boardInputTask = _boardLoop.ProcessUserInput();
-                UniTask backButtonClickTask = _exitButton.WaitForClick();
+                bool shouldExit = await ProcessInput();
 
-                await UniTask.WhenAny(boardInputTask, backButtonClickTask);
-
-                if (backButtonClickTask.IsCompleted())
+                if (shouldExit)
                     break;
 
                 await _boardLoop.ProcessBoard();
@@ -123,10 +123,57 @@ namespace GameLoop.EndlessMode
             ExitGame();
         }
 
+        private async UniTask<bool> ProcessInput()
+        {
+            while (true)
+            {
+                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked();
+                UniTask backButtonClickTask = _exitButton.WaitForClick();
+                UniTask rewindButtonClickTask = _rewindButton.WaitForClick();
+
+                await UniTask.WhenAny(boardInputTask, backButtonClickTask, rewindButtonClickTask);
+
+                if (boardInputTask.AsUniTask().IsCompleted())
+                {
+                    Tile tile = await boardInputTask;
+                    bool isCorrectTile = await _boardLoop.ProcessInput(tile);
+
+                    if (!isCorrectTile)
+                        continue;
+
+                    return false;
+                }
+
+                if (rewindButtonClickTask.IsCompleted())
+                {
+                    bool isRewindValid = await _rewindButton.ProcessInput();
+
+                    if (!isRewindValid)
+                        continue;
+
+                    LoadLastSave();
+
+                    return false;
+                }
+
+                if (backButtonClickTask.IsCompleted())
+                    return true;
+            }
+        }
+
+        private void LoadLastSave()
+        {
+            GameData save = _saveService.PopLastSave();
+            if (save == null)
+                return;
+
+            _serializer.SetData(save);
+        }
+
         private void SaveGame()
         {
             GameData data = _serializer.GetData();
-            _saveService.Save(data);
+            _saveService.PushSave(data);
         }
 
         private UniTask SetupBoardWithAnimation(BoardData boardData)

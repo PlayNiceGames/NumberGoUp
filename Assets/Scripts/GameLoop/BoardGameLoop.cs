@@ -14,7 +14,6 @@ namespace GameLoop
     public class BoardGameLoop : MonoBehaviour
     {
         [SerializeField] private Board _board;
-        [SerializeField] private BoardInput _boardInput;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private TileFactory _factory;
@@ -35,32 +34,27 @@ namespace GameLoop
             await AgeTiles();
         }
 
-        public async UniTask ProcessUserInput()
+        public async UniTask<bool> ProcessInput(Tile clickedTile)
         {
-            await _tileQueue.WaitUntilTileAdvances();
-
             TileType nextTileType = GetNextTileType();
 
-            Tile clickedTile = await WaitTileClicked(nextTileType);
+            bool canReplaceTile = CanReplaceTile(clickedTile.Type, nextTileType);
+
+            if (!canReplaceTile)
+                return false;
+
             Vector2Int clickTilePosition = clickedTile.BoardPosition;
 
             Tile nextTileQueueTile = PopNextTile();
 
             PlaceTileAction placeTileAction = new PlaceTileAction(nextTileQueueTile, clickTilePosition, _board);
-            await placeTileAction.Run();
-        }
 
-        private async UniTask<Tile> WaitTileClicked(TileType nextTileType)
-        {
-            while (true)
-            {
-                Tile clickedTile = await _boardInput.WaitUntilTileClicked();
+            UniTask placeTileTask = placeTileAction.Run();
+            UniTask tileQueueAnimationTask = _tileQueue.WaitUntilTileAdvances();
 
-                bool canReplaceTile = CanReplaceTile(clickedTile.Type, nextTileType);
+            await UniTask.WhenAll(placeTileTask, tileQueueAnimationTask);
 
-                if (canReplaceTile)
-                    return clickedTile;
-            }
+            return true;
         }
 
         private bool CanReplaceTile(TileType originalTileType, TileType newTileType)

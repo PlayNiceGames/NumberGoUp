@@ -1,9 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
+using GameBoard;
 using GameDebug;
 using Tiles;
 using UnityEngine;
 
-namespace GameBoard
+namespace GameActions
 {
     public class BoardInput : MonoBehaviour
     {

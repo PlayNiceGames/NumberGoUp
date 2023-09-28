@@ -2,7 +2,7 @@
 using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Tutorial;
-using GameSettings;
+using GameLoop;
 using ServiceLocator;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
@@ -16,11 +16,11 @@ namespace Tutorial.Steps
         private DialogQuestionTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
-        private GameExitButton _exitButton;
+        private GameButton _exitButton;
 
         private AnalyticsService _analytics;
 
-        public DialogQuestionTutorialStep(DialogQuestionTutorialStepData data, TutorialDialogController dialogController, GameExitButton exitButton)
+        public DialogQuestionTutorialStep(DialogQuestionTutorialStepData data, TutorialDialogController dialogController, GameButton exitButton)
         {
             _data = data;
             _dialogController = dialogController;

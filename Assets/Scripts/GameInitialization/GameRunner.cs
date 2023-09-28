@@ -1,4 +1,5 @@
-﻿using GameLoop;
+﻿using Cysharp.Threading.Tasks;
+using GameLoop;
 using GameSave;
 using UnityEngine;
 
@@ -22,9 +23,9 @@ namespace GameInitialization
         private void Start()
         {
             if (CurrentSaveToLoad == null)
-                _currentGameLoop.RunNewGame();
+                _currentGameLoop.RunNewGame().Forget();
             else
-                _currentGameLoop.RunSavedGame(CurrentSaveToLoad);
+                _currentGameLoop.RunSavedGame(CurrentSaveToLoad).Forget();
         }
     }
 }

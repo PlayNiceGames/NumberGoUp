@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
@@ -7,38 +8,62 @@ namespace GameSave
 {
     public class GameSaveService : MonoBehaviour
     {
-        private const string EndlessModeSaveKey = "save_endless_mode";
+        private const string CurrentSaveKey = "save_endless_mode";
+        private const string LastSavesKey = "last_saves_endless_mode";
 
-        public GameData LastSave { get; private set; }
+        [SerializeField] private int _maxLastSavesCount;
 
+        public GameData CurrentSave { get; private set; }
+
+        private LinkedList<GameData> _lastSaves;
         private JsonSerializerSettings _settings;
 
         private void Awake()
         {
             _settings = GetSerializerSettings();
 
-            LastSave = ReadFromPlayerPrefs();
+            CurrentSave = ReadObjectFromPlayerPrefs<GameData>(CurrentSaveKey);
+            _lastSaves = ReadObjectFromPlayerPrefs<LinkedList<GameData>>(LastSavesKey) ?? new LinkedList<GameData>();
         }
 
-        public void Save(GameData data)
+        private void Save()
         {
-            string jsonData = JsonConvert.SerializeObject(data, _settings);
-            PlayerPrefs.SetString(EndlessModeSaveKey, jsonData);
+            string currentSaveData = JsonConvert.SerializeObject(CurrentSave, _settings);
+            PlayerPrefs.SetString(CurrentSaveKey, currentSaveData);
+
+            string lastSavesData = JsonConvert.SerializeObject(_lastSaves, _settings);
+            PlayerPrefs.SetString(LastSavesKey, lastSavesData);
+
             PlayerPrefs.Save();
-
-            LastSave = data;
         }
 
-        private GameData ReadFromPlayerPrefs()
+        public void PushSave(GameData data)
         {
-            if (!PlayerPrefs.HasKey(EndlessModeSaveKey))
-                return null;
+            AddToLastSaves(CurrentSave);
 
-            string jsonData = PlayerPrefs.GetString(EndlessModeSaveKey);
+            CurrentSave = data;
+
+            Save();
+        }
+
+        private void AddToLastSaves(GameData data)
+        {
+            _lastSaves.AddFirst(data);
+
+            while (_lastSaves.Count > _maxLastSavesCount)
+                _lastSaves.RemoveLast();
+        }
+
+        private T ReadObjectFromPlayerPrefs<T>(string key)
+        {
+            if (!PlayerPrefs.HasKey(key))
+                return default;
+
+            string jsonData = PlayerPrefs.GetString(key);
 
             try
             {
-                GameData data = JsonConvert.DeserializeObject<GameData>(jsonData, _settings);
+                T data = JsonConvert.DeserializeObject<T>(jsonData, _settings);
                 return data;
             }
             catch (Exception e)
@@ -46,16 +71,39 @@ namespace GameSave
                 Debug.LogException(e);
                 DeleteCurrentSave();
 
-                return null;
+                return default;
             }
+        }
+
+        public GameData PopLastSave()
+        {
+            GameData save = _lastSaves.First?.Value;
+
+            if (save == null)
+                return null;
+
+            _lastSaves.RemoveFirst();
+
+            CurrentSave = save;
+
+            Save();
+
+            return save;
+        }
+
+        public int LastSavesCount()
+        {
+            return _lastSaves.Count;
         }
 
         public void DeleteCurrentSave()
         {
-            PlayerPrefs.DeleteKey(EndlessModeSaveKey);
+            PlayerPrefs.DeleteKey(CurrentSaveKey);
+            PlayerPrefs.DeleteKey(LastSavesKey);
             PlayerPrefs.Save();
 
-            LastSave = null;
+            CurrentSave = null;
+            _lastSaves = new LinkedList<GameData>();
         }
 
         private JsonSerializerSettings GetSerializerSettings()

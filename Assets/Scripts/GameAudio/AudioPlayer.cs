@@ -48,7 +48,6 @@ namespace GameAudio
             source.outputAudioMixerGroup = _soundsMixer.MixerGroup;
             source.loop = loop;
             source.Play();
-
             WaitAndDispose(source).Forget();
 
             return source;

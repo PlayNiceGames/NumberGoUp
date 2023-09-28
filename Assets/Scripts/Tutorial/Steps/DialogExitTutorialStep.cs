@@ -1,6 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using GameSettings;
+using GameLoop;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
 using Utils;
@@ -13,9 +13,9 @@ namespace Tutorial.Steps
         private DialogExitTutorialStepData _data;
 
         private TutorialDialogController _dialogController;
-        private GameExitButton _exitButton;
+        private GameButton _exitButton;
 
-        public DialogExitTutorialStep(DialogExitTutorialStepData data, TutorialDialogController dialogController, GameExitButton exitButton)
+        public DialogExitTutorialStep(DialogExitTutorialStepData data, TutorialDialogController dialogController, GameButton exitButton)
         {
             _data = data;
             _dialogController = dialogController;

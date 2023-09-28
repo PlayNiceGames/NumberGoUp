@@ -30,13 +30,17 @@ namespace MainMenu
 
             _audio.PlayClick();
 
-            GameData currentSave = _gameSaveService.LastSave;
+            GameData currentSave = _gameSaveService.CurrentSave;
             if (currentSave != null)
             {
                 NewGameDialogResult dialogResult = await _newGameDialog.Show();
 
                 if (dialogResult == NewGameDialogResult.NewGame)
+                {
                     currentSave = null;
+                    
+                    _gameSaveService.DeleteCurrentSave();
+                }
             }
 
             await _background.PlayTransition(); //TODO create good system for UI transition

@@ -1,7 +1,7 @@
 ﻿using System;
+using GameActions;
 using GameBoard;
 using GameLoop;
-using GameSettings;
 using Tiles;
 using Tutorial.Dialog;
 using Tutorial.Steps.Data;
@@ -12,10 +12,11 @@ namespace Tutorial.Steps
     public class TutorialStepFactory : MonoBehaviour //TODO remove after Zenject
     {
         [SerializeField] private Board _board;
+        [SerializeField] private BoardInput _boardInput;
         [SerializeField] private BoardGameLoop _boardLoop;
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private TutorialDialogController _dialogController;
-        [SerializeField] private GameExitButton _exitButton;
+        [SerializeField] private GameButton _exitButton;
 
         public TutorialStep CreateStep(TutorialStepData data)
         {
@@ -26,7 +27,7 @@ namespace Tutorial.Steps
                 case SetupBoardTutorialStepData setupBoardStepData:
                     return new SetupBoardTutorialStep(setupBoardStepData, _tileFactory, _board);
                 case BoardTurnTutorialStepData boardTurnStepData:
-                    return new BoardTurnTutorialStep(boardTurnStepData, _boardLoop, _exitButton);
+                    return new BoardTurnTutorialStep(boardTurnStepData, _boardInput, _boardLoop, _exitButton);
                 case DialogTutorialStepData dialogStepData:
                     return new DialogTutorialStep(dialogStepData, _dialogController);
                 case DialogQuestionTutorialStepData dialogQuestionStepData:

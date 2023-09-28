@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Tiles
 {
+    
     public class RegularTile : ValueTile
     {
         public override TileType Type => TileType.Regular;
