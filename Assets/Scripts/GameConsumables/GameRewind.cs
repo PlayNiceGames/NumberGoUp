@@ -69,5 +69,10 @@ namespace GameConsumables
         {
             _button.SetEnabled(IsRewindAvailable);
         }
+
+        public void SetEnabled(bool isEnabled)
+        {
+            gameObject.SetActive(isEnabled);
+        }
     }
 }

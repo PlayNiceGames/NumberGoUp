@@ -39,6 +39,15 @@ namespace GameSave
             PlayerPrefs.Save();
         }
 
+        public void SetInitialSave(GameData data)
+        {
+            CurrentSave = data;
+            
+            Save();
+            
+            OnSavesChanged?.Invoke();
+        }
+
         public void PushSave(GameData data)
         {
             AddToLastSaves(CurrentSave);

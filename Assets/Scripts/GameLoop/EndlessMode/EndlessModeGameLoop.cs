@@ -51,6 +51,7 @@ namespace GameLoop.EndlessMode
             _analytics = GlobalServices.Get<AnalyticsService>();
 
             _scoreSystem.SetEnabled(true);
+            _rewind.SetEnabled(true);
 
             _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
             _tileQueue.Setup(_tileQueueGenerator);
@@ -72,6 +73,9 @@ namespace GameLoop.EndlessMode
             UniTask setupTileQueueTask = _tileQueue.SetupInitialTilesWithAnimation();
 
             await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
+            
+            GameData data = _serializer.GetData();
+            _saveService.SetInitialSave(data);
 
             Run().Forget();
         }

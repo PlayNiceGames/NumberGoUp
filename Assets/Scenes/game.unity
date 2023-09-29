@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3542353867868852128, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5418205949100312201, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
       propertyPath: m_Name
       value: Rewind
@@ -924,6 +928,10 @@ PrefabInstance:
       objectReference: {fileID: 687023122}
     - target: {fileID: 13290955014241824, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _rewindButton
+      value: 
+      objectReference: {fileID: 398693519}
+    - target: {fileID: 2314361639130199756, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _rewind
       value: 
       objectReference: {fileID: 398693519}
     - target: {fileID: 2314361639130199756, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}

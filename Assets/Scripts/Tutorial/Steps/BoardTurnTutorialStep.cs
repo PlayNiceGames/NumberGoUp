@@ -54,6 +54,8 @@ namespace Tutorial.Steps
 
                     if (!isCorrectTile)
                         continue;
+
+                    return false;
                 }
 
                 if (backButtonClickTask.IsCompleted())

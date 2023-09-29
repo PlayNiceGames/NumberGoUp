@@ -1,6 +1,7 @@
 ﻿using Analytics;
 using Cysharp.Threading.Tasks;
 using GameAnalytics.Events.Tutorial;
+using GameConsumables;
 using GameSave;
 using GameScore;
 using GameTileQueue;
@@ -18,6 +19,7 @@ namespace GameLoop.Tutorial
         [SerializeField] private TutorialDatabase _data;
         [SerializeField] private TutorialStepFactory _stepFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] private GameRewind _rewind;
         [SerializeField] private TileQueue _tileQueue;
 
         private TutorialTileQueueGenerator _tileQueueGenerator;
@@ -26,6 +28,7 @@ namespace GameLoop.Tutorial
         public override void Setup()
         {
             _scoreSystem.SetEnabled(false);
+            _rewind.SetEnabled(false);
 
             _tileQueueGenerator = new TutorialTileQueueGenerator(_data.DefaultTileInQueue, _data.TileQueueOverrides);
             _tileQueue.Setup(_tileQueueGenerator);
