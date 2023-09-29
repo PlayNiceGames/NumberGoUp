@@ -13,6 +13,8 @@ namespace GameSave
 
         [SerializeField] private int _maxLastSavesCount;
 
+        public event Action OnSavesChanged;
+
         public GameData CurrentSave { get; private set; }
 
         private LinkedList<GameData> _lastSaves;
@@ -44,6 +46,8 @@ namespace GameSave
             CurrentSave = data;
 
             Save();
+            
+            OnSavesChanged?.Invoke();
         }
 
         private void AddToLastSaves(GameData data)
@@ -87,6 +91,8 @@ namespace GameSave
             CurrentSave = save;
 
             Save();
+
+            OnSavesChanged?.Invoke();
 
             return save;
         }

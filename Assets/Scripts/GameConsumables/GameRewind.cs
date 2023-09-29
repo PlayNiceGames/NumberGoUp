@@ -1,24 +1,49 @@
 ﻿using Cysharp.Threading.Tasks;
 using GameAds;
 using GameLoop;
+using GameSave;
 using ServiceLocator;
 using UnityEngine;
 
 namespace GameConsumables
 {
-    public class GameRewindButton : GameButton
+    public class GameRewind : MonoBehaviour
     {
+        [SerializeField] private GameButton _button;
+
+        private GameSaveService _saveService;
         private AdsService _adsService;
 
-        protected override void Awake()
-        {
-            base.Awake();
+        private bool IsRewindAvailable => _saveService.LastSavesCount() > 0;
 
+        protected void Awake()
+        {
+            _saveService = GlobalServices.Get<GameSaveService>();
             _adsService = GlobalServices.Get<AdsService>();
+
+            _saveService.OnSavesChanged += UpdateButton;
+        }
+
+        private void OnDestroy()
+        {
+            _saveService.OnSavesChanged -= UpdateButton;
+        }
+
+        private void Start()
+        {
+            UpdateButton();
+        }
+
+        public UniTask WaitForClick()
+        {
+            return _button.WaitForClick();
         }
 
         public async UniTask<bool> ProcessInput()
         {
+            if (!IsRewindAvailable)
+                return false;
+
             if (Application.isEditor)
             {
                 await _adsService.ShowAdUnavailableMessage();
@@ -38,6 +63,11 @@ namespace GameConsumables
             }
 
             return false;
+        }
+
+        private void UpdateButton()
+        {
+            _button.SetEnabled(IsRewindAvailable);
         }
     }
 }

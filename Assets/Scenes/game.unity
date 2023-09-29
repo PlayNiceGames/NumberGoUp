@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418205949100312201, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
       propertyPath: m_Name
-      value: RewindButton
+      value: Rewind
       objectReference: {fileID: 0}
     - target: {fileID: 7553967919316728859, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
       propertyPath: m_SizeDelta.y
@@ -886,6 +886,10 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 936146793}
+    - target: {fileID: 13290955014241824, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
+      propertyPath: _rewind
+      value: 
+      objectReference: {fileID: 398693519}
     - target: {fileID: 13290955014241824, guid: 99ebddd9fbb117146aa85162b6e705ad, type: 3}
       propertyPath: _gameRules
       value: 

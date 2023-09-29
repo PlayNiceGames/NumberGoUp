@@ -29,7 +29,7 @@ namespace GameLoop.EndlessMode
         [SerializeField] private BoardInput _boardInput;
         [SerializeField] private Board _board;
         [SerializeField] private GameButton _exitButton;
-        [SerializeField] private GameRewindButton _rewindButton;
+        [SerializeField] private GameRewind _rewind;
         [SerializeField] private TileQueue _tileQueue;
         [SerializeField] private TileFactory _tileFactory;
         [SerializeField] private ScoreSystem _scoreSystem;
@@ -98,22 +98,21 @@ namespace GameLoop.EndlessMode
         {
             while (true)
             {
-                bool shouldExit = await ProcessInput();
+                GameActionType action = await ProcessInput();
 
-                if (shouldExit)
+                if (action == GameActionType.Exit)
                     break;
 
-                await _boardLoop.ProcessBoard();
+                if (action == GameActionType.Rewind)
+                {
+                    LoadLastSave();
+                    
+                    continue;
+                }
 
-                _gameRules.UpdateCurrentRules();
+                bool shouldEndGame = await ProcessGameLoop();
 
-                await TryUpdateBoardSize();
-
-                bool showEndGame = await _gameOver.TryProcessGameOver();
-
-                SaveGame();
-
-                if (showEndGame)
+                if (shouldEndGame)
                 {
                     _saveService.DeleteCurrentSave();
                     break;
@@ -123,13 +122,28 @@ namespace GameLoop.EndlessMode
             ExitGame();
         }
 
-        private async UniTask<bool> ProcessInput()
+        private async UniTask<bool> ProcessGameLoop()
+        {
+            await _boardLoop.ProcessBoard();
+
+            _gameRules.UpdateCurrentRules();
+
+            await TryUpdateBoardSize();
+
+            bool shouldEndGame = await _gameOver.TryProcessGameOver();
+
+            SaveGame();
+
+            return shouldEndGame;
+        }
+
+        private async UniTask<GameActionType> ProcessInput()
         {
             while (true)
             {
                 UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked();
                 UniTask backButtonClickTask = _exitButton.WaitForClick();
-                UniTask rewindButtonClickTask = _rewindButton.WaitForClick();
+                UniTask rewindButtonClickTask = _rewind.WaitForClick();
 
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask, rewindButtonClickTask);
 
@@ -141,23 +155,21 @@ namespace GameLoop.EndlessMode
                     if (!isCorrectTile)
                         continue;
 
-                    return false;
+                    return GameActionType.BoardLoop;
                 }
 
                 if (rewindButtonClickTask.IsCompleted())
                 {
-                    bool isRewindValid = await _rewindButton.ProcessInput();
+                    bool isRewindValid = await _rewind.ProcessInput();
 
                     if (!isRewindValid)
                         continue;
 
-                    LoadLastSave();
-
-                    return false;
+                    return GameActionType.Rewind;
                 }
 
                 if (backButtonClickTask.IsCompleted())
-                    return true;
+                    return GameActionType.Exit;
             }
         }
 
