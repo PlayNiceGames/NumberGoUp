@@ -247,7 +247,7 @@ namespace GameTileQueue.Generators
             if (freeTileIndexes.Count == 0)
                 return false;
 
-            int randomIndex = freeTileIndexes.RandomIndex();
+            int randomIndex = freeTileIndexes.RandomItem();
             _tiles[randomIndex] = tile;
 
             return true;

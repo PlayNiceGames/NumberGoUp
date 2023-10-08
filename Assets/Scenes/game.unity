@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rewind
       objectReference: {fileID: 0}
+    - target: {fileID: 6761546589755997916, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1866837307}
     - target: {fileID: 7553967919316728859, guid: ba778157aded2f348bb55e5322f05f96, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
