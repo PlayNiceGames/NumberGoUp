@@ -41,6 +41,8 @@ MonoBehaviour:
       ColorIndexCombinations:
       - TopColorIndex: 2
         BottomColorIndex: 0
+      - TopColorIndex: 0
+        BottomColorIndex: 0
   - RuleApplyStartingScore: 100
     BoardSize: 3
     AvailableColorCount: 3
@@ -53,7 +55,7 @@ MonoBehaviour:
         BottomColorIndex: 0
       - TopColorIndex: 1
         BottomColorIndex: 0
-  - RuleApplyStartingScore: 450
+  - RuleApplyStartingScore: 500
     BoardSize: 4
     AvailableColorCount: 4
     IncludeBigTiles: 0
@@ -81,84 +83,72 @@ MonoBehaviour:
         BottomColorIndex: 0
       - TopColorIndex: 2
         BottomColorIndex: 3
-  - RuleApplyStartingScore: 1000
-    BoardSize: 5
-    AvailableColorCount: 5
-    IncludeBigTiles: 0
-    IncludeMixedTiles: 1
-    MixedTileRules:
-      QueueGenerationChance: 1
-      ColorIndexCombinations:
-      - TopColorIndex: 4
-        BottomColorIndex: 0
   - RuleApplyStartingScore: 1250
     BoardSize: 5
     AvailableColorCount: 5
-    IncludeBigTiles: 0
+    IncludeBigTiles: 1
     IncludeMixedTiles: 1
     MixedTileRules:
       QueueGenerationChance: 1
       ColorIndexCombinations:
       - TopColorIndex: 4
-        BottomColorIndex: 0
+        BottomColorIndex: 3
       - TopColorIndex: 4
-        BottomColorIndex: 3
-      - TopColorIndex: 2
-        BottomColorIndex: 3
-      - TopColorIndex: 2
         BottomColorIndex: 0
-      - TopColorIndex: 1
-        BottomColorIndex: 0
-      - TopColorIndex: 1
-        BottomColorIndex: 3
-  - RuleApplyStartingScore: 1500
-    BoardSize: 6
+  - RuleApplyStartingScore: 1600
+    BoardSize: 5
     AvailableColorCount: 5
-    IncludeBigTiles: 0
+    IncludeBigTiles: 1
+    IncludeMixedTiles: 1
+    MixedTileRules:
+      QueueGenerationChance: 1
+      ColorIndexCombinations:
+      - TopColorIndex: 1
+        BottomColorIndex: 0
+      - TopColorIndex: 1
+        BottomColorIndex: 3
+      - TopColorIndex: 4
+        BottomColorIndex: 0
+  - RuleApplyStartingScore: 1900
+    BoardSize: 5
+    AvailableColorCount: 6
+    IncludeBigTiles: 1
     IncludeMixedTiles: 1
     MixedTileRules:
       QueueGenerationChance: 1
       ColorIndexCombinations:
       - TopColorIndex: 4
-        BottomColorIndex: 0
-      - TopColorIndex: 4
-        BottomColorIndex: 3
-      - TopColorIndex: 2
-        BottomColorIndex: 0
+        BottomColorIndex: 5
       - TopColorIndex: 2
         BottomColorIndex: 3
-  - RuleApplyStartingScore: 1750
+      - TopColorIndex: 1
+        BottomColorIndex: 0
+      - TopColorIndex: 1
+        BottomColorIndex: 5
+  - RuleApplyStartingScore: 2550
     BoardSize: 6
     AvailableColorCount: 6
-    IncludeBigTiles: 0
+    IncludeBigTiles: 1
     IncludeMixedTiles: 1
     MixedTileRules:
       QueueGenerationChance: 1
       ColorIndexCombinations:
-      - TopColorIndex: 4
-        BottomColorIndex: 5
       - TopColorIndex: 1
-        BottomColorIndex: 5
-      - TopColorIndex: 2
         BottomColorIndex: 3
       - TopColorIndex: 4
         BottomColorIndex: 3
-  - RuleApplyStartingScore: 2000
+      - TopColorIndex: 2
+        BottomColorIndex: 0
+      - TopColorIndex: 4
+        BottomColorIndex: 5
+  - RuleApplyStartingScore: 4000
     BoardSize: 7
     AvailableColorCount: 6
-    IncludeBigTiles: 0
+    IncludeBigTiles: 1
     IncludeMixedTiles: 1
     MixedTileRules:
       QueueGenerationChance: 1
       ColorIndexCombinations:
-      - TopColorIndex: 1
-        BottomColorIndex: 0
-      - TopColorIndex: 1
-        BottomColorIndex: 3
-      - TopColorIndex: 2
-        BottomColorIndex: 3
-      - TopColorIndex: 2
-        BottomColorIndex: 0
       - TopColorIndex: 4
         BottomColorIndex: 0
       - TopColorIndex: 4

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c5d25a68154953b906e37325e3f72d, type: 3}
   m_Name: TileQueueGeneratorSettings
   m_EditorClassIdentifier: 
-  TileQueueSize: 2
+  TileQueueSize: 3
   GuaranteedColorTileValue: 1
   GuaranteedColorNotAppearingMaxCount: 5
-  BigTileQueueGenerationChance: 0.5
+  BigTileQueueGenerationChance: 0.25
   BigTileValue: 2
   MixedTileValue: 1
   RemainingTileValue: 1
-  MaxRepeatingTileCount: 0
+  MaxRepeatingTileCount: 1
   RepeatingFixTileValue: 1
-  EraserTileStartingScore: 350
-  EraserTileScoreIncrement: 350
+  EraserTileStartingScore: 500
+  EraserTileScoreIncrement: 500
