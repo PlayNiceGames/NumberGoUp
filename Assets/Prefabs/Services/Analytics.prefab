@@ -157,7 +157,7 @@ MonoBehaviour:
   IsAnalyticsEnabled: 1
   IsPushNotificationsEnabled: 1
   AnalyticsProviders:
-  - {fileID: 0}
+  - {fileID: 1691138996329736816}
   PushNotificationsProviders:
   - {fileID: 4627856921431250749}
 --- !u!1 &6774316607728113952
