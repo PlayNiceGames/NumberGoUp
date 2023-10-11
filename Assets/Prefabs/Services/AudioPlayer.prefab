@@ -46,14 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mixer: {fileID: 24100000, guid: 641f6af602b329940b6f59a1d129e94f, type: 2}
   _masterMixer:
-    DefaultVolume: 0.5
+    DefaultVolume: 1
     Path: Master
     VolumeParameterName: MasterVolume
   _soundsMixer:
-    DefaultVolume: 0.5
+    DefaultVolume: 1
     Path: Sounds
     VolumeParameterName: SoundsVolume
   _musicMixer:
-    DefaultVolume: 0.2
+    DefaultVolume: 0.5
     Path: Music
     VolumeParameterName: MusicVolume
