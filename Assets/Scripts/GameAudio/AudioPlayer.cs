@@ -11,35 +11,24 @@ namespace GameAudio
     {
         [SerializeField] private AudioMixer _mixer;
 
-        private AudioPlayerMixer _masterMixer; //TODO create mixers via inspector
-        private AudioPlayerMixer _soundsMixer;
-        private AudioPlayerMixer _musicMixer;
+        [SerializeField] private AudioPlayerMixer _masterMixer;
+        [SerializeField] private AudioPlayerMixer _soundsMixer;
+        [SerializeField] private AudioPlayerMixer _musicMixer;
 
         private AudioSource _musicSource;
-
-        private void Awake()
-        {
-            CreateMixers();
-            Load();
-        }
 
         private void Start()
         {
             SetupMixers();
-        }
 
-        private void CreateMixers()
-        {
-            _masterMixer = new AudioPlayerMixer("Master", "MasterVolume", _mixer);
-            _soundsMixer = new AudioPlayerMixer("Sounds", "SoundsVolume", _mixer);
-            _musicMixer = new AudioPlayerMixer("Music", "MusicVolume", _mixer);
+            Load();
         }
 
         private void SetupMixers()
         {
-            _masterMixer.Setup();
-            _soundsMixer.Setup();
-            _musicMixer.Setup();
+            _masterMixer.Setup(_mixer);
+            _soundsMixer.Setup(_mixer);
+            _musicMixer.Setup(_mixer);
         }
 
         public AudioSource PlaySound(AudioClip clip, bool loop = false)
@@ -144,6 +133,8 @@ namespace GameAudio
             try
             {
                 JsonConvert.PopulateObject(jsonData, mixer);
+                
+                mixer.UpdateVolume();
             }
             catch (Exception e)
             {

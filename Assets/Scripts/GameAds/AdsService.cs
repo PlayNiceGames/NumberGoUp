@@ -1,4 +1,6 @@
+using Analytics;
 using Cysharp.Threading.Tasks;
+using ServiceLocator;
 using UnityEngine;
 
 namespace GameAds
@@ -9,8 +11,12 @@ namespace GameAds
 
         [SerializeField] private AdUnavailableMessageUI _adUnavailableMessagePrefab;
 
+        private AnalyticsService _analytics;
+        
         private void Start()
         {
+            _analytics = GlobalServices.Get<AnalyticsService>();
+
             Initialize();
         }
 
@@ -27,7 +33,7 @@ namespace GameAds
 
         public UniTask<RewardedAdShowResult> ShowRewardedAd(string placementName)
         {
-            RewardedAd ad = new RewardedAd(placementName);
+            RewardedAd ad = new RewardedAd(placementName, _analytics);
             return ad.Show();
         }
 

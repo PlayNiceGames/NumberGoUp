@@ -1,25 +1,28 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace GameAudio.Mixer
 {
+    [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     public class AudioPlayerMixer
     {
-        private const float DefaultVolume = 0.5f;
-
         public delegate void VolumeChangedDelegate(float volume, bool isMuted);
         public event VolumeChangedDelegate OnVolumeChanged;
 
-        private string _volumeParameterName;
+        public float DefaultVolume = 0.5f;
+
+        public string Path;
+        public string VolumeParameterName;
+        
         private AudioMixer _mixer;
 
-        public string Path { get; private set; }
         public AudioMixerGroup MixerGroup { get; private set; }
 
         [JsonProperty]
-        private float _volume = DefaultVolume;
+        private float _volume;
 
         public float Volume
         {
@@ -36,15 +39,17 @@ namespace GameAudio.Mixer
             set => SetMuted(value);
         }
 
-        public AudioPlayerMixer(string path, string volumeParameterName, AudioMixer mixer)
+        public void Setup(AudioMixer mixer)
         {
-            Path = path;
             _mixer = mixer;
-            _volumeParameterName = volumeParameterName;
-            MixerGroup = GetGroup(path);
+            _volume = DefaultVolume;
+            
+            MixerGroup = GetGroup(Path);
+            
+            UpdateVolume();
         }
 
-        public void Setup()
+        public void UpdateVolume()
         {
             if (_isMuted)
                 SetMuted(_isMuted);
@@ -60,7 +65,7 @@ namespace GameAudio.Mixer
         private void SetVolume(float volume)
         {
             float dbVolume = LinearToDecibel(volume);
-            _mixer.SetFloat(_volumeParameterName, dbVolume);
+            _mixer.SetFloat(VolumeParameterName, dbVolume);
 
             _isMuted = volume == 0;
             _volume = volume;
@@ -76,7 +81,7 @@ namespace GameAudio.Mixer
                 mixerVolume = DefaultVolume;
 
             float dbVolume = LinearToDecibel(mixerVolume);
-            _mixer.SetFloat(_volumeParameterName, dbVolume);
+            _mixer.SetFloat(VolumeParameterName, dbVolume);
 
             _isMuted = isMuted;
 

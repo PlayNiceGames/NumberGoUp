@@ -31,18 +31,6 @@ MonoBehaviour:
       ColorIndexCombinations:
       - TopColorIndex: 1
         BottomColorIndex: 0
-  - RuleApplyStartingScore: 50
-    BoardSize: 3
-    AvailableColorCount: 3
-    IncludeBigTiles: 0
-    IncludeMixedTiles: 0
-    MixedTileRules:
-      QueueGenerationChance: 1
-      ColorIndexCombinations:
-      - TopColorIndex: 2
-        BottomColorIndex: 0
-      - TopColorIndex: 0
-        BottomColorIndex: 0
   - RuleApplyStartingScore: 100
     BoardSize: 3
     AvailableColorCount: 3

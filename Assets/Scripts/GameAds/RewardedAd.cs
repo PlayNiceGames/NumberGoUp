@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Analytics;
+using Cysharp.Threading.Tasks;
+using GameAnalytics.Events.Game;
 using UnityEngine;
 
 namespace GameAds
@@ -13,11 +15,13 @@ namespace GameAds
 
         private bool _adShowFailed;
 
-        public RewardedAd(string placementName)
+        private readonly AnalyticsService _analytics;
+
+        public RewardedAd(string placementName, AnalyticsService analytics)
         {
             _placementName = placementName;
+            _analytics = analytics;
 
-            //IronSourceRewardedVideoEvents.onAdOpenedEvent += RewardedVideoOnAdOpenedEvent;
             IronSourceRewardedVideoEvents.onAdClosedEvent += OnAdClosed;
             IronSourceRewardedVideoEvents.onAdShowFailedEvent += OnAdShowFailed;
             IronSourceRewardedVideoEvents.onAdRewardedEvent += OnAdRewarded;
@@ -76,6 +80,8 @@ namespace GameAds
         private void OnAdRewarded(IronSourcePlacement placement, IronSourceAdInfo info)
         {
             _adRewarded = true;
+
+            _analytics.Send(new AdCompletedEvent(info.revenue));
         }
     }
 }
