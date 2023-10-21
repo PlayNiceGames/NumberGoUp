@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using GameActions;
 using GameLoop;
 using Tiles;
@@ -42,10 +43,15 @@ namespace Tutorial.Steps
         {
             while (true)
             {
-                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked();
-                UniTask backButtonClickTask = _exitButton.WaitForClick();
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                CancellationToken cancellationToken = cancellationTokenSource.Token;
+                
+                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked(cancellationToken);
+                UniTask backButtonClickTask = _exitButton.WaitForClick(cancellationToken);
 
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask);
+                
+                cancellationTokenSource.Cancel();
 
                 if (boardInputTask.AsUniTask().IsCompleted())
                 {

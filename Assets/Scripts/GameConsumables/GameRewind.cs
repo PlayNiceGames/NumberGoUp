@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using GameAds;
 using GameLoop;
 using GameSave;
@@ -34,9 +35,9 @@ namespace GameConsumables
             UpdateButton();
         }
 
-        public UniTask WaitForClick()
+        public UniTask WaitForClick(CancellationToken cancellationToken)
         {
-            return _button.WaitForClick();
+            return _button.WaitForClick(cancellationToken);
         }
 
         public async UniTask<bool> ProcessInput()

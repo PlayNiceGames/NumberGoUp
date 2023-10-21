@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using GameLoop;
 using Tutorial.Dialog;
@@ -24,10 +25,15 @@ namespace Tutorial.Steps
 
         public override async UniTask<TutorialStepResult> Run()
         {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+            
             UniTask dialogTask = _dialogController.ShowDialogExit(_data.DialogKey);
-            UniTask backButtonClickTask = _exitButton.WaitForClick();
+            UniTask backButtonClickTask = _exitButton.WaitForClick(cancellationToken);
 
             await UniTask.WhenAny(dialogTask, backButtonClickTask);
+            
+            cancellationTokenSource.Cancel();
 
             if (backButtonClickTask.IsCompleted())
                 return TutorialStepResult.ExitToMenu;

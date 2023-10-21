@@ -1,4 +1,5 @@
-﻿using Analytics;
+﻿using System.Threading;
+using Analytics;
 using Cysharp.Threading.Tasks;
 using GameActions;
 using GameAnalytics.Events.Game;
@@ -145,11 +146,16 @@ namespace GameLoop.EndlessMode
         {
             while (true)
             {
-                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked();
-                UniTask backButtonClickTask = _exitButton.WaitForClick();
-                UniTask rewindButtonClickTask = _rewind.WaitForClick();
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                CancellationToken cancellationToken = cancellationTokenSource.Token;
+                
+                UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked(cancellationToken);
+                UniTask backButtonClickTask = _exitButton.WaitForClick(cancellationToken);
+                UniTask rewindButtonClickTask = _rewind.WaitForClick(cancellationToken);
 
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask, rewindButtonClickTask);
+                
+                cancellationTokenSource.Cancel();
 
                 if (boardInputTask.AsUniTask().IsCompleted())
                 {

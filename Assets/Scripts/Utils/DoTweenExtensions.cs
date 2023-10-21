@@ -5,11 +5,11 @@ namespace Utils
 {
     public static class DoTweenExtensions
     {
-        public static async UniTask PlayAsync(this Tween tween)
+        public static UniTask PlayAsync(this Tween tween)
         {
             tween.Play();
 
-            await tween.AsyncWaitForCompletion();
+            return tween.AsyncWaitForCompletion().AsUniTask();
         }
     }
 }

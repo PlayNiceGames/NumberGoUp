@@ -1,8 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using GameBoard;
 using GameDebug;
 using Tiles;
 using UnityEngine;
+using Utils;
 
 namespace GameActions
 {
@@ -24,19 +26,23 @@ namespace GameActions
             _board.OnTileClick -= OnTileClicked;
         }
 
-        public UniTask<Tile> WaitUntilTileClicked(TileType type)
+        public UniTask<Tile> WaitUntilTileClicked(TileType type, CancellationToken cancellationToken)
         {
             _currentExpectedTileType = type;
 
             _emptyTileClicked = new UniTaskCompletionSource<Tile>();
+            _emptyTileClicked.AttachCancellationToken(cancellationToken);
+
             return _emptyTileClicked.Task;
         }
 
-        public UniTask<Tile> WaitUntilTileClicked()
+        public UniTask<Tile> WaitUntilTileClicked(CancellationToken cancellationToken)
         {
             _currentExpectedTileType = null;
 
             _emptyTileClicked = new UniTaskCompletionSource<Tile>();
+            _emptyTileClicked.AttachCancellationToken(cancellationToken);
+
             return _emptyTileClicked.Task;
         }
 
