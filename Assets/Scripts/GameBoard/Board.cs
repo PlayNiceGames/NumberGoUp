@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameAds;
 using Serialization;
 using Tiles;
 using Tiles.Data;
@@ -18,10 +19,12 @@ namespace GameBoard
 
         private Tile[,] _tiles;
         private BoardResizer _resizer;
+        InterstitialAd interstitialAd;
 
         public void Awake()
         {
             _resizer = new BoardResizer(this);
+            interstitialAd = FindFirstObjectByType<InterstitialAd>();
         }
 
         public void SetupBoard(int size)
@@ -39,11 +42,9 @@ namespace GameBoard
         {
             if (size == Size)
                 return;
-
             _tiles = _resizer.ResizeBoard(size, _tiles);
-
             Size = size;
-
+            interstitialAd.ShowInterstitialAd();
             ValidateBoard();
         }
 
@@ -56,6 +57,11 @@ namespace GameBoard
                 tile.Dispose();
 
             _tiles = null;
+        }
+
+        void ShowInterstitial()
+        {
+
         }
 
         public Tile CreateTile(TileData data, Vector2Int position)
