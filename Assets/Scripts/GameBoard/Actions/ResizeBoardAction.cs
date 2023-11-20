@@ -9,7 +9,6 @@ namespace GameBoard.Actions
     public class ResizeBoardAction : BoardAction
     {
         private int _newSize;
-
         private TileFactory _factory;
         private Audio _audio;
 
@@ -26,18 +25,14 @@ namespace GameBoard.Actions
                 return;
 
             _audio.PlayBoardResize();
-
             Board.UpdateBoardSize(_newSize);
-
             await Board.Grid.WaitForGridUpdate();
-
             await PlaceEmptyTiles();
         }
 
         private async UniTask PlaceEmptyTiles()
         {
             List<UniTask> placeTileTasks = new List<UniTask>();
-
             foreach (VoidTile voidTile in Board.GetAllTiles<VoidTile>())
             {
                 EmptyTile emptyTile = _factory.InstantiateTile<EmptyTile>();
@@ -45,11 +40,10 @@ namespace GameBoard.Actions
 
                 UniTask placeTileTask = placeTileAction.Run();
                 placeTileTasks.Add(placeTileTask);
-
                 await emptyTile.AppearAnimation.WaitForTilesAppearDelay();
             }
-
             await UniTask.WhenAll(placeTileTasks);
+            Board.interstitialAd.ShowInterstitialAd();
         }
 
         public override UniTask Undo()

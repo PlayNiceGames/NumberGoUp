@@ -19,7 +19,7 @@ namespace GameBoard
 
         private Tile[,] _tiles;
         private BoardResizer _resizer;
-        InterstitialAd interstitialAd;
+        public InterstitialAd interstitialAd;
 
         public void Awake()
         {
@@ -30,11 +30,8 @@ namespace GameBoard
         public void SetupBoard(int size)
         {
             ClearBoard();
-
             Size = size;
-
             _tiles = new Tile[size, size];
-
             ValidateBoard();
         }
 
@@ -44,7 +41,6 @@ namespace GameBoard
                 return;
             _tiles = _resizer.ResizeBoard(size, _tiles);
             Size = size;
-            interstitialAd.ShowInterstitialAd();
             ValidateBoard();
         }
 
@@ -59,16 +55,10 @@ namespace GameBoard
             _tiles = null;
         }
 
-        void ShowInterstitial()
-        {
-
-        }
-
         public Tile CreateTile(TileData data, Vector2Int position)
         {
             Tile tile = _factory.InstantiateTile(data);
             PlaceTile(tile, position);
-
             return tile;
         }
 
@@ -79,13 +69,10 @@ namespace GameBoard
 
             if (tile != boardTile)
                 return;
-
             tile.ClearParent();
             tile.OnClick -= OnTileClicked;
-
             Tile emptyTile = _factory.InstantiateTile<EmptyTile>();
             AddTile(emptyTile, position);
-
             UpdateGrid();
         }
 
@@ -94,7 +81,6 @@ namespace GameBoard
             Tile tile = _tiles[position.x, position.y];
             if (tile.Type == TileType.Empty)
                 return;
-
             Tile emptyTile = _factory.InstantiateTile<EmptyTile>();
             PlaceTile(emptyTile, position);
         }
