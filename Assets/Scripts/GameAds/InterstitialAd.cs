@@ -64,6 +64,7 @@ namespace GameAds
 
         public void ShowInterstitialAd()
         {
+            if (PlayerPrefs.GetInt("No_Ads", 0) == 1) return;
             Debug.Log("Interstitial ads shown");
             if (IronSource.Agent.isInterstitialReady() && !IronSource.Agent.isInterstitialPlacementCapped(_placementName))
             {

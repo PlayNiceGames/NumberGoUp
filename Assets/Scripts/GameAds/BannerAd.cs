@@ -7,21 +7,22 @@ namespace GameAds
     public class BannerAd : MonoBehaviour
     {
         private const float BannerLoadRetryTime = 5.0f;
-        
+
         [SerializeField] private string _placementName;
         [SerializeField] private BannerAdSize _size;
         [SerializeField] private IronSourceBannerPosition _position;
 
         private void Start()
         {
-            InitializeAndShowBanner();
+            if (PlayerPrefs.GetInt("No_Ads", 0) == 0) InitializeAndShowBanner();
+            IAPManager.OnPurchaseDone += HideBanner;
         }
 
         private void OnDestroy()
         {
             IronSourceBannerEvents.onAdLoadedEvent -= OnBannerLoaded;
             IronSourceBannerEvents.onAdLoadFailedEvent -= OnBannerLoadFailed;
-
+            IAPManager.OnPurchaseDone -= HideBanner;
             IronSource.Agent.destroyBanner();
         }
 
@@ -67,6 +68,13 @@ namespace GameAds
             await UniTask.WaitForSeconds(BannerLoadRetryTime, cancellationToken: destroyCancellationToken);
 
             LoadBanner();
+        }
+
+        void HideBanner()
+        {
+            Debug.Log("Its here to hide banner");
+            IronSource.Agent.hideBanner();
+            IronSource.Agent.destroyBanner();
         }
     }
 }
