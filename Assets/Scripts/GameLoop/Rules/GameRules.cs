@@ -13,7 +13,7 @@ namespace GameLoop.Rules
     {
         [SerializeField] private GameRulesDatabase _rulesData;
         [SerializeField] private TileColorsDatabase _colorsData;
-        [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] public ScoreSystem _scoreSystem;
 
         public GameRulesSet CurrentRules { get; private set; }
 
@@ -29,7 +29,6 @@ namespace GameLoop.Rules
         {
             int currentScore = _scoreSystem.Score;
             CurrentRules = _rulesData.GetRules(currentScore);
-
             Debug.Log($"Set rules for score: {currentScore} : {CurrentRules.RuleApplyStartingScore}");
         }
 
