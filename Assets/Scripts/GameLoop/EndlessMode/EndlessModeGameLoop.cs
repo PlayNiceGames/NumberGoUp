@@ -74,7 +74,7 @@ namespace GameLoop.EndlessMode
             UniTask setupTileQueueTask = _tileQueue.SetupInitialTilesWithAnimation();
 
             await UniTask.WhenAll(setupBoardTask, setupTileQueueTask);
-            
+
             GameData data = _serializer.GetData();
             _saveService.SetInitialSave(data);
 
@@ -111,7 +111,7 @@ namespace GameLoop.EndlessMode
                 if (action == GameActionType.Rewind)
                 {
                     LoadLastSave();
-                    
+
                     continue;
                 }
 
@@ -148,13 +148,13 @@ namespace GameLoop.EndlessMode
             {
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                 CancellationToken cancellationToken = cancellationTokenSource.Token;
-                
+
                 UniTask<Tile> boardInputTask = _boardInput.WaitUntilTileClicked(cancellationToken);
                 UniTask backButtonClickTask = _exitButton.WaitForClick(cancellationToken);
                 UniTask rewindButtonClickTask = _rewind.WaitForClick(cancellationToken);
 
                 await UniTask.WhenAny(boardInputTask, backButtonClickTask, rewindButtonClickTask);
-                
+
                 cancellationTokenSource.Cancel();
 
                 if (boardInputTask.AsUniTask().IsCompleted())
@@ -208,11 +208,10 @@ namespace GameLoop.EndlessMode
         private UniTask TryUpdateBoardSize()
         {
             int newSize = _gameRules.CurrentRules.BoardSize;
-
             if (_board.Size == newSize)
                 return UniTask.CompletedTask;
 
-            ResizeBoardAction resizeAction = new ResizeBoardAction(newSize, _tileFactory, _board, _audio);
+            ResizeBoardAction resizeAction = new ResizeBoardAction(newSize, _tileFactory, _board, _audio, _gameRules._scoreSystem.Score);
 
             return resizeAction.Run();
         }

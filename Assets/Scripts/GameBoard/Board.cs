@@ -21,6 +21,19 @@ namespace GameBoard
         private BoardResizer _resizer;
         public InterstitialAd interstitialAd;
 
+        public int AdScore
+        {
+            get
+            {
+                return PlayerPrefs.GetInt("interstitialScore");
+            }
+            set
+            {
+                PlayerPrefs.SetInt("interstitialScore", value);
+            }
+        }
+
+
         public void Awake()
         {
             _resizer = new BoardResizer(this);
@@ -29,6 +42,7 @@ namespace GameBoard
 
         public void SetupBoard(int size)
         {
+            Debug.Log("Set up board");
             ClearBoard();
             Size = size;
             _tiles = new Tile[size, size];

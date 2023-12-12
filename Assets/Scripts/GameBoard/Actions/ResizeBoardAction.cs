@@ -11,12 +11,14 @@ namespace GameBoard.Actions
         private int _newSize;
         private TileFactory _factory;
         private Audio _audio;
+        private int currentScore;
 
-        public ResizeBoardAction(int newSize, TileFactory factory, Board board, Audio audio) : base(board)
+        public ResizeBoardAction(int newSize, TileFactory factory, Board board, Audio audio, int score) : base(board)
         {
             _newSize = newSize;
             _factory = factory;
             _audio = audio;
+            currentScore = score;
         }
 
         public override async UniTask Run()
@@ -43,7 +45,14 @@ namespace GameBoard.Actions
                 await emptyTile.AppearAnimation.WaitForTilesAppearDelay();
             }
             await UniTask.WhenAll(placeTileTasks);
-            Board.interstitialAd.ShowInterstitialAd();
+            if (_newSize > 5 && _newSize <= 7)
+            {
+                Board.interstitialAd.ShowInterstitialAd();
+                if (_newSize == 7) Board.AdScore = currentScore;
+            }
+            else if (_newSize == 3) Board.AdScore = 0;
+
+
         }
 
         public override UniTask Undo()

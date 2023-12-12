@@ -36,7 +36,6 @@ namespace GameBoard
 
                     tile.SetIgnoreGrid(false);
                     tile.SetParent(transform);
-
                     tile.transform.SetSiblingIndex(index);
                 }
             }
