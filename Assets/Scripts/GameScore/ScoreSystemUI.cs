@@ -35,9 +35,10 @@ public class ScoreSystemUI : MonoBehaviour
 
     void ShowInterstitial(int score)
     {
-        Debug.Log("Its here in score script : " + " " + board.Size + " " + board.AdScore + " " + score);
-        if (board.Size > 7 && (score - board.AdScore) >= 1000)
+        Debug.Log("Its here in score script : " + " " + board.Size + " " + score + " " + board.AdScore + " " + (score - board.AdScore));
+        if (board.Size >= 7 && (score - board.AdScore) >= 1000)
         {
+            Debug.Log("Interstitial condition meet");
             board.AdScore = score;
             board.interstitialAd.ShowInterstitialAd();
         }
