@@ -12,7 +12,7 @@
     //path const
     internal const string IRONSOURCE_SDK_INFO = "https://s3.amazonaws.com/ssa.public/Integration-Manager/IronSourceSDKInfo.json";
     internal const string IRONSOURCE_SDK_XML_LINKS = "https://s3.amazonaws.com/ssa.public/Integration-Manager/IronSourceSDKLinks.json";
-    internal const string IRONSOURCE_DOWNLOAD_DIR = "Assets/Submodules/IronSource/Editor/";
+    internal const string IRONSOURCE_DOWNLOAD_DIR = "Assets/IronSource/Editor/";
     internal const string IRONSOURCE_XML = "IronSourceSDKDependencies.xml";
     internal const string UNITYADS_XML = "ISUnityAdsAdapterDependencies.xml";
     internal const string IRONSOURCE_XML_PATH = "dependencies/unityversion";

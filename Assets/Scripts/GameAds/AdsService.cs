@@ -12,7 +12,7 @@ namespace GameAds
         [SerializeField] private AdUnavailableMessageUI _adUnavailableMessagePrefab;
 
         private AnalyticsService _analytics;
-        
+
         private void Start()
         {
             _analytics = GlobalServices.Get<AnalyticsService>();
@@ -33,6 +33,7 @@ namespace GameAds
 
         public UniTask<RewardedAdShowResult> ShowRewardedAd(string placementName)
         {
+            Debug.Log("Rewarded ad show called");
             RewardedAd ad = new RewardedAd(placementName, _analytics);
             return ad.Show();
         }

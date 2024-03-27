@@ -28,7 +28,7 @@ public class IronSourceMenu : UnityEditor.Editor
     [MenuItem("Ads Mediation/Developer Settings/LevelPlay Mediation Settings", false, 3)]
     public static void mediationSettings()
     {
-        string path = "Assets/Submodules/IronSource/Resources";
+        string path = "Assets/IronSource/Resources";
 
         if (!Directory.Exists(path))
         {

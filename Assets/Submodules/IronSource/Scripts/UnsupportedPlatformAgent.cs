@@ -6,6 +6,7 @@ public class UnsupportedPlatformAgent : IronSourceIAgent
 {
     public UnsupportedPlatformAgent()
     {
+        Debug.Log("Generated with Unity editor");
     }
 
     #region IronSourceAgent implementation
@@ -261,7 +262,7 @@ public class UnsupportedPlatformAgent : IronSourceIAgent
     {
 
     }
- 
+
     public void displayBanner()
     {
 
@@ -276,6 +277,21 @@ public class UnsupportedPlatformAgent : IronSourceIAgent
     {
 
         return false;
+    }
+
+    public float getMaximalAdaptiveHeight(float width)
+    {
+        return -1;
+    }
+
+    public float getDeviceScreenWidth()
+    {
+        return -1;
+    }
+
+    public void setBannerContainerParams(ISContainerParams parameters)
+    {
+      
     }
 
     public void setSegment(IronSourceSegment segment)

@@ -36,8 +36,10 @@ namespace GameAds
 
         public async UniTask<RewardedAdShowResult> Show()
         {
+            Debug.Log("ad show method called");
             if (!IronSource.Agent.isRewardedVideoAvailable())
             {
+                Debug.Log("rewarded ad is not available");
                 IronSource.Agent.loadRewardedVideo();
                 return RewardedAdShowResult.Unavailable;
             }
@@ -46,6 +48,7 @@ namespace GameAds
             _adClosed = false;
             _adRewarded = false;
 
+            Debug.Log("rewarded ad show method called 001");
             IronSource.Agent.showRewardedVideo(_placementName);
 
             if (_adShowFailed)
@@ -79,6 +82,7 @@ namespace GameAds
 
         private void OnAdRewarded(IronSourcePlacement placement, IronSourceAdInfo info)
         {
+            Debug.Log("OnAdRewarded");
             _adRewarded = true;
 
             _analytics.Send(new AdCompletedEvent(info.revenue));
