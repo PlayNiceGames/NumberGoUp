@@ -15,12 +15,12 @@ namespace GameAds
 
         private bool _adShowFailed;
 
-        private readonly AnalyticsService _analytics;
+        //private readonly AnalyticsService _analytics;
 
         public RewardedAd(string placementName, AnalyticsService analytics)
         {
             _placementName = placementName;
-            _analytics = analytics;
+            //_analytics = analytics;
 
             IronSourceRewardedVideoEvents.onAdClosedEvent += OnAdClosed;
             IronSourceRewardedVideoEvents.onAdShowFailedEvent += OnAdShowFailed;
@@ -81,7 +81,7 @@ namespace GameAds
         {
             _adRewarded = true;
 
-            _analytics.Send(new AdCompletedEvent(info.revenue));
+            //_analytics.Send(new AdCompletedEvent(info.revenue));
         }
     }
 }
