@@ -52,7 +52,7 @@ namespace GameLoop.EndlessMode
             _analytics = GlobalServices.Get<AnalyticsService>();
 
             _scoreSystem.SetEnabled(true);
-            _rewind.SetEnabled(true);
+            //_rewind.SetEnabled(true);
 
             _tileQueueGenerator = new EndlessModeTileQueueGenerator(_tileQueueGeneratorSettings, _gameRules, _scoreSystem);
             _tileQueue.Setup(_tileQueueGenerator);
@@ -168,15 +168,15 @@ namespace GameLoop.EndlessMode
                     return GameActionType.BoardLoop;
                 }
 
-                if (rewindButtonClickTask.IsCompleted())
-                {
-                    bool isRewindValid = await _rewind.ProcessInput();
+                //if (rewindButtonClickTask.IsCompleted())
+                //{
+                //    bool isRewindValid = await _rewind.ProcessInput();
 
-                    if (!isRewindValid)
-                        continue;
+                //    if (!isRewindValid)
+                //        continue;
 
-                    return GameActionType.Rewind;
-                }
+                //    return GameActionType.Rewind;
+                //}
 
                 if (backButtonClickTask.IsCompleted())
                     return GameActionType.Exit;
